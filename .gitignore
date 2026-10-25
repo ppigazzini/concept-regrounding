@@ -1,0 +1,27 @@
+.venv/
+__pycache__/
+*.py[cod]
+build/
+dist/
+*.egg-info
+.pytest_cache/
+.ruff_cache/
+.vscode/
+*.swp
+
+# Scratch output of the tools. A published number lives in docs/studies/*.json, written by
+# `tools/study.py --json` and rechecked by `--check`; anything else is not a result.
+results/
+
+# Internal development notes. Never commit.
+__DEV/
+
+# No images, anywhere. A committed plot stops tracking the code that produced it and cannot
+# be grepped against a study row.
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.pdf
+*.eps

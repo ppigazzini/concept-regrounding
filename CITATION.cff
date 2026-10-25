@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this software, cite it as below."
+title: "concept-regrounding: few-shot re-grounding of a concept abstraction under a fixed rule"
+type: software
+authors:
+  - family-names: Pigazzini
+    given-names: Pasquale
+    orcid: "https://orcid.org/0009-0004-6977-7317"
+license: Apache-2.0
+version: 0.0.1
+repository-code: "https://github.com/ppigazzini/concept-regrounding"
+keywords:
+  - abstraction
+  - concept learning
+  - domain shift
+  - few-shot learning
+  - neuro-symbolic
+  - reasoning shortcuts
+  - conformal prediction

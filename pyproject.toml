@@ -1,0 +1,86 @@
+[project]
+name = "concept-regrounding"
+version = "0.0.1"
+description = "Transfers a concept abstraction to a new visual domain with the rule held fixed, and measures how few labelled target examples re-grounding the concepts takes"
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [{ name = "Pasquale Pigazzini" }]
+requires-python = ">=3.14"
+dependencies = [
+    # The range markers the configuration and study fields declare. valgebra reads them
+    # structurally and does not depend on the package, so this is a direct dependency.
+    "annotated-types>=0.8.0",
+    "numpy>=2.5.4",
+    # PyPI's build carries CUDA, so the same environment trains on a GPU when one is
+    # present; the published studies run on the CPU in the reproducible profile.
+    "torch>=2.14.1",
+    # `TypedDict(closed=True)` (PEP 728) for the study file is in `typing` from 3.15.
+    "typing-extensions>=4.16.0",
+    # Pre-alpha, so pinned below 0.1; a 0.0.x minor is a breaking release.
+    "valgebra>=0.0.20,<0.1",
+]
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.7.0",
+    "pytest>=9.1.1",
+    "ruff>=0.17.2",
+    "ty>=0.0.91",
+]
+
+[build-system]
+requires = ["hatchling>=1.32.4"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["regrounding"]
+
+[tool.uv]
+default-groups = ["dev"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+faulthandler_timeout = 900
+faulthandler_exit_on_timeout = true
+markers = ["slow: trains a model end to end; minutes, not seconds"]
+
+[tool.ty.environment]
+python-version = "3.14"
+
+[tool.ruff]
+line-length = 100
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    # --- formatter conflicts: ruff-format owns these ---
+    "COM812", "ISC001",
+    # --- PEP 649: annotations are lazy natively ---
+    "TC001", "TC002", "TC003",
+    # --- deliberate ---
+    "T201",     # print: the tools ARE command line programs; stdout is their output
+    "CPY001",   # missing-copyright-notice: LICENSE covers the tree
+    "N812",     # `torch.nn.functional as F` is the ecosystem's spelling
+    "D105", "D107",
+    # --- docstring style: numpy convention ---
+    "D203", "D213",
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
+[tool.ruff.lint.mccabe]
+max-complexity = 15
+
+[tool.ruff.lint.pylint]
+max-args = 8
+max-positional-args = 8
+max-returns = 8
+
+[tool.ruff.lint.per-file-ignores]
+# S603: the tests run the committed tools under the interpreter running the tests.
+"tests/*" = ["S101", "D", "ANN", "PLR2004", "INP001", "SLF001", "S603", "FBT003"]
+"tools/*" = ["INP001"]
