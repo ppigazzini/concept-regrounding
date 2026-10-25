@@ -18,20 +18,21 @@ object B, grey, is the reference for the spatial concept and a distractor for th
 Each concept is drawn independently with probability one half, so the verdict, their
 conjunction, is true in one scene out of eight. Two styles draw the same concepts:
 
-| style | tone 0 | tone 1 | radius of A | blur |
+| style | tone 0 hue | tone 1 hue | radius of A | blur |
 |---|---|---|---|---|
-| source | blue | red | 4 to 6 | no |
-| target | yellow | teal | 3 to 7 | 3 by 3 mean |
+| source | blues, 200 to 260 degrees | reds, 330 to 30 degrees | 4 to 6 | no |
+| target | yellow, 50 degrees | teal, 180 degrees | 3 to 7 | 3 by 3 mean |
 
-Tone 1 is the warm colour on the source and the cool one on the target, so a cue of the
-form "warm means tone 1" reads inverted after the shift.
+Every tone has saturation 0.8 and value 0.9. A source scene draws its hue from the tone's
+family, so the features learn shape and position apart from any one colour. Each target hue
+lies 20 degrees outside the other tone's source family and 150 degrees from its own, so a
+cue of the form "warm means tone 1" reads inverted after the shift.
 
-What tells A from B is the same in both styles: A is coloured, B is grey. B's grey level is
-drawn per scene between 0.2 and 0.9, a range that holds the luminance of every tone, 0.28
-on the source to 0.78 on the target. At one fixed grey of 0.6, A would be the darker object
-on the source and the brighter one on the target, and a model that finds A by brightness
-would lose it after the shift. The two shapes stay at least 2 pixels apart, so neither
-hides the other, and both styles place their centres over the same range, 9 to 23 pixels.
+What tells A from B is the same in both styles: A is coloured, B is grey, at a level drawn
+per scene between 0.2 and 0.9, a range that holds the luminance of every tone, 0.23 to
+0.76, so brightness alone does not tell them apart. The two shapes stay at least 2 pixels
+apart, so neither hides the other, and both styles place their centres over the same
+range, 9 to 23 pixels.
 `regrounding/scenes.py` holds both styles; `tests/test_scenes.py` pins each of these
 properties on the drawn images.
 

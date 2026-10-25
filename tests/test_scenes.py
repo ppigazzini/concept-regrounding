@@ -1,3 +1,5 @@
+import colorsys
+
 import numpy as np
 import pytest
 
@@ -8,11 +10,24 @@ def _draw(style, concepts, seed=0, size=32):
     return scenes.render(np.random.default_rng(seed), style, np.array(concepts), size)
 
 
-def _objects(image, colour):
-    """Return the masks of object A, by its colour, and of object B, the grey pixels."""
-    a = np.isclose(image, np.array(colour, dtype=np.float32)[:, None, None], atol=1e-6).all(axis=0)
-    b = (image.max(axis=0) == image.min(axis=0)) & (image[0] >= scenes.GREY[0] - 1e-6)
+def _objects(image):
+    """Return the masks of object A, the coloured pixels, and of object B, the grey ones."""
+    spread = image.max(axis=0) - image.min(axis=0)
+    a = spread > scenes.SATURATION * scenes.VALUE - 1e-6
+    b = (spread == 0) & (image[0] >= scenes.GREY[0] - 1e-6)
     return a, b
+
+
+def _hue(image, mask):
+    r, g, b = image[:, mask][:, 0]
+    return 360.0 * colorsys.rgb_to_hsv(float(r), float(g), float(b))[0]
+
+
+def _distance(hue, hues):
+    """Return how many degrees ``hue`` lies outside the range ``hues``, 0 inside it."""
+    low, high = hues
+    offset = (hue - low) % 360.0
+    return 0.0 if offset <= high - low else min(offset - (high - low), 360.0 - offset)
 
 
 def _luminance(colour):
@@ -32,19 +47,21 @@ class TestRendering:
         )
 
     @pytest.mark.parametrize("tone", [0, 1])
-    def test_object_a_carries_its_style_s_tone(self, tone):
-        a, _ = _objects(_draw(scenes.SOURCE, [1, tone, 1]), scenes.SOURCE.tone[tone])
-        assert a.any()
+    def test_object_a_carries_a_hue_of_its_style_s_tone(self, tone):
+        for seed in range(20):
+            image = _draw(scenes.SOURCE, [1, tone, 1], seed)
+            a, _ = _objects(image)
+            assert _distance(_hue(image, a), scenes.SOURCE.hues[tone]) < 0.5
 
     @pytest.mark.parametrize("left", [0, 1])
     def test_the_relation_holds_in_the_drawn_positions(self, left):
         for seed in range(20):
-            a, b = _objects(_draw(scenes.SOURCE, [1, 0, left], seed), scenes.SOURCE.tone[0])
+            a, b = _objects(_draw(scenes.SOURCE, [1, 0, left], seed))
             assert (np.nonzero(a)[1].mean() < np.nonzero(b)[1].mean()) == bool(left)
 
     def test_the_two_objects_never_touch(self):
         for seed in range(200):
-            a, b = _objects(_draw(scenes.SOURCE, [seed % 2, 1, 1], seed), scenes.SOURCE.tone[1])
+            a, b = _objects(_draw(scenes.SOURCE, [seed % 2, 1, 1], seed))
             padded = np.pad(a, 1)
             grown = np.zeros_like(a)
             for dy in range(3):
@@ -60,14 +77,18 @@ class TestRendering:
 
 
 class TestStyles:
-    def test_the_two_styles_swap_the_meaning_of_red_and_blue_like_colours(self):
-        assert scenes.SOURCE.tone[1][0] > scenes.SOURCE.tone[1][2]
-        assert scenes.TARGET.tone[1][0] < scenes.TARGET.tone[1][2]
+    @pytest.mark.parametrize("tone", [0, 1])
+    def test_a_target_tone_lies_outside_the_source_families_nearer_the_other_tone(self, tone):
+        hue = scenes.TARGET.hues[tone][0]
+        own, other = scenes.SOURCE.hues[tone], scenes.SOURCE.hues[1 - tone]
+        assert 0.0 < _distance(hue, other) < _distance(hue, own)
 
     @pytest.mark.parametrize("style", [scenes.SOURCE, scenes.TARGET])
     def test_brightness_never_tells_object_a_from_object_b(self, style):
         low, high = scenes.GREY
-        assert all(low < _luminance(colour) < high for colour in style.tone)
+        for hues in style.hues:
+            for hue in np.linspace(*hues, 61):
+                assert low < _luminance(scenes.colour(hue)) < high
 
     @pytest.mark.parametrize("style", [scenes.SOURCE, scenes.TARGET])
     def test_both_styles_place_the_objects_over_the_same_range(self, style):

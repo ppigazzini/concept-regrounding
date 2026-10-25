@@ -12,9 +12,15 @@ reference for the spatial one and a distractor for the others.
 The verdict is the conjunction of the three concepts. The abstraction -- the concepts and the
 rule -- is the same in both styles; what changes is how a concept looks:
 
-- **source**: tone 1 is red and tone 0 blue, A's radius is 4 to 6, the edges are crisp;
-- **target**: tone 1 is teal and tone 0 yellow, so a colour cue learned on the source reads
-  inverted; A's radius is 3 to 7, and the image is blurred.
+- **source**: tone 1 is a red and tone 0 a blue, each drawn from a family of hues, A's
+  radius is 4 to 6, and the edges are crisp;
+- **target**: tone 1 is teal and tone 0 yellow, hues outside both source families and
+  nearer the other tone's, so a colour cue learned on the source reads inverted; A's
+  radius is 3 to 7, and the image is blurred.
+
+A source tone spans 60 degrees of hue so that the features learn shape and position apart
+from any one colour: drawn in one blue and one red, the source teaches features that lose
+shape and position under the target's colours.
 
 What tells A from B is the same in both styles: A is coloured and B is grey, at a level
 drawn per scene, so brightness never tells them apart. The objects never touch, so
@@ -24,6 +30,7 @@ Each concept is drawn independently with probability one half, so a verdict is t
 one scene out of eight. Every draw comes from the `numpy.random.Generator` passed in.
 """
 
+import colorsys
 import math
 from dataclasses import dataclass
 
@@ -31,7 +38,10 @@ import numpy as np
 
 CONCEPTS = ("round", "tone", "left")
 
-type Colour = tuple[float, float, float]
+type Hues = tuple[float, float]
+
+#: The saturation and value of every tone; a tone is a range of hues, in degrees.
+SATURATION, VALUE = 0.8, 0.9
 
 
 @dataclass(frozen=True, slots=True)
@@ -39,17 +49,22 @@ class Style:
     """How a domain draws the same abstraction."""
 
     name: str
-    tone: tuple[Colour, Colour]  # tone 0, tone 1
+    hues: tuple[Hues, Hues]  # tone 0, tone 1
     radius: tuple[int, int]
     blur: bool
 
 
-SOURCE = Style("source", ((0.15, 0.25, 0.9), (0.9, 0.15, 0.1)), (4, 6), blur=False)
-TARGET = Style("target", ((0.9, 0.8, 0.2), (0.15, 0.8, 0.8)), (3, 7), blur=True)
+SOURCE = Style("source", ((200.0, 260.0), (-30.0, 30.0)), (4, 6), blur=False)
+TARGET = Style("target", ((50.0, 50.0), (180.0, 180.0)), (3, 7), blur=True)
+
+
+def colour(hue: float) -> tuple[float, float, float]:
+    """Return the RGB colour of a hue in degrees, at the tones' saturation and value."""
+    return colorsys.hsv_to_rgb((hue / 360.0) % 1.0, SATURATION, VALUE)
+
 
 #: The range B's grey level is drawn from. It holds the luminance of every tone of both
-#: styles, 0.28 to 0.78: at one fixed grey, A would be the darker object on the source and
-#: the brighter one on the target, and a model that finds A by brightness loses it.
+#: styles, 0.23 to 0.76, so brightness alone never tells A from B; colour does.
 GREY = (0.2, 0.9)
 #: The distance from an object's centre to the edge: the largest radius a style draws, 7,
 #: plus 2. One margin for both styles, so where the objects lie is not part of the shift.
@@ -101,7 +116,8 @@ def render(rng: np.random.Generator, style: Style, concepts: np.ndarray, size: i
         raise ValueError(msg)
     image = np.full((3, size, size), 0.05, dtype=np.float64)
     image[:, _mask(size, xb, yb, rb, round_=round_b)] = rng.uniform(*GREY)
-    image[:, _mask(size, xa, ya, ra, round_=round_)] = np.array(style.tone[int(tone)])[:, None]
+    hue = rng.uniform(*style.hues[int(tone)])
+    image[:, _mask(size, xa, ya, ra, round_=round_)] = np.array(colour(hue))[:, None]
     if style.blur:
         image = _blur(image)
     return np.clip(image, 0.0, 1.0).astype(np.float32)
