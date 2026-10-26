@@ -13,6 +13,7 @@ from regrounding.study import (
     dumps,
     first_shots,
     identity,
+    largest_move,
     loads,
     matched,
     restrict,
@@ -149,6 +150,14 @@ class TestCheck:
     def test_a_tolerance_never_accepts_a_row_of_another_seed_or_shot_count(self, key):
         moved = _study(_row(**{key: 1}))
         assert differences(_study(), moved, tolerance=0.05) == [f"rows[0].{key}: 0 != 1"]
+
+    def test_the_largest_move_is_over_every_count_of_every_row(self):
+        moved = _study(
+            _row(agreement=[[90, 50, 50], [50, 80, 50], [50, 50, 88]]),
+            direct=(_direct(false_positives=23),),
+        )
+        assert largest_move(_study(), moved) == 7
+        assert largest_move(_study(), _study()) == 0
 
     def test_a_direct_row_is_compared_like_a_row(self):
         moved = _study(direct=(_direct(false_positives=25),))

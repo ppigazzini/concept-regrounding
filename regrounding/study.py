@@ -232,6 +232,18 @@ def _counts(value: object) -> list[int]:
     return [value] if isinstance(value, int) else []
 
 
+def largest_move(expected: Study, actual: Study) -> int:
+    """Return the most scenes by which any count of a row moves between two runs."""
+    moves = [0]
+    for part in ("rows", "direct"):
+        for old, new in zip(expected[part], actual[part], strict=False):
+            for key, value in old.items():
+                if key not in IDENTITY:
+                    x, y = _counts(value), _counts(new.get(key))
+                    moves += [abs(p - q) for p, q in zip(x, y, strict=False)]
+    return max(moves)
+
+
 def differences(expected: Study, actual: Study, tolerance: float = 0.0) -> list[str]:
     """Return one line per setting or count that differs by more than the tolerance.
 

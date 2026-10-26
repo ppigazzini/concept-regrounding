@@ -1,5 +1,8 @@
 import ast
+import os
 from pathlib import Path
+
+from regrounding import reproducible
 
 PACKAGE = Path(__file__).parent.parent / "regrounding"
 
@@ -30,3 +33,13 @@ class TestBoundaries:
         source = "import os\nfrom torch import nn\nfrom . import model\n"
         module.write_text(source, encoding="utf-8")
         assert _imported(module) == {"os", "torch", "."}
+
+
+class TestEnvironment:
+    def test_native_kernels_lift_only_the_aten_pin(self, monkeypatch):
+        monkeypatch.delenv("ATEN_CPU_CAPABILITY", raising=False)
+        reproducible.pin(native_kernels=True)
+        assert "ATEN_CPU_CAPABILITY" not in os.environ
+        assert os.environ["MKL_CBWR"] == "COMPATIBLE"
+        reproducible.pin()
+        assert os.environ["ATEN_CPU_CAPABILITY"] == "default"

@@ -23,7 +23,9 @@ from typing import Any, Literal, cast
 
 from regrounding import reproducible
 
-reproducible.pin()
+#: Read before torch is imported, here and in every worker, which is handed these arguments.
+NATIVE_KERNELS = "--native-kernels" in sys.argv[1:]
+reproducible.pin(native_kernels=NATIVE_KERNELS)
 
 from regrounding.config import Experiment  # noqa: E402 - after the environment is pinned
 from regrounding.execution import resolve  # noqa: E402
@@ -36,6 +38,7 @@ from regrounding.study import (  # noqa: E402
     dumps,
     first_shots,
     identity,
+    largest_move,
     loads,
     matched,
     restrict,
@@ -212,7 +215,14 @@ def main(argv: list[str]) -> int:
     out.add_argument("--json", type=Path, help="write the study file")
     out.add_argument("--check", type=Path, help="rerun a study file and compare")
     parser.add_argument("--tolerance", type=_fraction, default=0.0)
+    parser.add_argument(
+        "--native-kernels",
+        action="store_true",
+        help="ATen's widest kernels, to measure with --check how far a kernel moves counts",
+    )
     args = parser.parse_args(argv)
+    if args.native_kernels and not args.check:
+        parser.error("--native-kernels measures against --check; a study is written portably")
 
     if args.check:
         expected = loads(args.check.read_text(encoding="utf-8"))
@@ -225,7 +235,11 @@ def main(argv: list[str]) -> int:
         diff = differences(expected, actual, args.tolerance)
         for line in diff:
             print(line, file=sys.stderr)
-        print(f"{len(diff)} difference(s) against {args.check}")
+        fields = sum(len(r) for r in (*expected["rows"], *expected["direct"]))
+        print(
+            f"{len(diff)} difference(s) in {fields} fields against {args.check}; "
+            f"the largest move is {largest_move(expected, actual)} scenes"
+        )
         return 1 if diff else 0
 
     config = Experiment()

@@ -157,7 +157,9 @@ model's weights and the order of the training scenes come from one seeded genera
 runs on one machine give equal studies, which `tests/test_training.py` pins on a tiny
 configuration. Whether another machine gives equal counts is untested: the profile removes
 the kernel choices that depend on the CPU, and a training run turns any difference left in
-the last bit into different counts.
+the last bit into different counts. Measured on the first seed with ATen's AVX2 kernels in
+place of the portable ones, 300 of 704 fields differ, the largest by 804 of 1000 scenes
+(`tools/study.py --check --seeds 1 --native-kernels`).
 
 ## Limits
 

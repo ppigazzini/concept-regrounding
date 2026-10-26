@@ -49,6 +49,15 @@ and `regrounding/execution.py` remove the kernel choices that depend on the CPU,
 and compares their rows, and `--tolerance`, a fraction of a row's scenes below 1, accepts a
 count that moves by up to that many scenes.
 
+```bash
+uv run python tools/study.py --check docs/studies/regrounding.json --seeds 1 --native-kernels
+```
+
+reruns the first seed on ATen's widest kernels, AVX2 on the machine that wrote the study,
+instead of its portable ones: 300 of the 704 fields of that seed's rows differ, the largest
+by 804 of 1000 scenes. A kernel that rounds differently sends the training elsewhere, so a
+tolerance does not stand in for equal arithmetic, and `--json` refuses the flag.
+
 ## Explore on a GPU
 
 ```bash

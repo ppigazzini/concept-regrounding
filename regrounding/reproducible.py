@@ -21,9 +21,16 @@ ENVIRONMENT = {
 }
 
 
-def pin() -> None:
-    """Set the reproducible environment; call before the first ``import torch``."""
+def pin(*, native_kernels: bool = False) -> None:
+    """Set the reproducible environment; call before the first ``import torch``.
+
+    ``native_kernels`` leaves ATen free to pick the widest kernels the CPU has, the one
+    change a check makes to measure how far a kernel's rounding moves the counts; no study
+    is written with it.
+    """
     os.environ.update(ENVIRONMENT)
+    if native_kernels:
+        del os.environ["ATEN_CPU_CAPABILITY"]
 
 
 def hide_gpus() -> None:
