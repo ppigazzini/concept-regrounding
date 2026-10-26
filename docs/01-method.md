@@ -32,8 +32,9 @@ cue of the form "warm means tone 1" reads inverted after the shift.
 What tells A from B is the same in both styles: A is coloured, B is grey, at a level drawn
 per scene between 0.2 and 0.9, a range that holds the luminance of every tone, 0.23 to
 0.76, so brightness alone does not tell them apart. The two shapes stay at least 2 pixels
-apart, so neither hides the other, and both styles place their centres over the same
-range, 9 to 23 pixels.
+apart, so neither hides the other, and their spacing counts either shape at a square's
+extent, 1.2 times its radius, so the distance between the objects says nothing about
+`round`. Both styles place the centres over the same range, 9 to 23 pixels.
 `regrounding/scenes.py` holds both styles; `tests/test_scenes.py` pins each of these
 properties on the drawn images.
 
@@ -66,9 +67,12 @@ order — source training, source calibration, source test, target pool, target 
 ## Re-grounding
 
 A copy of the source-trained model is fine-tuned on the first `k` scenes of the target pool,
-with the supervision it was trained with, the whole batch per step, for a fixed number of
-steps. The `k` scenes are nested: the scenes for `k = 4` are among those for `k = 6`. `k = 0`
-is the source model unchanged. `regrounding_scope` says what is fine-tuned:
+`k` from 0 to 64, with the supervision it was trained with, the whole batch per step, for a
+fixed number of steps. The pool is drawn in complementary pairs, the first a positive and
+its complement: scene `2 i + 1` carries the negation of scene `2 i`'s concepts, so the first
+`k` scenes hold both values of every concept at every even `k`, and a positive from
+`k = 1`. The `k` scenes are nested: the scenes for `k = 4` are among those for `k = 8`.
+`k = 0` is the source model unchanged. `regrounding_scope` says what is fine-tuned:
 
 | scope | layers | weights |
 |---|---|---|
@@ -78,6 +82,11 @@ is the source model unchanged. `regrounding_scope` says what is fine-tuned:
 
 The head is where `left`, a relation between two positions, is read off the feature map, so
 it is more than a concept readout and holds nine times the weights of the convolutions.
+
+Two more models bound what re-grounding can reach. Both train on 3000 labelled target
+scenes with the source's own training settings: one fine-tunes every weight of the source
+model, the other a new model from scratch. They are the best the target style allows with
+ample labels, from the source and without it.
 
 ## Measures
 
@@ -151,19 +160,12 @@ the last bit into different counts.
   counts. No condition varies the rule or passes target supervision through it.
 - Every `k` gets the same 150 steps at a rate of 0.001, so the count holds the optimiser's
   budget as well as the scenes.
-- The placement keeps a square's centre farther from B than a circle's, since a square
-  reaches 1.2 times its radius, so the distance between the objects carries part of
-  `round`; how much is not measured.
 - The source hue families and the scene layout were fixed after pilot runs scored on target
-  test scenes, seeds 0 to 4 among them.
+  test scenes of seeds 0 to 4 and 100 to 104; the study runs seeds 10 to 29.
 - The shift is one fixed pair of styles. How the counts depend on which property shifts —
   palette, size, blur — is not separated.
 - Re-grounding is plain fine-tuning. No method built for few-shot transfer is compared
   (Chen et al. 2019 survey the baselines).
 - The conformal sets are calibrated on source scenes and are not corrected for the shift.
-- The `k` scenes are the first `k` of one pool per seed, not stratified. Under verdict
-  supervision a scene carries one bit and 1 in 8 is positive: the first `k` hold no
-  positive with probability 0.88, 0.77, 0.59, 0.45 and 0.20 for `k` = 1, 2, 4, 6, 12.
-  Under concept supervision some concept takes one value in all `k` scenes with
-  probability 0.88 at `k = 2`, 0.33 at `k = 4` and 0.09 at `k = 6`. The per-seed range at
-  small `k` holds which scenes were drawn as well as how the model trained.
+- The `k` scenes are one nested draw per seed. The per-seed range holds which scenes were
+  drawn as well as how the model trained, and the two are not separated.

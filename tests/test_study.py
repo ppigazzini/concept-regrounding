@@ -25,6 +25,7 @@ def _row(**changes) -> Row:
         "seed": 0,
         "shots": 0,
         "domain": "target",
+        "trained": "regrounded",
         "scenes": 100,
         "agreement": [[90, 50, 50], [50, 80, 50], [50, 50, 95]],
         "verdict_agreement": [60, 60, 60],
@@ -143,13 +144,15 @@ def _diagonal(round_, tone, left):
 class TestFirstShots:
     def _study(self):
         rows = [
-            _row(seed=seed, shots=k, domain=domain, agreement=_diagonal(*correct))
-            for seed, k, domain, correct in [
-                (0, 0, "source", [100, 100, 100]),
-                (0, 0, "target", [95, 10, 92]),
-                (0, 4, "target", [91, 91, 95]),
-                (1, 0, "target", [50, 50, 50]),
-                (1, 4, "target", [89, 90, 90]),
+            _row(seed=seed, shots=k, domain=domain, trained=trained, agreement=_diagonal(*correct))
+            for seed, k, domain, trained, correct in [
+                (0, 0, "source", "source", [100, 100, 100]),
+                (0, 0, "target", "regrounded", [95, 10, 92]),
+                (0, 4, "target", "regrounded", [91, 91, 95]),
+                (0, 3000, "target", "ceiling", [100, 100, 100]),
+                (1, 0, "target", "regrounded", [50, 50, 50]),
+                (1, 4, "target", "regrounded", [89, 90, 90]),
+                (1, 3000, "target", "scratch", [100, 100, 100]),
             ]
         ]
         settings = Experiment(seeds=(0, 1), shots=(0, 4)).as_record()
@@ -160,6 +163,9 @@ class TestFirstShots:
         assert first["round"] == [0, None]
         assert first["tone"] == [4, 4]
         assert first["left"] == [0, 4]
+
+    def test_rows_trained_on_the_target_training_scenes_are_not_a_shot_count(self):
+        assert first_shots(self._study(), "concepts", 0.99)["round"] == [None, None]
 
     def test_all_three_needs_every_concept_at_one_shot_count(self):
         assert first_shots(self._study(), "concepts", 0.9)["all three"] == [4, None]

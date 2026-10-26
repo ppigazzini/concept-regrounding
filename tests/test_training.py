@@ -12,6 +12,7 @@ TINY = Experiment(
     calibration=100,
     test=200,
     pool=12,
+    target_train=400,
     epochs=3,
     shots=(0, 4),
     seeds=(0,),
@@ -69,11 +70,14 @@ class TestEndToEnd:
     @pytest.mark.slow
     def test_one_job_yields_a_source_row_and_one_target_row_per_shot_count(self):
         rows = run(TINY, 0, "concepts", torch.device("cpu"))
-        assert [(r["domain"], r["shots"]) for r in rows] == [
+        assert [(r["trained"], r["shots"]) for r in rows] == [
             ("source", 0),
-            ("target", 0),
-            ("target", 4),
+            ("regrounded", 0),
+            ("regrounded", 4),
+            ("ceiling", 400),
+            ("scratch", 400),
         ]
+        assert [r["domain"] for r in rows] == ["source", *["target"] * 4]
         assert all(r["positives"] + r["negatives"] == r["scenes"] for r in rows)
 
     @pytest.mark.slow

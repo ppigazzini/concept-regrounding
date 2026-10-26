@@ -1,9 +1,14 @@
 """One seed and one supervision mode: train on the source, re-ground on k target scenes, measure.
 
 Every scene for a seed is drawn from one generator, in a fixed order -- source training,
-source calibration, source test, target pool, target test -- so both supervision modes see
-the same scenes, and the ``k`` scenes for re-grounding are the first ``k`` of the target
-pool, nested across ``k``.
+source calibration, source test, target pool, target test, target training -- so both
+supervision modes see the same scenes, and the ``k`` scenes for re-grounding are the first
+``k`` of the target pool, drawn in complementary pairs and nested across ``k``.
+
+Two rows bound what re-grounding can reach in the target style. ``ceiling`` fine-tunes
+every weight of the source model on the target training scenes, and ``scratch`` trains a
+new model on them, both with the source's own training settings, so the two differ only in
+where they start.
 
 For each model the measures are counts on a test set: how often each output equals each
 concept and the verdict; correct verdicts and true positives; false positive verdicts at
@@ -56,9 +61,12 @@ def measure(
     mode: Mode,
     seed: int,
     shots: int,
-    domain: Literal["source", "target"],
+    trained: Literal["source", "regrounded", "ceiling", "scratch"],
 ) -> Row:
-    """Return one row of counts for one model's concept logits on one test set."""
+    """Return one row of counts for one model's concept logits on one test set.
+
+    The source model is measured on source scenes and every other model on target scenes.
+    """
     probs = torch.sigmoid(scores)
     bits = probs >= _HALF
     truth = concepts.bool()
@@ -70,7 +78,8 @@ def measure(
         mode=mode,
         seed=seed,
         shots=shots,
-        domain=domain,
+        domain="source" if trained == "source" else "target",
+        trained=trained,
         scenes=int(concepts.shape[0]),
         agreement=[[int((bits[:, i] == truth[:, j]).sum()) for j in range(3)] for i in range(3)],
         verdict_agreement=[int((bits[:, i] == verdict_truth).sum()) for i in range(3)],
@@ -93,29 +102,32 @@ def run(config: Experiment, seed: int, mode: Mode, device: torch.device) -> list
     seed_everything(seed)
     rng = np.random.default_rng(seed)
     size = config.image_size
-    train = _tensors(scenes.dataset(rng, scenes.SOURCE, config.source_train, size), device)
+    source = _tensors(scenes.dataset(rng, scenes.SOURCE, config.source_train, size), device)
     calib = _tensors(scenes.dataset(rng, scenes.SOURCE, config.calibration, size), device)
     source_test = _tensors(scenes.dataset(rng, scenes.SOURCE, config.test, size), device)
-    pool = _tensors(scenes.dataset(rng, scenes.TARGET, config.pool, size), device)
+    pool = _tensors(scenes.paired(rng, scenes.TARGET, config.pool, size), device)
     target_test = _tensors(scenes.dataset(rng, scenes.TARGET, config.test, size), device)
+    target_train = _tensors(scenes.dataset(rng, scenes.TARGET, config.target_train, size), device)
 
     generator = torch.Generator().manual_seed(seed)
-    model = ConceptNet(generator, size=size).to(device)
-    fit(
-        model,
-        *train,
-        mode=mode,
-        epochs=config.epochs,
-        batch_size=config.batch_size,
-        learning_rate=config.learning_rate,
-        generator=generator,
-    )
+
+    def train(m: ConceptNet, data: tuple[torch.Tensor, torch.Tensor]) -> ConceptNet:
+        fit(
+            m,
+            *data,
+            mode=mode,
+            epochs=config.epochs,
+            batch_size=config.batch_size,
+            learning_rate=config.learning_rate,
+            generator=generator,
+        )
+        return m
 
     def evaluate(
         m: ConceptNet,
         test: tuple[torch.Tensor, torch.Tensor],
         k: int,
-        domain: Literal["source", "target"],
+        trained: Literal["source", "regrounded", "ceiling", "scratch"],
     ) -> Row:
         threshold = conformal.thresholds(torch.sigmoid(logits(m, calib[0])), calib[1], config.alpha)
         return measure(
@@ -126,9 +138,10 @@ def run(config: Experiment, seed: int, mode: Mode, device: torch.device) -> list
             mode=mode,
             seed=seed,
             shots=k,
-            domain=domain,
+            trained=trained,
         )
 
+    model = train(ConceptNet(generator, size=size).to(device), source)
     rows = [evaluate(model, source_test, 0, "source")]
     for k in config.shots:
         adapted = copy.deepcopy(model)
@@ -141,5 +154,9 @@ def run(config: Experiment, seed: int, mode: Mode, device: torch.device) -> list
             learning_rate=config.regrounding_rate,
             scope=config.regrounding_scope,
         )
-        rows.append(evaluate(adapted, target_test, k, "target"))
+        rows.append(evaluate(adapted, target_test, k, "regrounded"))
+    many = config.target_train
+    rows.append(evaluate(train(copy.deepcopy(model), target_train), target_test, many, "ceiling"))
+    scratch = train(ConceptNet(generator, size=size).to(device), target_train)
+    rows.append(evaluate(scratch, target_test, many, "scratch"))
     return rows

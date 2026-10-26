@@ -30,14 +30,17 @@ class Experiment:
     calibration: Count = 500
     test: Count = 1000
     pool: Count = 64
+    target_train: Count = 3000
     epochs: Annotated[int, NOT_BOOL, Ge(1), Le(200)] = 15
     batch_size: Annotated[int, NOT_BOOL, Ge(1), Le(4096)] = 64
     learning_rate: Rate = 2e-3
     regrounding_steps: Annotated[int, NOT_BOOL, Ge(0), Le(10_000)] = 150
     regrounding_rate: Rate = 1e-3
     regrounding_scope: Literal["readout", "head", "all"] = "head"
-    shots: tuple[Shots, ...] = (0, 1, 2, 4, 6, 12)
-    seeds: tuple[Seed, ...] = (0, 1, 2, 3, 4)
+    shots: tuple[Shots, ...] = (0, 1, 2, 4, 8, 16, 32, 64)
+    #: Seeds no pilot run used: the scene design was fixed on runs scored on the target
+    #: test scenes of seeds 0 to 4 and 100 to 104.
+    seeds: tuple[Seed, ...] = tuple(range(10, 30))
     alpha: Annotated[float, Gt(0.0), Lt(0.5)] = 0.1
     sensitivity: Rate = 0.9
 

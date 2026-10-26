@@ -76,6 +76,44 @@ class TestRendering:
             _draw(scenes.TARGET, [1, 1, 1], size=20)
 
 
+class TestPlacement:
+    @pytest.mark.parametrize("left", [False, True])
+    def test_the_centres_keep_the_shapes_apart_at_a_square_s_extent(self, left):
+        rng = np.random.default_rng(0)
+        for _ in range(500):
+            ra, rb = int(rng.integers(3, 8)), int(rng.integers(3, 6))
+            xa, xb, ya, yb = scenes.place(rng, ra, rb, left=left, size=32)
+            assert np.hypot(xa - xb, ya - yb) >= 0.85 * np.sqrt(2) * (ra + rb) + 2
+            assert (xa + 2 < xb) if left else (xa > xb + 2)
+
+    def test_the_shape_of_a_never_moves_the_objects(self):
+        a, _ = _objects(_draw(scenes.SOURCE, [1, 0, 1], 3))
+        b, _ = _objects(_draw(scenes.SOURCE, [0, 0, 1], 3))
+        assert np.allclose(np.argwhere(a).mean(axis=0), np.argwhere(b).mean(axis=0), atol=0.5)
+
+
+class TestPairedPool:
+    def _pool(self, n=64):
+        return scenes.paired(np.random.default_rng(4), scenes.TARGET, n, 32)[1]
+
+    def test_the_first_scene_is_a_positive_and_the_second_its_complement(self):
+        concepts = self._pool()
+        assert concepts[0].tolist() == [1, 1, 1]
+        assert concepts[1].tolist() == [0, 0, 0]
+
+    def test_every_even_prefix_holds_both_values_of_every_concept(self):
+        concepts = self._pool()
+        for k in range(2, 65, 2):
+            assert concepts[:k].min(axis=0).tolist() == [0, 0, 0]
+            assert concepts[:k].max(axis=0).tolist() == [1, 1, 1]
+
+    def test_each_concept_is_true_in_half_the_scenes_of_a_pair_aligned_pool(self):
+        assert self._pool().mean(axis=0).tolist() == [0.5, 0.5, 0.5]
+
+    def test_an_odd_count_keeps_the_first_scenes_of_the_pairs(self):
+        assert self._pool(5).tolist() == self._pool(6)[:5].tolist()
+
+
 class TestStyles:
     @pytest.mark.parametrize("tone", [0, 1])
     def test_a_target_tone_lies_outside_the_source_families_nearer_the_other_tone(self, tone):

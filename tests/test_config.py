@@ -5,7 +5,12 @@ from regrounding.config import Experiment
 
 class TestSettings:
     def test_the_defaults_are_a_valid_experiment(self):
-        assert Experiment().as_record()["shots"] == [0, 1, 2, 4, 6, 12]
+        assert Experiment().as_record()["shots"] == [0, 1, 2, 4, 8, 16, 32, 64]
+
+    def test_the_default_seeds_are_none_a_pilot_run_used(self):
+        pilots = {*range(5), *range(100, 105)}
+        assert len(Experiment().seeds) == 20
+        assert not pilots & set(Experiment().seeds)
 
     @pytest.mark.parametrize(
         ("changes", "named"),

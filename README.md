@@ -50,23 +50,22 @@ differs.
 
 ## Results
 
-Over 5 seeds of 1000 test scenes each (lowest to highest seed in brackets), with concept
+Over 20 seeds of 1000 test scenes each (lowest to highest seed in brackets), with concept
 supervision and the rule unchanged:
 
-| concept | source | target, `k = 0` | target, `k = 12` |
-|---|---:|---:|---:|
-| `round` | 99.8 % (99.6 to 100.0) | 55.4 % (49.5 to 60.5) | 58.1 % (53.5 to 61.8) |
-| `tone` | 100.0 % (100.0 to 100.0) | 0.2 % (0.0 to 1.0) | 79.0 % (64.6 to 97.1) |
-| `left` | 99.5 % (99.4 to 99.7) | 94.6 % (82.3 to 99.2) | 91.8 % (70.5 to 99.3) |
+| concept | source | target, `k = 0` | target, `k = 64` | first `k` at 90 %, lower median |
+|---|---:|---:|---:|---:|
+| `round` | 99.9 % (99.4 to 100.0) | 54.4 % (48.2 to 73.9) | 65.8 % (54.3 to 84.6) | >64, in 0 of 20 seeds |
+| `tone` | 100.0 % (100.0 to 100.0) | 1.1 % (0.0 to 18.9) | 99.4 % (97.3 to 100.0) | 16, in 20 of 20 seeds |
+| `left` | 99.6 % (99.0 to 99.9) | 97.7 % (91.2 to 99.9) | 97.7 % (94.4 to 99.4) | 0, in 20 of 20 seeds |
 
-`left` carries over in 4 of 5 seeds; `tone` reads inverted and moves with `k`; `round`
-stays near chance. The count is censored at 12: no seed reaches 90 % on `round` or on the
-three concepts together within 12 target scenes, one seed of 5 does on `tone`, and the
-verdict accuracy at `k = 12`, 88.7 % (84.4 to 94.0), is level with the 87.5 % of a model
-that never says yes. Trained from verdicts alone, the model gets 99.9 % (99.6 to 100.0) of
-the source verdicts right through outputs that agree with the named concepts on 63.9 %,
-62.7 % and 63.7 % of the scenes and each equal the verdict itself on 98.2 % or more, a
-reasoning shortcut. `uv run python tools/study.py --check
+`left` carries over; `tone` reads inverted and re-grounds, reaching 90 % within 4 to 64
+target scenes, 16 for the lower median seed; `round` does not re-ground within 64, though
+fine-tuning every weight on 3000 target scenes brings it to 96.0 % (73.4 to 99.8). The
+verdict rises above the 87.5 % of a model that never says yes only from `k = 32`. Trained
+from verdicts alone, the model gets 99.9 % (99.7 to 100.0) of the source verdicts right
+through outputs that each equal the verdict on 98.5 % or more of the scenes, a reasoning
+shortcut that 3000 target verdicts do not repair. `uv run python tools/study.py --check
 docs/studies/regrounding.json` reruns the study;
 [`docs/04-results.md`](docs/04-results.md) has every count and what is open.
 

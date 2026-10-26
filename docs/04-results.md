@@ -1,81 +1,86 @@
 # Results
 
-Every number on this page is a seed mean over 5 seeds of 1000 test scenes each, with the
+Every number on this page is a seed mean over 20 seeds of 1000 test scenes each, with the
 lowest and highest seed in brackets, from `docs/studies/regrounding.json`;
 `uv run python tools/study.py --check docs/studies/regrounding.json` reruns it, prints these
 tables and compares every count. The settings are the defaults of `Experiment` in
-`regrounding/config.py`: head re-grounding for 150 steps at a rate of 0.001, and conformal
-sets at `alpha` 0.1. The source hue families and the scene layout were fixed after pilot
-runs scored on target test scenes, seeds 0 to 4 among them, so the study is not a held-out
-confirmation of them.
+`regrounding/config.py`: head re-grounding for 150 steps at a rate of 0.001, `k` from 0 to
+64 drawn in complementary pairs, and conformal sets at `alpha` 0.1. The study runs seeds 10
+to 29; the source hue families and the scene layout were fixed on pilot runs of other
+seeds.
 
 ## Concept supervision
 
-| test | `k` | `round` % | `tone` % | `left` % | verdict % | always no % | false positives at 90 % sensitivity % |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| source | 0 | 99.8 (99.6 to 100.0) | 100.0 (100.0 to 100.0) | 99.5 (99.4 to 99.7) | 99.9 (99.7 to 100.0) | 87.2 (85.9 to 89.0) | 0.0 (0.0 to 0.0) |
-| target | 0 | 55.4 (49.5 to 60.5) | 0.2 (0.0 to 1.0) | 94.6 (82.3 to 99.2) | 85.9 (80.5 to 88.2) | 87.5 (86.9 to 88.2) | 78.5 (62.3 to 90.7) |
-| target | 1 | 50.0 (46.7 to 53.2) | 41.3 (23.8 to 48.9) | 88.4 (67.3 to 99.2) | 80.9 (63.6 to 87.9) | 87.5 (86.9 to 88.2) | 43.3 (9.4 to 76.2) |
-| target | 2 | 56.9 (50.3 to 68.8) | 39.0 (27.8 to 48.9) | 86.4 (67.9 to 99.2) | 84.0 (74.4 to 88.2) | 87.5 (86.9 to 88.2) | 40.0 (8.8 to 64.3) |
-| target | 4 | 57.6 (50.5 to 63.9) | 51.0 (29.2 to 73.2) | 87.6 (66.9 to 99.1) | 82.1 (73.5 to 88.2) | 87.5 (86.9 to 88.2) | 49.5 (15.7 to 85.7) |
-| target | 6 | 57.6 (52.3 to 63.5) | 69.0 (41.4 to 93.4) | 90.0 (65.8 to 98.3) | 86.5 (76.8 to 93.2) | 87.5 (86.9 to 88.2) | 33.2 (12.8 to 71.7) |
-| target | 12 | 58.1 (53.5 to 61.8) | 79.0 (64.6 to 97.1) | 91.8 (70.5 to 99.3) | 88.7 (84.4 to 94.0) | 87.5 (86.9 to 88.2) | 18.5 (11.7 to 31.3) |
+| test | `k` | `round` % | `tone` % | `left` % | verdict % | false positives at 90 % sensitivity % |
+|---|---:|---:|---:|---:|---:|---:|
+| source | 0 | 99.9 (99.4 to 100.0) | 100.0 (100.0 to 100.0) | 99.6 (99.0 to 99.9) | 99.9 (99.6 to 100.0) | 0.0 (0.0 to 0.0) |
+| target | 0 | 54.4 (48.2 to 73.9) | 1.1 (0.0 to 18.9) | 97.7 (91.2 to 99.9) | 86.3 (81.2 to 89.2) | 80.0 (61.5 to 90.6) |
+| target | 1 | 54.5 (49.8 to 73.1) | 38.7 (20.5 to 51.7) | 90.7 (70.3 to 98.6) | 66.3 (31.4 to 86.0) | 38.0 (10.1 to 97.1) |
+| target | 2 | 55.5 (48.8 to 71.5) | 32.0 (17.3 to 53.8) | 93.6 (79.0 to 98.6) | 82.4 (69.5 to 91.7) | 40.5 (13.8 to 82.0) |
+| target | 4 | 55.1 (48.6 to 73.5) | 55.7 (36.1 to 90.9) | 93.9 (82.8 to 98.5) | 84.9 (72.2 to 90.6) | 34.2 (10.5 to 85.8) |
+| target | 8 | 55.8 (50.0 to 74.3) | 75.2 (51.3 to 95.3) | 95.1 (77.4 to 98.5) | 85.5 (76.7 to 89.4) | 31.4 (11.4 to 83.4) |
+| target | 16 | 58.5 (50.0 to 78.6) | 92.7 (78.4 to 100.0) | 95.8 (90.0 to 99.2) | 87.1 (81.4 to 92.5) | 19.0 (10.6 to 49.0) |
+| target | 32 | 61.4 (50.7 to 79.3) | 97.6 (85.5 to 100.0) | 96.9 (92.3 to 99.0) | 89.3 (87.0 to 92.2) | 13.9 (8.4 to 25.3) |
+| target | 64 | 65.8 (54.3 to 84.6) | 99.4 (97.3 to 100.0) | 97.7 (94.4 to 99.4) | 90.7 (86.6 to 96.1) | 10.2 (3.9 to 17.3) |
+| target, every weight | 3000 | 96.0 (73.4 to 99.8) | 100.0 (100.0 to 100.0) | 99.7 (99.0 to 99.9) | 98.5 (89.4 to 100.0) | 0.9 (0.0 to 11.3) |
+| target, from scratch | 3000 | 90.1 (78.0 to 98.2) | 100.0 (100.0 to 100.0) | 99.8 (99.3 to 100.0) | 97.4 (91.5 to 99.6) | 1.5 (0.0 to 7.5) |
 
-The first `k` at which a concept is right on 90 % of the target test scenes, per seed in
-the order 0 to 4, `>12` when no `k` of the study reaches it:
+A model that never says yes gets 87.5 % (85.9 to 89.2) of the target verdicts right. The
+first `k` at which a concept is right on 90 % of the target test scenes, per seed in the
+order 10 to 29, `>64` when no `k` of the study reaches it:
 
-| target concept | first `k` at 90 % | seeds reaching it |
-|---|---|---:|
-| `round` | >12 >12 >12 >12 >12 | 0 of 5 |
-| `tone` | >12 >12 >12 6 >12 | 1 of 5 |
-| `left` | >12 0 0 0 0 | 4 of 5 |
-| all three | >12 >12 >12 >12 >12 | 0 of 5 |
+| target concept | first `k` at 90 % | seeds reaching it | lower median |
+|---|---|---:|---:|
+| `round` | >64 in every seed | 0 of 20 | >64 |
+| `tone` | 8 32 32 16 16 16 32 16 32 16 32 16 16 64 16 32 64 8 4 16 | 20 of 20 | 16 |
+| `left` | 0 in every seed | 20 of 20 | 0 |
+| all three | >64 in every seed | 0 of 20 | >64 |
 
-- **The count is censored at 12.** Within 12 target scenes no seed reaches 90 % on `round`
-  or on the three concepts together, and one seed of 5 does on `tone`. How many scenes
-  re-grounding takes is larger than the study measures for every concept that needs it.
-- **`left` carries over** in 4 of 5 seeds: 94.6 % (82.3 to 99.2) before any re-grounding.
-- **`tone` reads inverted and moves with `k`.** It is right on 0.2 % (0.0 to 1.0) of the
-  scenes at `k = 0`, so the inverted output is right on 99.0 to 100.0 %, and on 79.0 % (64.6
-  to 97.1) at `k = 12`. The matching that may flip an output credits the inversion: 83.4 %
-  (77.3 to 86.6) at `k = 0`, against 66.9 % (60.2 to 77.1) for the best permutation.
-- **`round` stays near chance:** 55.4 % (49.5 to 60.5) at `k = 0` and 58.1 % (53.5 to
-  61.8) at `k = 12`. Inferred, not separated by a study: the blur, since `round` is the one
-  concept that rests on the outline and only the target blurs it.
-- **The verdict stays at the always-no rate.** The thresholded verdict is right on 88.7 %
-  (84.4 to 94.0) of the scenes at `k = 12`, against 87.5 % for a model that never says yes,
-  and below that rate at every `k` up to 6. The ranking improves: false positives at 90 %
-  sensitivity fall from 78.5 % to 18.5 % of the negatives, where an uninformative score has
-  90 %.
-- **One scene costs a concept that needed none.** At `k = 1`, `left` falls from 94.6 % to
-  88.4 % (67.3 to 99.2) while `tone` rises to 41.3 %.
+- **`tone` re-grounds, and the count is 16.** It reads inverted before re-grounding, 1.1 %
+  (0.0 to 18.9), and every seed reaches 90 % within 64 target scenes: the first `k` lies
+  between 4 and 64, with a lower median of 16. At 95 % the lower median is 32, in 20 of 20
+  seeds.
+- **`left` carries over:** 97.7 % (91.2 to 99.9) before any re-grounding, at 90 % in 20 of
+  20 seeds at `k = 0`.
+- **`round` does not re-ground within 64 scenes, though the target style allows it.** It
+  is at 65.8 % (54.3 to 84.6) at `k = 64` and reaches 90 % in no seed, while fine-tuning
+  every weight on 3000 target scenes brings it to 96.0 % (73.4 to 99.8) and training from
+  scratch on them to 90.1 % (78.0 to 98.2). Inferred, not separated by a study: the blur,
+  since `round` is the one concept that rests on the outline and only the target blurs it.
+- **The verdict rises above the always-no rate only from `k = 32`:** 89.3 % (87.0 to 92.2)
+  at `k = 32` and 90.7 % (86.6 to 96.1) at `k = 64`, against 87.5 %. The ranking improves
+  sooner: false positives at 90 % sensitivity fall from 80.0 % to 19.0 % of the negatives
+  at `k = 16` and to 10.2 % at `k = 64`, where an uninformative score has 90 %.
+- **One scene costs a concept that needed none.** At `k = 1`, `left` falls from 97.7 % to
+  90.7 % (70.3 to 98.6) and the verdict accuracy from 86.3 % to 66.3 % (31.4 to 86.0).
 
 ## Verdict supervision
 
-Trained from verdicts alone, the model gets 99.9 % (99.6 to 100.0) of the source verdicts
-right while its outputs agree with the named concepts on 63.9 % (63.1 to 65.1), 62.7 %
-(60.8 to 66.2) and 63.7 % (61.8 to 66.3) of the scenes, and under the best signed matching
-of outputs to concepts on 63.6 % (62.3 to 65.1). Each output equals the verdict itself on
-99.9 % (99.7 to 100.0), 99.3 % (97.1 to 100.0) and 98.2 % (94.9 to 100.0) of the scenes:
-the three outputs compute the conjunction, and an output equal to the verdict agrees with
-any one concept on 1/2 + 1/8 = 62.5 % of the scenes. Re-grounding from up to 12 target
-verdicts leaves every concept between 32.4 % and 67.0 % in every seed, and the false
-positives at 90 % sensitivity at 81.8 % (36.8 to 97.9) at `k = 12`. The conformal sets of
-these models are calibrated on concept labels of source scenes, which verdict supervision
-otherwise never sees, so their coverage lies outside the premise of the mode.
+Trained from verdicts alone, the model gets 99.9 % (99.7 to 100.0) of the source verdicts
+right while its outputs agree with the named concepts on 61.7 % (56.1 to 64.2), 62.8 %
+(60.3 to 65.4) and 62.5 % (59.4 to 65.3) of the scenes, and each output equals the verdict
+itself on 98.5 % (89.3 to 100.0), 98.6 % (87.1 to 99.9) and 99.3 % (94.9 to 99.9): the
+three outputs compute the conjunction, and an output equal to the verdict agrees with any
+one concept on 1/2 + 1/8 = 62.5 % of the scenes. No concept reaches 90 % in any seed.
+Re-grounding from up to 64 target verdicts leaves every concept between 39.2 % and 74.2 %
+in every seed, and 3000 target verdicts do not repair it: fine-tuning every weight leaves
+the concepts at 58.8 % (52.3 to 63.8), 64.2 % (53.7 to 77.7) and 63.5 % (60.7 to 71.5)
+with the verdict right on 98.3 % (93.8 to 99.7). The conformal sets of these models are
+calibrated on concept labels of source scenes, which verdict supervision otherwise never
+sees, so their coverage lies outside the premise of the mode.
 
 ## Conformal sets
 
-On the source, with sets calibrated on 500 source scenes, each concept's set holds the true
-value on 89.9 % (86.9 to 91.3), 90.7 % (88.1 to 93.2) and 90.2 % (89.1 to 91.7) of the
-scenes, where the guarantee is at least 90 % on average over calibration draws. No source
-set is full and 10.1 % (8.7 to 13.1), 9.3 % (6.8 to 11.9) and 9.8 % (8.3 to 10.9) are
-empty: every covering set is a right singleton. On the target at `k = 0` the same
-thresholds cover `round` on 30.9 % (4.7 to 49.5), `tone` on 0.0 % (0.0 to 0.0) and `left`
-on 51.8 % (4.6 to 91.8), and leave 44.4 % (0.0 to 95.2), 43.8 % (22.8 to 90.4) and 48.0 %
-(8.1 to 95.3) of the sets empty. At `k = 12`, still calibrated on source scenes, `tone` is
-covered on 95.0 % (75.8 to 100.0) of the scenes because its set holds both values on
-86.3 % (52.5 to 99.8): the coverage comes back as full sets, not as right singletons.
+Under concept supervision, with sets calibrated on 500 source scenes, each concept's set
+holds the true value on 89.6 % (87.3 to 91.9), 90.2 % (87.5 to 92.4) and 90.0 % (85.5 to
+91.9) of the source scenes, where the guarantee is at least 90 % on average over
+calibration draws. No source set is full and 10.4 % (8.1 to 12.7), 9.8 % (7.6 to 12.5) and
+10.0 % (8.1 to 14.4) are empty: every covering set is a right singleton. On the target at
+`k = 0` the same thresholds cover `round` on 39.1 % (11.3 to 51.9), `tone` on 0.0 % (0.0 to
+0.0) and `left` on 58.6 % (24.7 to 82.1). At `k = 64`, still calibrated on source scenes,
+`tone` is covered on 100.0 % (100.0 to 100.0) of the scenes because its set holds both
+values on 85.5 % (58.6 to 99.0), and `left`, right on 97.7 %, is covered on 72.8 % (53.0 to
+86.1) with 27.1 % (13.9 to 46.8) of its sets empty: the source thresholds fit neither.
 
 No coverage bound holds on the target. The two styles share no scene, so the total-variation
 distance between them is 1 and the bound of Barber et al. 2023 is vacuous, and weighting the
@@ -84,11 +89,10 @@ the source's support, which it is not.
 
 ## Open
 
-- How many scenes `round` and `tone` take past 12, against the best each concept reaches in
-  the target style with ample labels.
 - Whether holding the rule fixed contributes: under concept supervision the rule enters only
-  the measures, and no condition varies it.
+  the measures, and no condition passes target supervision through it.
 - Whether the count belongs to the scenes or to the optimiser: every `k` gets 150 steps at
   a rate of 0.001.
 - Which of palette, size and blur moves which count.
 - Coverage with sets calibrated on target scenes.
+- How much of a seed's range is the draw of its `k` scenes.

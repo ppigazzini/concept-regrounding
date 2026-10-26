@@ -12,7 +12,7 @@ def _measure(logits, concepts, threshold=0.5):
         mode="concepts",
         seed=0,
         shots=0,
-        domain="target",
+        trained="regrounded",
     )
 
 

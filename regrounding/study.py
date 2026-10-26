@@ -33,6 +33,7 @@ class Row(TypedDict, closed=True):
     seed: Count
     shots: Count
     domain: Literal["source", "target"]
+    trained: Literal["source", "regrounded", "ceiling", "scratch"]
     scenes: Count
     agreement: Matrix
     verdict_agreement: Triple
@@ -66,7 +67,9 @@ STUDY = Validator(Study)
 #: The fields that say which model and which scenes a row is about. The scenes come from
 #: NumPy's generator and not from torch's floating point, so these compare exactly at any
 #: tolerance: a tolerance on them would accept a row of the wrong seed or shot count.
-IDENTITY = frozenset({"mode", "seed", "shots", "domain", "scenes", "positives", "negatives"})
+IDENTITY = frozenset(
+    {"mode", "seed", "shots", "domain", "trained", "scenes", "positives", "negatives"}
+)
 
 #: The 6 ways to assign the three outputs to the three concepts.
 _PERMUTATIONS = tuple(itertools.permutations(range(3)))
@@ -143,7 +146,7 @@ def first_shots(study: Study, mode: str, share: float) -> dict[str, list[int | N
         reached = [
             (r["shots"], [c >= share * r["scenes"] for c in identity(r)])
             for r in rows
-            if r["domain"] == "target"
+            if r["trained"] == "regrounded"
         ]
         for i, name in enumerate(names):
             out[name].append(next((k for k, ok in reached if ok[i]), None))

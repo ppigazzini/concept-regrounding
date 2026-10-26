@@ -23,7 +23,8 @@ position in the source scenes.
 
 What tells A from B is the same in both styles: A is coloured and B is grey, at a level
 drawn per scene, so brightness never tells them apart. The objects never touch, so
-neither hides the other, and both styles place them over the same range.
+neither hides the other; their spacing does not depend on A's shape, and both styles
+place them over the same range.
 
 Each concept is drawn independently with probability one half, so a verdict is true in
 one scene out of eight. Every draw comes from the `numpy.random.Generator` passed in.
@@ -73,13 +74,11 @@ _RADIUS_B = (3, 5)
 #: The smallest distance between the two shapes, in pixels: more than the diagonal of a
 #: pixel, so at least one background pixel separates them once they are rasterised.
 _GAP = 2
+#: The radius of the circle around either shape, per unit of its radius: a square's
+#: half-side is 0.85 r, so its corner lies 0.85 times the square root of 2, 1.2 r, out.
+_EXTENT = 0.85 * math.sqrt(2.0)
 #: Placements tried before a scene too small to hold both objects apart is refused.
 _TRIES = 10_000
-
-
-def _extent(r: int, *, round_: bool) -> float:
-    """Return the radius of the circle around a shape: a square's half-side is 0.85 r."""
-    return r if round_ else 0.85 * math.sqrt(2.0) * r
 
 
 def _mask(size: int, cx: float, cy: float, r: float, *, round_: bool) -> np.ndarray:
@@ -98,21 +97,31 @@ def _blur(image: np.ndarray) -> np.ndarray:
     return np.mean(shifts, axis=0)
 
 
+def place(
+    rng: np.random.Generator, ra: int, rb: int, *, left: bool, size: int
+) -> tuple[float, float, float, float]:
+    """Draw the centres of A and B, ``(xa, xb, ya, yb)``: the relation holds, the shapes apart.
+
+    The spacing depends on the radii alone, every shape counted at a square's extent: kept
+    nearer B as a circle than as a square, A's position would carry ``round``.
+    """
+    apart = _EXTENT * (ra + rb) + _GAP
+    for _ in range(_TRIES):
+        xa, xb, ya, yb = rng.uniform(MARGIN, size - MARGIN, size=4)
+        relation = (xa + 2 < xb) if left else (xa > xb + 2)
+        if relation and math.hypot(xa - xb, ya - yb) >= apart:
+            return float(xa), float(xb), float(ya), float(yb)
+    msg = f"no two objects {apart:.1f} pixels apart fit a {size}-pixel scene"
+    raise ValueError(msg)
+
+
 def render(rng: np.random.Generator, style: Style, concepts: np.ndarray, size: int) -> np.ndarray:
     """Draw one scene with the given concepts, as a float32 array of shape (3, size, size)."""
     round_, tone, left = (bool(c) for c in concepts)
     low, high = style.radius
     ra, rb = int(rng.integers(low, high + 1)), int(rng.integers(_RADIUS_B[0], _RADIUS_B[1] + 1))
     round_b = bool(rng.integers(2))
-    apart = _extent(ra, round_=round_) + _extent(rb, round_=round_b) + _GAP
-    for _ in range(_TRIES):
-        xa, xb, ya, yb = rng.uniform(MARGIN, size - MARGIN, size=4)
-        relation = (xa + 2 < xb) if left else (xa > xb + 2)
-        if relation and math.hypot(xa - xb, ya - yb) >= apart:
-            break
-    else:
-        msg = f"no two objects {apart:.1f} pixels apart fit a {size}-pixel scene"
-        raise ValueError(msg)
+    xa, xb, ya, yb = place(rng, ra, rb, left=left, size=size)
     image = np.full((3, size, size), 0.05, dtype=np.float64)
     image[:, _mask(size, xb, yb, rb, round_=round_b)] = rng.uniform(*GREY)
     hue = rng.uniform(*style.hues[int(tone)])
@@ -127,6 +136,26 @@ def dataset(
 ) -> tuple[np.ndarray, np.ndarray]:
     """Draw ``n`` scenes: images (n, 3, size, size) float32 and concepts (n, 3) uint8."""
     concepts = rng.integers(0, 2, size=(n, len(CONCEPTS))).astype(np.uint8)
+    images = np.stack([render(rng, style, c, size) for c in concepts])
+    return images, concepts
+
+
+def paired(
+    rng: np.random.Generator, style: Style, n: int, size: int
+) -> tuple[np.ndarray, np.ndarray]:
+    """Draw ``n`` scenes in complementary pairs, the first a positive and its complement.
+
+    Scene ``2 i + 1`` carries the negation of scene ``2 i``'s concepts, so the first ``k``
+    scenes hold both values of every concept at every even ``k``, and a positive from
+    ``k = 1``. Drawn independently, the first 2 scenes leave some concept with one value with
+    probability 0.88, and the first 12 hold no positive with probability 0.20. Each concept
+    is still true in half the scenes.
+    """
+    halves = rng.integers(0, 2, size=((n + 1) // 2, len(CONCEPTS))).astype(np.uint8)
+    halves[0] = 1
+    concepts = np.empty((2 * len(halves), len(CONCEPTS)), dtype=np.uint8)
+    concepts[0::2], concepts[1::2] = halves, 1 - halves
+    concepts = concepts[:n]
     images = np.stack([render(rng, style, c, size) for c in concepts])
     return images, concepts
 

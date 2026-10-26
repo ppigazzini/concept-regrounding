@@ -13,6 +13,7 @@ produced the study.
 """
 
 import argparse
+import math
 import os
 import sys
 from collections.abc import Callable
@@ -104,6 +105,13 @@ def _pct(values: list[float]) -> str:
     return f"{100 * mean:.1f} ({100 * min(values):.1f} to {100 * max(values):.1f})"
 
 
+def _median(ks: list[int | None], last: int) -> str:
+    """Return the lower median of the seeds' first `k`, an actual shot count or censored."""
+    ordered = sorted(ks, key=lambda k: math.inf if k is None else k)
+    k = ordered[(len(ordered) - 1) // 2]
+    return f">{last}" if k is None else str(k)
+
+
 def _first(study: Study, mode: str) -> list[str]:
     """Render each seed's first `k` at every share in `SHARES`, censored past the last `k`."""
     last = max(study["settings"]["shots"])
@@ -111,8 +119,10 @@ def _first(study: Study, mode: str) -> list[str]:
     head = ["| target concept |"]
     rule = ["|---|"]
     for share in SHARES:
-        head.append(f" first `k` at {100 * share:.0f} %, per seed | seeds reaching it |")
-        rule.append("---|---:|")
+        head.append(
+            f" first `k` at {100 * share:.0f} %, per seed | seeds reaching it | lower median |"
+        )
+        rule.append("---|---:|---:|")
     per_share = [first_shots(study, mode, share) for share in SHARES]
     lines = ["".join(head), "".join(rule)]
     for name in per_share[0]:
@@ -121,8 +131,19 @@ def _first(study: Study, mode: str) -> list[str]:
             ks = first[name]
             cells.append(" ".join(f">{last}" if k is None else str(k) for k in ks))
             cells.append(f"{sum(k is not None for k in ks)} of {seeds}")
+            cells.append(_median(ks, last))
         lines.append(f"| {name} | " + " | ".join(cells) + " |")
     return lines
+
+
+#: How each kind of row is ordered and labelled in a table.
+_ORDER = {"source": 0, "regrounded": 1, "ceiling": 2, "scratch": 3}
+_LABELS = {
+    "source": "source",
+    "regrounded": "target",
+    "ceiling": "target, every weight",
+    "scratch": "target, from scratch",
+}
 
 
 def _table(
@@ -133,16 +154,18 @@ def _table(
         "| test | shots | " + " | ".join(name for name, _ in columns) + " |",
         "|---|---:|" + "---:|" * len(columns),
     ]
-    for target, shots in sorted({(r["domain"] != "source", r["shots"]) for r in study["rows"]}):
+    for trained, shots in sorted(
+        {(r["trained"], r["shots"]) for r in study["rows"]},
+        key=lambda key: (_ORDER[key[0]], key[1]),
+    ):
         rows = [
             r
             for r in study["rows"]
-            if r["mode"] == mode and (r["domain"] != "source") == target and r["shots"] == shots
+            if r["mode"] == mode and r["trained"] == trained and r["shots"] == shots
         ]
         if rows:
             cells = [_pct([read(r) for r in rows]) for _, read in columns]
-            domain = "target" if target else "source"
-            lines.append(f"| {domain} | {shots} | " + " | ".join(cells) + " |")
+            lines.append(f"| {_LABELS[trained]} | {shots} | " + " | ".join(cells) + " |")
     return lines
 
 

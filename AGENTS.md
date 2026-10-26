@@ -29,9 +29,10 @@ uv run --no-sync python tools/study.py --check docs/studies/regrounding.json
 ```
 
 All of them must be clean before a commit. A published study adds its
-`tools/study.py --check` line here and to the CI workflow in the same commit. A
-change that moves a published count regenerates the study with `--json` in the
-same commit and says why the count moved.
+`tools/study.py --check` line here and to the CI workflow in the same commit;
+CI reruns its first seed with `--seeds 1`, since the whole study outlasts the
+runner's timeout. A change that moves a published count regenerates the study
+with `--json` in the same commit and says why the count moved.
 
 ## Conventions
 
