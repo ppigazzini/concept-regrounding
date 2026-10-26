@@ -47,14 +47,43 @@ order 10 to 29, `>64` when no `k` of the study reaches it:
 - **`round` does not re-ground within 64 scenes, though the target style allows it.** It
   is at 65.8 % (54.3 to 84.6) at `k = 64` and reaches 90 % in no seed, while fine-tuning
   every weight on 3000 target scenes brings it to 96.0 % (73.4 to 99.8) and training from
-  scratch on them to 90.1 % (78.0 to 98.2). Inferred, not separated by a study: the blur,
-  since `round` is the one concept that rests on the outline and only the target blurs it.
+  scratch on them to 90.1 % (78.0 to 98.2). The blur alone does it, as the next section
+  measures.
 - **The verdict rises above the always-no rate only from `k = 32`:** 89.3 % (87.0 to 92.2)
   at `k = 32` and 90.7 % (86.6 to 96.1) at `k = 64`, against 87.5 %. The ranking improves
   sooner: false positives at 90 % sensitivity fall from 80.0 % to 19.0 % of the negatives
   at `k = 16` and to 10.2 % at `k = 64`, where an uninformative score has 90 %.
 - **One scene costs a concept that needed none.** At `k = 1`, `left` falls from 97.7 % to
   90.7 % (70.3 to 98.6) and the verdict accuracy from 86.3 % to 66.3 % (31.4 to 86.0).
+
+## Which shift
+
+Three more studies change one property of the target at a time, the source's look
+otherwise, under concept supervision on the same 20 seeds:
+`docs/studies/regrounding-palette.json`, `regrounding-size.json` and
+`regrounding-blur.json`, each rechecked by `tools/study.py --check`.
+
+| target | `k` | `round` % | `tone` % | `left` % |
+|---|---:|---:|---:|---:|
+| palette | 0 | 94.5 (75.5 to 99.9) | 0.3 (0.0 to 5.0) | 99.0 (94.8 to 99.8) |
+| palette | 64 | 98.4 (88.5 to 100.0) | 99.7 (97.6 to 100.0) | 98.7 (97.0 to 99.7) |
+| size | 0 | 99.3 (96.7 to 100.0) | 100.0 (99.8 to 100.0) | 99.5 (99.0 to 100.0) |
+| size | 64 | 98.4 (94.7 to 99.9) | 100.0 (99.8 to 100.0) | 99.2 (98.6 to 99.8) |
+| blur | 0 | 55.5 (47.8 to 83.7) | 100.0 (100.0 to 100.0) | 99.6 (98.5 to 100.0) |
+| blur | 64 | 71.8 (56.4 to 87.6) | 100.0 (99.9 to 100.0) | 99.3 (98.4 to 99.9) |
+| blur, every weight | 3000 | 95.8 (54.6 to 100.0) | 100.0 (100.0 to 100.0) | 99.8 (99.5 to 100.0) |
+| blur, from scratch | 3000 | 77.3 (59.4 to 98.9) | 100.0 (100.0 to 100.0) | 99.8 (99.4 to 100.0) |
+
+- **The palette alone sets the count for `tone`.** It inverts `tone`, 0.3 % at `k = 0`, and
+  every seed re-grounds it to 90 % with a lower median of 16 scenes, as with all three
+  changes; `round` and `left` carry over, so the three concepts together reach 90 % in 19
+  of 20 seeds, lower median 16.
+- **Size alone moves nothing:** every concept is at 90 % at `k = 0` in 20 of 20 seeds.
+- **Blur alone stops `round`:** 55.5 % at `k = 0` and 90 % in no seed by `k = 64`, while
+  `tone` and `left` stay at 99 % or more. Fine-tuning every weight of the source model on
+  3000 blurred scenes brings `round` to 95.8 %, and a model from scratch on them reaches
+  77.3 %: the source's features help, and head re-grounding within 64 scenes does not reach
+  them.
 
 ## Verdict supervision
 
@@ -126,6 +155,5 @@ the source's support, which it is not.
 - A rule other than the conjunction, and a condition that varies the rule.
 - Whether the count belongs to the scenes or to the optimiser: every `k` gets 150 steps at
   a rate of 0.001.
-- Which of palette, size and blur moves which count.
 - Coverage with sets calibrated on target scenes.
 - How much of a seed's range is the draw of its `k` scenes.

@@ -37,6 +37,14 @@ class Experiment:
     regrounding_steps: Annotated[int, NOT_BOOL, Ge(0), Le(10_000)] = 150
     regrounding_rate: Rate = 1e-3
     regrounding_scope: Literal["readout", "head", "all"] = "head"
+    #: Which target the scenes shift to: the target, or one of its three changes alone.
+    target: Literal["target", "palette", "size", "blur"] = "target"
+    modes: tuple[Literal["concepts", "verdict", "mixed", "direct"], ...] = (
+        "concepts",
+        "verdict",
+        "mixed",
+        "direct",
+    )
     shots: tuple[Shots, ...] = (0, 1, 2, 4, 8, 16, 32, 64)
     #: Seeds no pilot run used: the scene design was fixed on runs scored on the target
     #: test scenes of seeds 0 to 4 and 100 to 104.
@@ -48,6 +56,9 @@ class Experiment:
         refuse(_SCHEMA, self, "Experiment")
         if max(self.shots, default=0) > self.pool:
             msg = f"Experiment: the largest shot count {max(self.shots)} exceeds pool {self.pool}"
+            raise ValueError(msg)
+        if not self.modes or len(set(self.modes)) != len(self.modes):
+            msg = f"Experiment: modes must name each mode at most once, got {self.modes}"
             raise ValueError(msg)
 
     def updated(self, **changes: object) -> Experiment:

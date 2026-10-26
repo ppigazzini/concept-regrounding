@@ -22,6 +22,10 @@ class TestSettings:
             ({"shots": (0, -1)}, "shots"),
             ({"regrounding_scope": "everything"}, "regrounding_scope"),
             ({"image_size": 20}, "image_size"),
+            ({"target": "elsewhere"}, "target"),
+            ({"modes": ("concepts", "rules")}, "modes"),
+            ({"modes": ()}, "modes"),
+            ({"modes": ("concepts", "concepts")}, "modes"),
         ],
     )
     def test_a_setting_outside_its_declared_range_is_refused_with_its_name(self, changes, named):

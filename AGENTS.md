@@ -26,12 +26,15 @@ uv run --no-sync ty check                   # types
 uv run --no-sync pytest                     # the suite, with two tiny trainings
 uv run --no-sync python tools/check_markdown.py
 uv run --no-sync python tools/study.py --check docs/studies/regrounding.json
+uv run --no-sync python tools/study.py --check docs/studies/regrounding-palette.json
+uv run --no-sync python tools/study.py --check docs/studies/regrounding-size.json
+uv run --no-sync python tools/study.py --check docs/studies/regrounding-blur.json
 ```
 
 All of them must be clean before a commit. A published study adds its
-`tools/study.py --check` line here and to the CI workflow in the same commit;
-CI reruns its first seed with `--seeds 1`, since the whole study outlasts the
-runner's timeout. A change that moves a published count regenerates the study
+`tools/study.py --check` line here and to the CI workflow's study matrix in the
+same commit; CI reruns its first seed with `--seeds 1`, since the whole study
+outlasts the runner's timeout. A change that moves a published count regenerates the study
 with `--json` in the same commit and says why the count moved.
 
 ## Conventions

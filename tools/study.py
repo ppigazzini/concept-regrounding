@@ -45,8 +45,6 @@ from regrounding.study import (  # noqa: E402
     signed,
 )
 
-#: The modes of the concept models; every seed also runs the direct verdict network.
-MODES: tuple[Run, ...] = ("concepts", "verdict", "mixed")
 #: Per row, what each column reads off the counts, as a share of its denominator.
 OUTPUTS: tuple[tuple[str, Callable[[Row], float]], ...] = (
     ("round %", lambda r: identity(r)[0] / r["scenes"]),
@@ -96,15 +94,16 @@ def job(task: tuple[Experiment, int, Run | None, str]) -> list[Row] | list[Direc
 
 
 def measure(config: Experiment, device: str, jobs: int) -> Study:
-    """Run every job and return the study, rows in a fixed order."""
-    modes: tuple[Run | None, ...] = (*MODES, None)
+    """Run every job of the settings' modes and return the study, rows in a fixed order."""
+    concept_modes: list[Run] = [m for m in config.modes if m != "direct"]
+    modes: list[Run | None] = [*concept_modes, *([None] if "direct" in config.modes else [])]
     tasks = [(config, seed, mode, device) for mode in modes for seed in config.seeds]
     if jobs > 1 and device == "cpu":
         with ProcessPoolExecutor(max_workers=jobs, initializer=reproducible.hide_gpus) as pool:
             done = list(pool.map(job, tasks))
     else:
         done = [job(t) for t in tasks]
-    split = len(MODES) * len(config.seeds)
+    split = len(concept_modes) * len(config.seeds)
     return Study(
         format=2,
         device="cuda" if device == "cuda" else "cpu",
@@ -182,11 +181,14 @@ def table(study: Study) -> str:
     may flip one; "round = verdict" is how often the `round` output equals the verdict.
     """
     lines: list[str] = []
-    for mode in MODES:
+    for mode in study["settings"]["modes"]:
+        if mode == "direct":
+            lines += ["## direct", "", *_table(study["direct"], VERDICTS), ""]
+            continue
         rows = [r for r in study["rows"] if r["mode"] == mode]
         lines += [f"## {mode}", "", *_table(rows, OUTPUTS), ""]
         lines += [*_first(study, mode), "", *_table(rows, SETS), ""]
-    return "\n".join([*lines, "## direct", "", *_table(study["direct"], VERDICTS), ""])
+    return "\n".join(lines)
 
 
 def _positive(text: str) -> int:
@@ -215,6 +217,8 @@ def main(argv: list[str]) -> int:
     out.add_argument("--json", type=Path, help="write the study file")
     out.add_argument("--check", type=Path, help="rerun a study file and compare")
     parser.add_argument("--tolerance", type=_fraction, default=0.0)
+    parser.add_argument("--target", choices=["target", "palette", "size", "blur"])
+    parser.add_argument("--modes", nargs="+", choices=["concepts", "verdict", "mixed", "direct"])
     parser.add_argument(
         "--native-kernels",
         action="store_true",
@@ -223,13 +227,16 @@ def main(argv: list[str]) -> int:
     args = parser.parse_args(argv)
     if args.native_kernels and not args.check:
         parser.error("--native-kernels measures against --check; a study is written portably")
+    if args.check and (args.target or args.modes):
+        parser.error("--check reruns the target and modes the file records")
 
     if args.check:
         expected = loads(args.check.read_text(encoding="utf-8"))
         if args.seeds is not None:
             expected = restrict(expected, args.seeds)
         settings = dict(expected["settings"])
-        settings["shots"], settings["seeds"] = tuple(settings["shots"]), tuple(settings["seeds"])
+        for key in ("shots", "seeds", "modes"):
+            settings[key] = tuple(settings[key])
         actual = measure(Experiment(**settings), expected["device"], args.jobs)
         print(table(actual))
         diff = differences(expected, actual, args.tolerance)
@@ -243,6 +250,10 @@ def main(argv: list[str]) -> int:
         return 1 if diff else 0
 
     config = Experiment()
+    if args.target:
+        config = config.updated(target=args.target)
+    if args.modes:
+        config = config.updated(modes=tuple(args.modes))
     if args.seeds is not None:
         config = config.updated(seeds=config.seeds[: args.seeds])
     study = measure(config, args.device, args.jobs)

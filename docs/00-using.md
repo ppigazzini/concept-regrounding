@@ -22,7 +22,9 @@ source scenes, re-grounds a copy of it on the first `k` labelled target scenes f
 in the settings, and prints, per mode and `k`, the seed mean of each measure with the
 per-seed range in brackets, then each seed's first `k` at 90 % and at 95 %. Every
 (seed, mode) job runs in its own process with one thread, one job per core; `--jobs`
-changes the count. `--seeds N` runs the first `N` seeds only.
+changes the count. `--seeds N` runs the first `N` seeds only. `--target palette`, `size` or
+`blur` draws the target with that one change alone and the source's look otherwise, and
+`--modes` runs a subset of the modes; both are recorded in the study file's settings.
 
 The settings are the defaults of `Experiment` in `regrounding/config.py`. A setting outside
 its declared range is refused when the object is built, with the field named:

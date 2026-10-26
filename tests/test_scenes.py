@@ -114,6 +114,26 @@ class TestPairedPool:
         assert self._pool(5).tolist() == self._pool(6)[:5].tolist()
 
 
+class TestTargets:
+    @pytest.mark.parametrize(
+        ("name", "changed"),
+        [("palette", {"hues"}), ("size", {"radius"}), ("blur", {"blur"})],
+    )
+    def test_each_single_change_target_differs_from_the_source_in_one_property(self, name, changed):
+        style, source = scenes.TARGETS[name], scenes.SOURCE
+        differ = {f for f in ("hues", "radius", "blur") if getattr(style, f) != getattr(source, f)}
+        assert differ == changed
+        for field in changed:
+            assert getattr(style, field) == getattr(scenes.TARGET, field)
+
+    def test_the_target_makes_all_three_changes(self):
+        assert scenes.TARGETS["target"] is scenes.TARGET
+        assert all(
+            getattr(scenes.TARGET, f) != getattr(scenes.SOURCE, f)
+            for f in ("hues", "radius", "blur")
+        )
+
+
 class TestStyles:
     @pytest.mark.parametrize("tone", [0, 1])
     def test_a_target_tone_lies_outside_the_source_families_nearer_the_other_tone(self, tone):

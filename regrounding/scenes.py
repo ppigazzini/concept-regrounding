@@ -56,6 +56,14 @@ class Style:
 
 SOURCE = Style("source", ((200.0, 260.0), (-30.0, 30.0)), (4, 6), blur=False)
 TARGET = Style("target", ((50.0, 50.0), (180.0, 180.0)), (3, 7), blur=True)
+#: The target with one of its three changes alone and the source's look otherwise, so a
+#: study on each says which change moves which count.
+TARGETS = {
+    "target": TARGET,
+    "palette": Style("palette", TARGET.hues, SOURCE.radius, blur=False),
+    "size": Style("size", SOURCE.hues, TARGET.radius, blur=False),
+    "blur": Style("blur", SOURCE.hues, SOURCE.radius, blur=True),
+}
 
 
 def colour(hue: float) -> tuple[float, float, float]:

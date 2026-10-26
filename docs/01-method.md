@@ -42,10 +42,10 @@ properties on the drawn images.
 
 The verdict is the conjunction of the three concepts, in `regrounding/rule.py`. It is
 never trained and never re-grounded. On concept logits it scores a scene by the log of the
-product of the concept probabilities, the log-probability of the conjunction for independent
-concepts, as the sum of their log-sigmoids, which keeps apart scenes whose product
-underflows to zero; on concept prediction sets it is three-valued: true when every set is exactly {1}, false when some set is exactly
-{0}, undecided otherwise.
+product of the concept probabilities, the log-probability of the conjunction for
+independent concepts, as the sum of their log-sigmoids, which keeps apart scenes whose
+product underflows to zero. On concept prediction sets it is three-valued: true when every
+set is exactly {1}, false when some set is exactly {0}, undecided otherwise.
 
 ## Model
 
@@ -56,8 +56,9 @@ relation between two positions, which a global average would discard.
 ## Supervision
 
 - **concepts**: each output is trained, with binary cross-entropy, as the concept it names.
-- **verdict**: only the conjunction is trained, through the rule's log-score in float64. Nothing ties an output to the concept it is named after, and a model can
-  get the verdict right through concepts that mean something else: a reasoning shortcut
+- **verdict**: only the conjunction is trained, through the rule's log-score in float64.
+  Nothing ties an output to the concept it is named after, and a model can get the
+  verdict right through concepts that mean something else: a reasoning shortcut
   (Marconato et al. 2023). The conjunction is symmetric in its three inputs, so the
   outputs are also scored under the best matching of outputs to concepts.
 - **mixed**: the concepts are learnt from their labels on the source, as under **concepts**,
@@ -130,8 +131,9 @@ Split conformal prediction, per concept: the nonconformity of a label is one min
 probability the model gives it, and the threshold is the `ceil((n + 1)(1 - alpha))`-th
 smallest nonconformity over `n` calibration scenes, with `alpha` 0.1. On a scene
 exchangeable with the calibration scenes the set holds the true value with probability at
-least 0.9 (Angelopoulos and Bates 2021). When the rank passes `n`, fewer than `1 / alpha - 1`
-calibration scenes, the threshold is infinite and every set holds both values.
+least 0.9 (Angelopoulos and Bates 2021). When the rank passes `n`, fewer than
+`1 / alpha - 1` calibration scenes, the threshold is infinite and every set holds both
+values.
 
 The calibration scenes are source scenes, for the source model and for every re-grounded
 one: `k` target scenes are too few to calibrate on, since at `k = 12` and `alpha` 0.1 the
@@ -173,8 +175,8 @@ place of the portable ones, 300 of 704 fields differ, the largest by 804 of 1000
   budget as well as the scenes.
 - The source hue families and the scene layout were fixed after pilot runs scored on target
   test scenes of seeds 0 to 4 and 100 to 104; the study runs seeds 10 to 29.
-- The shift is one fixed pair of styles. How the counts depend on which property shifts —
-  palette, size, blur — is not separated.
+- The shift is one pair of styles, and each of its three changes alone; the changes are
+  not measured in pairs, and no other palette, size or blur is.
 - Re-grounding is plain fine-tuning. No method built for few-shot transfer is compared
   (Chen et al. 2019 survey the baselines).
 - The conformal sets are calibrated on source scenes and are not corrected for the shift.

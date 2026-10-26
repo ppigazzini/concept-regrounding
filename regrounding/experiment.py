@@ -163,9 +163,10 @@ def _draw(config: Experiment, seed: int, device: torch.device) -> _Scenes:
     source = draw(scenes.SOURCE, config.source_train)
     calibration = draw(scenes.SOURCE, config.calibration)
     source_test = draw(scenes.SOURCE, config.test)
-    pool = _tensors(scenes.paired(rng, scenes.TARGET, config.pool, size), device)
-    target_test = draw(scenes.TARGET, config.test)
-    target_train = draw(scenes.TARGET, config.target_train)
+    target = scenes.TARGETS[config.target]
+    pool = _tensors(scenes.paired(rng, target, config.pool, size), device)
+    target_test = draw(target, config.test)
+    target_train = draw(target, config.target_train)
     return _Scenes(source, calibration, source_test, pool, target_test, target_train)
 
 
