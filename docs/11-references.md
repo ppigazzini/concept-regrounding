@@ -15,6 +15,18 @@
   probabilistic logic programming. NeurIPS 2018.
   [arXiv:1805.10872](https://arxiv.org/abs/1805.10872)
 
+- E. Marconato, G. Bontempo, E. Ficarra, S. Calderara, A. Passerini, S. Teso.
+  Neuro-symbolic continual learning: knowledge, reasoning shortcuts and concept rehearsal.
+  ICML 2023. [arXiv:2302.01242](https://arxiv.org/abs/2302.01242)
+
+## Fine-tuning under a shift
+
+- X. Li, Y. Grandvalet, F. Davoine. Explicit inductive bias for transfer learning with
+  convolutional networks. ICML 2018. [arXiv:1802.01483](https://arxiv.org/abs/1802.01483)
+- Y. Lee, A. S. Chen, F. Tajwar, A. Kumar, H. Yao, P. Liang, C. Finn. Surgical fine-tuning
+  improves adaptation to distribution shifts. ICLR 2023.
+  [arXiv:2210.11466](https://arxiv.org/abs/2210.11466)
+
 ## Conformal prediction
 
 - V. Vovk, A. Gammerman, G. Shafer. Algorithmic learning in a random world. Springer, 2005.

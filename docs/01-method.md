@@ -85,12 +85,24 @@ its complement: scene `2 i + 1` carries the negation of scene `2 i`'s concepts, 
 
 | scope | layers | weights |
 |---|---|---|
+| `first` | the first convolution, which reads the pixels | 448 |
 | `readout` | the last layer, one logit per concept | 195 |
 | `head` (default) | both dense layers, which read the spatial feature map | 131,331 |
 | `all` | every layer, the convolutions included | 145,667 |
 
 The head is where `left`, a relation between two positions, is read off the feature map, so
 it is more than a concept readout and holds nine times the weights of the convolutions.
+Under a shift at the input, such as a blur or a palette, fine-tuning the first layers alone
+can adapt better than fine-tuning the head (Lee et al. 2023); `first` measures it.
+
+Two settings change how the fine-tuning runs. `regrounding_fit="converged"` refits the
+readout on the frozen features with L-BFGS until the gradient vanishes, under an L2 pull of
+weight `anchor`, 0.01, toward the source readout (L2-SP, Li et al. 2018): under concept
+supervision the objective is strictly convex, so the count does not depend on a number of
+steps. The weight is not tuned, since tuning it would take labelled target scenes beyond
+the `k`. `rehearsal` adds that many labelled source training scenes to every step's batch,
+so that a concept the target does not shift is held where it is (concept rehearsal,
+Marconato et al. 2023).
 
 Two more models bound what re-grounding can reach. Both train on 3000 labelled target
 scenes with the source's own training settings: one fine-tunes every weight of the source
@@ -171,14 +183,16 @@ place of the portable ones, 300 of 704 fields differ, the largest by 804 of 1000
   concept on its own label, so a target with another rule would give the same concept
   counts. The mixed mode passes the target supervision through the rule and the direct
   network learns the verdict without it; no condition varies the rule.
-- Every `k` gets the same 150 steps at a rate of 0.001, so the count holds the optimiser's
-  budget as well as the scenes.
+- Every `k` gets the same 150 steps at a rate of 0.001, so a count by steps holds the
+  optimiser's budget as well as the scenes; only the converged readout fit does not.
 - The source hue families and the scene layout were fixed after pilot runs scored on target
   test scenes of seeds 0 to 4 and 100 to 104; the study runs seeds 10 to 29.
 - The shift is one pair of styles, and each of its three changes alone; the changes are
   not measured in pairs, and no other palette, size or blur is.
-- Re-grounding is plain fine-tuning. No method built for few-shot transfer is compared
-  (Chen et al. 2019 survey the baselines).
+- Re-grounding is fine-tuning: of a chosen scope for a fixed number of steps, of the readout
+  to convergence, or with rehearsal. No method built for few-shot transfer, such as
+  meta-learning, is compared (Chen et al. 2019 survey the baselines), and no method that
+  adapts normalisation statistics applies, since the network has no normalisation layer.
 - The conformal sets are calibrated on source scenes and are not corrected for the shift.
 - The `k` scenes are one nested draw per seed. The per-seed range holds which scenes were
   drawn as well as how the model trained, and the two are not separated.

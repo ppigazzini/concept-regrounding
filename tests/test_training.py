@@ -5,7 +5,7 @@ import torch.nn.functional as F
 from regrounding.config import Experiment
 from regrounding.experiment import run, run_direct
 from regrounding.model import ConceptNet
-from regrounding.train import loss, reground
+from regrounding.train import Regrounding, loss, reground
 
 TINY = Experiment(
     source_train=400,
@@ -57,7 +57,12 @@ class TestModel:
 
     @pytest.mark.parametrize(
         ("scope", "changed"),
-        [("readout", {"head.3"}), ("head", {"head.1", "head.3"}), ("all", None)],
+        [
+            ("first", {"features.0"}),
+            ("readout", {"head.3"}),
+            ("head", {"head.1", "head.3"}),
+            ("all", None),
+        ],
     )
     def test_re_grounding_changes_only_the_layers_of_its_scope(self, scope, changed):
         model = ConceptNet(torch.Generator().manual_seed(0))
@@ -65,13 +70,54 @@ class TestModel:
         generator = torch.Generator().manual_seed(1)
         images = torch.rand((4, 3, 32, 32), generator=generator)
         concepts = torch.randint(0, 2, (4, 3), generator=generator)
-        reground(model, images, concepts, mode="concepts", steps=3, learning_rate=1e-2, scope=scope)
+        how = Regrounding(scope=scope, steps=3, learning_rate=1e-2)
+        reground(model, images, concepts, mode="concepts", how=how)
         moved = {
             k.rsplit(".", 1)[0]
             for k, v in model.state_dict().items()
             if not torch.equal(v, before[k])
         }
         assert moved == (changed or {k.rsplit(".", 1)[0] for k in before})
+
+
+class TestConvergedFit:
+    def _scenes(self):
+        generator = torch.Generator().manual_seed(2)
+        images = torch.rand((16, 3, 32, 32), generator=generator)
+        return images, torch.randint(0, 2, (16, 3), generator=generator)
+
+    def _fit(self, anchor):
+        model = ConceptNet(torch.Generator().manual_seed(0))
+        how = Regrounding(
+            scope="readout", steps=0, learning_rate=0.0, fit="converged", anchor=anchor
+        )
+        reground(model, *self._scenes(), mode="concepts", how=how)
+        return model
+
+    def test_it_changes_the_readout_alone(self):
+        before = ConceptNet(torch.Generator().manual_seed(0)).state_dict()
+        after = self._fit(0.01).state_dict()
+        moved = {k for k, v in after.items() if not torch.equal(v, before[k])}
+        assert moved == {"head.3.weight", "head.3.bias"}
+
+    def test_it_ends_where_the_objective_is_flat(self):
+        model = self._fit(0.01)
+        source = ConceptNet(torch.Generator().manual_seed(0)).head[-1]
+        images, concepts = self._scenes()
+        with torch.no_grad():
+            features = model.head[:-1](model.features(images)).double()
+        w = model.head[-1].weight.detach().double().requires_grad_(True)
+        b = model.head[-1].bias.detach().double().requires_grad_(True)
+        pull = (w - source.weight.double()).pow(2).sum() + (b - source.bias.double()).pow(2).sum()
+        (loss(features @ w.T + b, concepts, "concepts") + 0.005 * pull).backward()
+        assert w.grad is not None
+        assert b.grad is not None
+        assert max(w.grad.abs().max(), b.grad.abs().max()) < 1e-5
+
+    def test_a_strong_pull_keeps_the_source_readout(self):
+        source = ConceptNet(torch.Generator().manual_seed(0)).state_dict()["head.3.weight"]
+        fitted = self._fit(1e6).state_dict()["head.3.weight"]
+        assert torch.allclose(fitted, source, atol=1e-5)
 
 
 class TestFrozenLayers:
@@ -91,7 +137,8 @@ class TestFrozenLayers:
         generator = torch.Generator().manual_seed(1)
         images = torch.rand((8, 3, 32, 32), generator=generator)
         concepts = torch.randint(0, 2, (8, 3), generator=generator)
-        reground(frozen, images, concepts, mode="verdict", steps=5, learning_rate=1e-2, scope=scope)
+        how = Regrounding(scope=scope, steps=5, learning_rate=1e-2)
+        reground(frozen, images, concepts, mode="verdict", how=how)
         self._reference(reference, images, concepts, scope)
         for a, b in zip(frozen.parameters(), reference.parameters(), strict=True):
             assert torch.equal(a, b)
@@ -128,6 +175,13 @@ class TestEndToEnd:
             (r["trained"], r["shots"]) for r in concepts
         ]
         assert [r["positives"] for r in rows] == [r["positives"] for r in concepts]
+
+    @pytest.mark.slow
+    def test_rehearsal_changes_the_regrounded_rows_alone(self):
+        plain = run(TINY, 0, "concepts", torch.device("cpu"))
+        rehearsed = run(TINY.updated(rehearsal=8), 0, "concepts", torch.device("cpu"))
+        kept = [r["trained"] != "regrounded" or r["shots"] == 0 for r in plain]
+        assert [a == b for a, b in zip(plain, rehearsed, strict=True)] == kept
 
     @pytest.mark.slow
     def test_a_job_is_reproducible_on_the_same_machine(self):

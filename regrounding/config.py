@@ -36,7 +36,13 @@ class Experiment:
     learning_rate: Rate = 2e-3
     regrounding_steps: Annotated[int, NOT_BOOL, Ge(0), Le(10_000)] = 150
     regrounding_rate: Rate = 1e-3
-    regrounding_scope: Literal["readout", "head", "all"] = "head"
+    regrounding_scope: Literal["first", "readout", "head", "all"] = "head"
+    regrounding_fit: Literal["steps", "converged"] = "steps"
+    #: The weight of a converged fit's pull toward the source readout; not tuned, since
+    #: tuning it would take target labels beyond the ``k``.
+    anchor: Annotated[float, Gt(0.0)] = 0.01
+    #: Labelled source training scenes added to every re-grounding batch.
+    rehearsal: Annotated[int, NOT_BOOL, Ge(0), Le(4096)] = 0
     #: Which target the scenes shift to: the target, or one of its three changes alone.
     target: Literal["target", "palette", "size", "blur"] = "target"
     modes: tuple[Literal["concepts", "verdict", "mixed", "direct"], ...] = (
@@ -56,6 +62,12 @@ class Experiment:
         refuse(_SCHEMA, self, "Experiment")
         if max(self.shots, default=0) > self.pool:
             msg = f"Experiment: the largest shot count {max(self.shots)} exceeds pool {self.pool}"
+            raise ValueError(msg)
+        if self.regrounding_fit == "converged" and self.regrounding_scope != "readout":
+            msg = "Experiment: a converged fit refits the readout; regrounding_scope must be it"
+            raise ValueError(msg)
+        if self.rehearsal > self.source_train:
+            msg = f"Experiment: rehearsal {self.rehearsal} exceeds source_train {self.source_train}"
             raise ValueError(msg)
         if not self.modes or len(set(self.modes)) != len(self.modes):
             msg = f"Experiment: modes must name each mode at most once, got {self.modes}"

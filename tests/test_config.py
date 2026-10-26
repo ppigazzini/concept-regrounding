@@ -32,6 +32,15 @@ class TestSettings:
         with pytest.raises(ValueError, match=named):
             Experiment(**changes)
 
+    def test_a_converged_fit_refits_the_readout_only(self):
+        with pytest.raises(ValueError, match="readout"):
+            Experiment(regrounding_fit="converged")
+        assert Experiment(regrounding_fit="converged", regrounding_scope="readout").anchor > 0
+
+    def test_rehearsal_draws_from_the_source_training_scenes(self):
+        with pytest.raises(ValueError, match="exceeds source_train"):
+            Experiment(source_train=100, rehearsal=200)
+
     def test_the_pool_must_hold_the_largest_shot_count(self):
         with pytest.raises(ValueError, match="exceeds pool"):
             Experiment(shots=(0, 12), pool=8)

@@ -219,6 +219,9 @@ def main(argv: list[str]) -> int:
     parser.add_argument("--tolerance", type=_fraction, default=0.0)
     parser.add_argument("--target", choices=["target", "palette", "size", "blur"])
     parser.add_argument("--modes", nargs="+", choices=["concepts", "verdict", "mixed", "direct"])
+    parser.add_argument("--scope", choices=["first", "readout", "head", "all"])
+    parser.add_argument("--fit", choices=["steps", "converged"])
+    parser.add_argument("--rehearsal", type=_positive, help="source scenes in every batch")
     parser.add_argument(
         "--native-kernels",
         action="store_true",
@@ -227,8 +230,18 @@ def main(argv: list[str]) -> int:
     args = parser.parse_args(argv)
     if args.native_kernels and not args.check:
         parser.error("--native-kernels measures against --check; a study is written portably")
-    if args.check and (args.target or args.modes):
-        parser.error("--check reruns the target and modes the file records")
+    chosen: dict[str, Any] = {
+        "target": args.target,
+        "modes": tuple(args.modes) if args.modes else None,
+        "regrounding_scope": args.scope,
+        "regrounding_fit": args.fit,
+        "rehearsal": args.rehearsal,
+    }
+    chosen = {
+        key: value for key, value in chosen.items() if value is not None
+    }  # checked by Experiment
+    if args.check and chosen:
+        parser.error("--check reruns the settings the file records")
 
     if args.check:
         expected = loads(args.check.read_text(encoding="utf-8"))
@@ -249,11 +262,7 @@ def main(argv: list[str]) -> int:
         )
         return 1 if diff else 0
 
-    config = Experiment()
-    if args.target:
-        config = config.updated(target=args.target)
-    if args.modes:
-        config = config.updated(modes=tuple(args.modes))
+    config = Experiment(**chosen)
     if args.seeds is not None:
         config = config.updated(seeds=config.seeds[: args.seeds])
     study = measure(config, args.device, args.jobs)

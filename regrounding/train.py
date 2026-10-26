@@ -12,7 +12,8 @@ untouched.
 """
 
 import math
-from typing import Literal
+from dataclasses import dataclass
+from typing import Literal, cast
 
 import torch
 import torch.nn.functional as F
@@ -22,7 +23,11 @@ from regrounding import rule
 from regrounding.model import ConceptNet
 
 type Mode = Literal["concepts", "verdict", "direct"]
-type Scope = Literal["readout", "head", "all"]
+type Scope = Literal["first", "readout", "head", "all"]
+type Fit = Literal["steps", "converged"]
+
+#: L-BFGS iterations a converged fit may take; on 64 scenes it stops at its tolerance first.
+_MAX_ITER = 1000
 
 #: The largest log-probability of the conjunction the loss takes, so that the log of its
 #: complement stays finite; in float64 it is reached only when every logit is above 690.
@@ -52,9 +57,10 @@ def loss(logits: torch.Tensor, concepts: torch.Tensor, mode: Mode) -> torch.Tens
     that rounds to 0 and no gradient either.
     """
     if mode == "concepts":
-        return F.binary_cross_entropy_with_logits(logits, concepts.float())
+        return F.binary_cross_entropy_with_logits(logits, concepts.to(logits.dtype))
     if mode == "direct":
-        return F.binary_cross_entropy_with_logits(logits[:, 0], rule.verdict(concepts).float())
+        target = rule.verdict(concepts).to(logits.dtype)
+        return F.binary_cross_entropy_with_logits(logits[:, 0], target)
     log_p = rule.log_score(logits.double())
     target = rule.verdict(concepts).double()
     return -(target * log_p + (1.0 - target) * _log1mexp(log_p)).mean()
@@ -84,43 +90,100 @@ def fit(
             optimizer.step()
 
 
+@dataclass(frozen=True, slots=True)
+class Regrounding:
+    """How a model is fine-tuned on the ``k`` target scenes.
+
+    ``scope`` is what is fine-tuned: ``first``, the first convolution, 448 weights;
+    ``readout``, the last layer, 64 weights and a bias per concept; ``head``, both dense
+    layers, which read the spatial feature map and hold 131,331 weights; ``all``, every
+    weight. ``steps`` full-batch Adam steps at ``learning_rate``, or, with ``fit`` set to
+    ``converged``, the readout fitted to convergence with an L2 pull of weight ``anchor``
+    toward its source weights (L2-SP, Li et al. 2018): a fit that ends where the scenes and
+    the pull balance, whatever the number of steps.
+    """
+
+    scope: Scope
+    steps: int
+    learning_rate: float
+    fit: Fit = "steps"
+    anchor: float = 0.0
+
+
 def reground(
     model: ConceptNet,
     images: torch.Tensor,
     concepts: torch.Tensor,
     *,
     mode: Mode,
-    steps: int,
-    learning_rate: float,
-    scope: Scope,
+    how: Regrounding,
 ) -> None:
-    """Fine-tune ``model`` on a handful of labelled target scenes, the whole batch per step.
-
-    ``scope`` is what is fine-tuned: ``readout``, the last layer, 64 weights and a bias
-    per concept; ``head``, both dense layers, which read the spatial feature map and hold
-    131,331 weights; ``all``, every weight, the 14,336 convolution weights included.
+    """Fine-tune ``model`` on a handful of labelled scenes, the whole batch per step.
 
     The layers outside the scope stop requiring gradients for the steps, so the backward
     pass does not run through them; the weights it updates come out the same.
     """
-    if images.shape[0] == 0 or steps == 0:
+    if images.shape[0] == 0:
         return
-    layers = {"readout": model.head[-1], "head": model.head, "all": model}
-    trained = list(layers[scope].parameters())
+    if how.fit == "converged":
+        _refit_readout(model, images, concepts, mode, how.anchor)
+        return
+    layers = {
+        "first": model.features[0],
+        "readout": model.head[-1],
+        "head": model.head,
+        "all": model,
+    }
+    trained = list(layers[how.scope].parameters())
     inside = {id(p) for p in trained}
     frozen = [p for p in model.parameters() if id(p) not in inside]
     for p in frozen:
         p.requires_grad_(False)  # noqa: FBT003 - torch's own positional flag
-    optimizer = torch.optim.Adam(trained, lr=learning_rate)
+    optimizer = torch.optim.Adam(trained, lr=how.learning_rate)
     model.train()
     try:
-        for _ in range(steps):
+        for _ in range(how.steps):
             optimizer.zero_grad()
             loss(model(images), concepts, mode).backward()
             optimizer.step()
     finally:
         for p in frozen:
             p.requires_grad_(True)  # noqa: FBT003
+
+
+def _refit_readout(
+    model: ConceptNet, images: torch.Tensor, concepts: torch.Tensor, mode: Mode, anchor: float
+) -> None:
+    """Fit the readout on frozen features to convergence, pulled toward its source weights.
+
+    In float64 with L-BFGS: under concept supervision the objective is a logistic
+    regression per concept plus a quadratic pull, strictly convex, so its minimum does not
+    depend on the optimiser's path.
+    """
+    readout = cast("nn.Linear", model.head[-1])
+    with torch.no_grad():
+        features = model.head[:-1](model.features(images)).double()
+    w0, b0 = readout.weight.detach().double(), readout.bias.detach().double()
+    w, b = w0.clone().requires_grad_(True), b0.clone().requires_grad_(True)  # noqa: FBT003
+    optimizer = torch.optim.LBFGS(
+        [w, b],
+        max_iter=_MAX_ITER,
+        tolerance_grad=1e-10,
+        tolerance_change=1e-14,
+        line_search_fn="strong_wolfe",
+    )
+
+    def objective() -> torch.Tensor:
+        optimizer.zero_grad()
+        pull = (w - w0).pow(2).sum() + (b - b0).pow(2).sum()
+        value = loss(features @ w.T + b, concepts, mode) + 0.5 * anchor * pull
+        value.backward()
+        return value
+
+    optimizer.step(objective)
+    with torch.no_grad():
+        readout.weight.copy_(w)
+        readout.bias.copy_(b)
 
 
 @torch.no_grad()

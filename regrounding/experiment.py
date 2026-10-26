@@ -36,7 +36,7 @@ from regrounding.config import Experiment
 from regrounding.execution import apply_runtime, seed_everything
 from regrounding.model import ConceptNet
 from regrounding.study import DirectRow, Row
-from regrounding.train import Mode, fit, logits, reground
+from regrounding.train import Mode, Regrounding, fit, logits, reground
 
 type Run = Literal["concepts", "verdict", "mixed"]
 type Trained = Literal["source", "regrounded", "ceiling", "scratch"]
@@ -177,7 +177,8 @@ def _models(
 
     One torch generator, seeded by the seed, draws every initial weight and every batch
     order in a fixed sequence: the source model, then the ceiling, then the model from
-    scratch. Re-grounding takes the whole batch and draws nothing.
+    scratch. Re-grounding takes the whole batch, the ``k`` target scenes and the first
+    ``rehearsal`` source scenes, and draws nothing.
     """
     generator = torch.Generator().manual_seed(seed)
     source_mode, target_mode = SUPERVISION[mode]
@@ -195,19 +196,22 @@ def _models(
         return m
 
     size = config.image_size
+    how = Regrounding(
+        scope=config.regrounding_scope,
+        steps=config.regrounding_steps,
+        learning_rate=config.regrounding_rate,
+        fit=config.regrounding_fit,
+        anchor=config.anchor,
+    )
+    rehearsed = data.source[0][: config.rehearsal], data.source[1][: config.rehearsal]
     model = train(ConceptNet(generator, outputs, size).to(device), data.source, source_mode)
     yield model, 0, "source"
     for k in config.shots:
         adapted = copy.deepcopy(model)
-        reground(
-            adapted,
-            data.pool[0][:k],
-            data.pool[1][:k],
-            mode=target_mode,
-            steps=config.regrounding_steps,
-            learning_rate=config.regrounding_rate,
-            scope=config.regrounding_scope,
-        )
+        if k:
+            images = torch.cat([data.pool[0][:k], rehearsed[0]])
+            concepts = torch.cat([data.pool[1][:k], rehearsed[1]])
+            reground(adapted, images, concepts, mode=target_mode, how=how)
         yield adapted, k, "regrounded"
     many = config.target_train
     yield train(copy.deepcopy(model), data.target_train, target_mode), many, "ceiling"

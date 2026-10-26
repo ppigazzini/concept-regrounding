@@ -56,6 +56,35 @@ order 10 to 29, `>64` when no `k` of the study reaches it:
 - **One scene costs a concept that needed none.** At `k = 1`, `left` falls from 97.7 % to
   90.7 % (70.3 to 98.6) and the verdict accuracy from 86.3 % to 66.3 % (31.4 to 86.0).
 
+## Re-grounding procedures
+
+Four more studies re-ground the same source models, under concept supervision on the same
+20 seeds, in other ways: the first convolution alone (`regrounding-first.json`), the
+readout alone for the same 150 steps (`regrounding-readout.json`), the readout fitted to
+convergence under a pull toward its source weights (`regrounding-converged.json`), and the
+head with 64 labelled source scenes in every batch (`regrounding-rehearsal.json`). Each
+holds the rows of the main study's ceiling and from-scratch models unchanged.
+
+| procedure | `tone` % at `k = 1` | `tone` % at `k = 64` | `left` % at `k = 1` | `left` % at `k = 64` | `tone` at 90 %: seeds, lower median of the first `k` |
+|---|---:|---:|---:|---:|---:|
+| head, 150 steps | 38.7 (20.5 to 51.7) | 99.4 (97.3 to 100.0) | 90.7 (70.3 to 98.6) | 97.7 (94.4 to 99.4) | 20 of 20, 16 |
+| first convolution, 150 steps | 32.3 (0.2 to 52.8) | 59.8 (10.1 to 100.0) | 71.4 (50.3 to 94.0) | 69.8 (32.6 to 93.3) | 8 of 20, >64 |
+| readout, 150 steps | 36.7 (19.0 to 51.6) | 14.4 (0.0 to 36.6) | 95.1 (77.0 to 99.9) | 97.8 (93.4 to 99.7) | 0 of 20, >64 |
+| readout, converged | 41.9 (25.2 to 53.0) | 100.0 (99.7 to 100.0) | 96.0 (72.3 to 99.9) | 98.0 (95.4 to 99.9) | 20 of 20, 8 |
+| head with rehearsal | 7.1 (0.5 to 24.7) | 91.9 (80.2 to 98.3) | 96.8 (91.4 to 99.4) | 97.9 (94.2 to 99.4) | 13 of 20, 64 |
+
+- **The count by steps holds the optimiser's budget.** The readout carries `tone`: fitted
+  to convergence it re-grounds it in every seed with a lower median of 8 scenes, half the
+  head's 16, while the same readout moved by 150 steps at a rate of 0.001 reaches 90 % in no
+  seed and stands at 14.4 % at `k = 64`.
+- **The first convolution does not re-ground a shift at the input here.** Fine-tuned alone,
+  as surgical fine-tuning favours for input-level shifts (Lee et al. 2023), it brings `tone`
+  to 90 % in 8 of 20 seeds by 64 and costs `left`, 69.8 % at `k = 64`.
+- **Rehearsal holds `left` and slows `tone`.** With 64 source scenes in every batch `left`
+  stays at 96.8 % at `k = 1`, against 90.7 % without, and `tone` reaches 90 % in 13 of 20
+  seeds, lower median 64.
+- **No procedure re-grounds `round` within 64 scenes.**
+
 ## Which shift
 
 Three more studies change one property of the target at a time, the source's look
@@ -153,7 +182,7 @@ the source's support, which it is not.
 ## Open
 
 - A rule other than the conjunction, and a condition that varies the rule.
-- Whether the count belongs to the scenes or to the optimiser: every `k` gets 150 steps at
-  a rate of 0.001.
+- How the converged count depends on the pull toward the source readout, whose weight,
+  0.01, is not tuned.
 - Coverage with sets calibrated on target scenes.
 - How much of a seed's range is the draw of its `k` scenes.
