@@ -96,17 +96,28 @@ def reground(
     ``scope`` is what is fine-tuned: ``readout``, the last layer, 64 weights and a bias
     per concept; ``head``, both dense layers, which read the spatial feature map and hold
     131,331 weights; ``all``, every weight, the 14,336 convolution weights included.
+
+    The layers outside the scope stop requiring gradients for the steps, so the backward
+    pass does not run through them; the weights it updates come out the same.
     """
     if images.shape[0] == 0 or steps == 0:
         return
     layers = {"readout": model.head[-1], "head": model.head, "all": model}
-    params = layers[scope].parameters()
-    optimizer = torch.optim.Adam(params, lr=learning_rate)
+    trained = list(layers[scope].parameters())
+    inside = {id(p) for p in trained}
+    frozen = [p for p in model.parameters() if id(p) not in inside]
+    for p in frozen:
+        p.requires_grad_(False)  # noqa: FBT003 - torch's own positional flag
+    optimizer = torch.optim.Adam(trained, lr=learning_rate)
     model.train()
-    for _ in range(steps):
-        optimizer.zero_grad()
-        loss(model(images), concepts, mode).backward()
-        optimizer.step()
+    try:
+        for _ in range(steps):
+            optimizer.zero_grad()
+            loss(model(images), concepts, mode).backward()
+            optimizer.step()
+    finally:
+        for p in frozen:
+            p.requires_grad_(True)  # noqa: FBT003
 
 
 @torch.no_grad()

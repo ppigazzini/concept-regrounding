@@ -66,6 +66,30 @@ class TestModel:
         assert moved == (changed or {k.rsplit(".", 1)[0] for k in before})
 
 
+class TestFrozenLayers:
+    def _reference(self, model, images, concepts, scope):
+        """Fine-tune the way re-grounding did before freezing: every layer keeps its gradient."""
+        layers = {"readout": model.head[-1], "head": model.head, "all": model}
+        optimizer = torch.optim.Adam(layers[scope].parameters(), lr=1e-2)
+        for _ in range(5):
+            optimizer.zero_grad()
+            loss(model(images), concepts, "verdict").backward()
+            optimizer.step()
+
+    @pytest.mark.parametrize("scope", ["readout", "head", "all"])
+    def test_freezing_the_layers_outside_the_scope_changes_no_weight(self, scope):
+        frozen = ConceptNet(torch.Generator().manual_seed(0))
+        reference = ConceptNet(torch.Generator().manual_seed(0))
+        generator = torch.Generator().manual_seed(1)
+        images = torch.rand((8, 3, 32, 32), generator=generator)
+        concepts = torch.randint(0, 2, (8, 3), generator=generator)
+        reground(frozen, images, concepts, mode="verdict", steps=5, learning_rate=1e-2, scope=scope)
+        self._reference(reference, images, concepts, scope)
+        for a, b in zip(frozen.parameters(), reference.parameters(), strict=True):
+            assert torch.equal(a, b)
+        assert all(p.requires_grad for p in frozen.parameters())
+
+
 class TestEndToEnd:
     @pytest.mark.slow
     def test_one_job_yields_a_source_row_and_one_target_row_per_shot_count(self):
