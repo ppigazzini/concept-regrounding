@@ -25,6 +25,7 @@ uv run --no-sync ruff format --check        # formatting
 uv run --no-sync ty check                   # types
 uv run --no-sync pytest                     # the suite, with two tiny trainings
 uv run --no-sync python tools/check_markdown.py
+uv run --no-sync python tools/study.py --check docs/studies/regrounding.json
 ```
 
 All of them must be clean before a commit. A published study adds its

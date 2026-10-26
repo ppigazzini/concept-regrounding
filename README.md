@@ -50,8 +50,21 @@ differs.
 
 ## Results
 
-No study is published yet; [`docs/04-results.md`](docs/04-results.md) states what is open
-and what would close it.
+Over 5 seeds of 1000 test scenes each (lowest to highest seed in brackets), with concept
+supervision and the rule unchanged:
+
+| concept | source | target, `k = 0` | target, `k = 12` |
+|---|---:|---:|---:|
+| `round` | 99.8 % (100 to 100) | 55.4 % (50 to 60) | 58.1 % (54 to 62) |
+| `tone` | 100.0 % (100 to 100) | 0.2 % (0 to 1) | 79.0 % (65 to 97) |
+| `left` | 99.5 % (99 to 100) | 94.6 % (82 to 99) | 91.8 % (70 to 99) |
+
+`left` carries over, `tone` reads inverted and 12 scenes re-ground most of it, and `round`
+does not re-ground within 12. Trained from verdicts alone, the model gets 99.9 % of the
+source verdicts right through outputs that agree with the concepts on 64.0, 62.9 and
+63.6 % of the scenes, a reasoning shortcut. `uv run python tools/study.py --check
+docs/studies/regrounding.json` reruns the study;
+[`docs/04-results.md`](docs/04-results.md) has every count and what is open.
 
 ## Limits
 
