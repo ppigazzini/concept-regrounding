@@ -1,7 +1,7 @@
 [project]
 name = "concept-regrounding"
 version = "0.0.1"
-description = "Transfers a concept abstraction to a new visual domain with the rule held fixed, and measures how few labelled target examples re-grounding the concepts takes"
+description = "Transfers a concept abstraction to a new visual domain with the rule held fixed, and measures how many labelled target examples re-grounding the concepts takes"
 readme = "README.md"
 license = "Apache-2.0"
 license-files = ["LICENSE"]

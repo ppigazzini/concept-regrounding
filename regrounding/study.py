@@ -76,6 +76,32 @@ def check_rows(study: Study) -> list[str]:
     return out
 
 
+def first_shots(study: Study, mode: str, share: float) -> dict[str, list[int | None]]:
+    """Return, per concept and for the three together, each seed's smallest target ``k``.
+
+    A seed's entry is the smallest shot count at which the concept is right on at least
+    ``share`` of the target test scenes, or `None` when no shot count of the study reaches
+    it: the count is censored at the largest ``k``, and `None` says so rather than
+    standing in for a number. Seeds are in the order of the study's settings.
+    """
+    names = ("round", "tone", "left")
+    out: dict[str, list[int | None]] = {name: [] for name in (*names, "all three")}
+    for seed in study["settings"]["seeds"]:
+        rows = sorted(
+            (r for r in study["rows"] if r["mode"] == mode and r["seed"] == seed),
+            key=lambda r: r["shots"],
+        )
+        reached = [
+            (r["shots"], [c >= share * r["scenes"] for c in r["concept_correct"]])
+            for r in rows
+            if r["domain"] == "target"
+        ]
+        for i, name in enumerate(names):
+            out[name].append(next((k for k, ok in reached if ok[i]), None))
+        out["all three"].append(next((k for k, ok in reached if all(ok)), None))
+    return out
+
+
 def loads(text: str) -> Study:
     """Parse and check a study, reporting every failure rather than the first."""
     try:

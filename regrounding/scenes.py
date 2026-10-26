@@ -18,9 +18,8 @@ rule -- is the same in both styles; what changes is how a concept looks:
   nearer the other tone's, so a colour cue learned on the source reads inverted; A's
   radius is 3 to 7, and the image is blurred.
 
-A source tone spans 60 degrees of hue so that the features learn shape and position apart
-from any one colour: drawn in one blue and one red, the source teaches features that lose
-shape and position under the target's colours.
+A source tone spans 60 degrees of hue, so that no one colour goes with a shape or a
+position in the source scenes.
 
 What tells A from B is the same in both styles: A is coloured and B is grey, at a level
 drawn per scene, so brightness never tells them apart. The objects never touch, so

@@ -19,7 +19,8 @@ uv run python tools/study.py
 
 Trains one model per seed and supervision mode on source scenes, re-grounds a copy of it on
 the first `k` labelled target scenes for every `k` in the settings, and prints, per mode and
-`k`, the seed mean of each measure with the per-seed range in brackets. Every
+`k`, the seed mean of each measure with the per-seed range in brackets, then each seed's
+first `k` at 90 % and at 95 %. Every
 (seed, mode) job runs in its own process with one thread, one job per core; `--jobs`
 changes the count. `--seeds N` runs the first `N` seeds only.
 
@@ -53,8 +54,9 @@ row's scenes.
 uv run python tools/study.py --device cuda --seeds 1
 ```
 
-Deterministic on one GPU, with cuDNN determinism and without TF32, but not equal to the CPU
-counts: a study file records its device, and `--check` reruns on the device it records.
+cuDNN determinism on and TF32 off; whether two runs on one GPU give equal counts is
+untested, and they are not the CPU counts: a study file records its device, and `--check`
+reruns on the device it records.
 
 ## Test
 

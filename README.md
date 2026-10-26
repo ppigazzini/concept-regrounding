@@ -1,7 +1,7 @@
 # concept-regrounding
 
 Transfers a concept abstraction to a new visual domain with the rule held fixed, and
-measures how few labelled target examples re-grounding the concepts takes.
+measures how many labelled target examples re-grounding the concepts takes.
 
 A scene carries three concepts — `round`, `tone`, `left` — and a rule over them, their
 conjunction. A network learns the concepts on a source style; a target style draws the same
@@ -55,23 +55,27 @@ supervision and the rule unchanged:
 
 | concept | source | target, `k = 0` | target, `k = 12` |
 |---|---:|---:|---:|
-| `round` | 99.8 % (100 to 100) | 55.4 % (50 to 60) | 58.1 % (54 to 62) |
-| `tone` | 100.0 % (100 to 100) | 0.2 % (0 to 1) | 79.0 % (65 to 97) |
-| `left` | 99.5 % (99 to 100) | 94.6 % (82 to 99) | 91.8 % (70 to 99) |
+| `round` | 99.8 % (99.6 to 100.0) | 55.4 % (49.5 to 60.5) | 58.1 % (53.5 to 61.8) |
+| `tone` | 100.0 % (100.0 to 100.0) | 0.2 % (0.0 to 1.0) | 79.0 % (64.6 to 97.1) |
+| `left` | 99.5 % (99.4 to 99.7) | 94.6 % (82.3 to 99.2) | 91.8 % (70.5 to 99.3) |
 
-`left` carries over, `tone` reads inverted and 12 scenes re-ground most of it, and `round`
-does not re-ground within 12. Trained from verdicts alone, the model gets 99.9 % of the
-source verdicts right through outputs that agree with the concepts on 64.0, 62.9 and
-63.6 % of the scenes, a reasoning shortcut. `uv run python tools/study.py --check
+`left` carries over in 4 of 5 seeds; `tone` reads inverted and moves with `k`; `round`
+stays near chance. The count is censored at 12: no seed reaches 90 % on `round` or on the
+three concepts together within 12 target scenes, one seed of 5 does on `tone`, and the
+verdict accuracy at `k = 12`, 88.7 % (84.4 to 94.0), is level with the 87.5 % of a model
+that never says yes. Trained from verdicts alone, the model gets 99.9 % (99.6 to 100.0) of
+the source verdicts right through outputs that agree with the named concepts on 64.0 %,
+62.9 % and 63.6 % of the scenes, a reasoning shortcut. `uv run python tools/study.py --check
 docs/studies/regrounding.json` reruns the study;
 [`docs/04-results.md`](docs/04-results.md) has every count and what is open.
 
 ## Limits
 
-Synthetic 32-pixel scenes, three binary concepts and one rule, a conjunction. The conformal
+Synthetic 32-pixel scenes, three binary concepts and one rule, a conjunction, which no
+condition varies: under concept supervision the rule enters only the measures. The conformal
 sets are per concept and calibrated on source scenes: their guarantee needs exchangeability,
-which the shift to the target breaks, and the study measures the loss rather than
-correcting it. [`docs/01-method.md`](docs/01-method.md) states each choice.
+which the shift to the target breaks, and no correction applies to styles that share no
+scene. [`docs/01-method.md`](docs/01-method.md) states each choice.
 
 ## Documentation
 

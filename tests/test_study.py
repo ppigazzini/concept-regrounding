@@ -4,7 +4,7 @@ from typing import cast
 import pytest
 
 from regrounding.config import Experiment
-from regrounding.study import Row, Study, StudyError, differences, dumps, loads
+from regrounding.study import Row, Study, StudyError, differences, dumps, first_shots, loads
 
 
 def _row(**changes) -> Row:
@@ -83,3 +83,28 @@ class TestCheck:
             "rows[0].positives: 12 != 13",
             "rows[0].negatives: 88 != 87",
         ]
+
+
+class TestFirstShots:
+    def _study(self):
+        rows = [
+            _row(seed=seed, shots=k, domain=domain, concept_correct=correct, permuted_correct=280)
+            for seed, k, domain, correct in [
+                (0, 0, "source", [100, 100, 100]),
+                (0, 0, "target", [95, 10, 92]),
+                (0, 4, "target", [91, 91, 95]),
+                (1, 0, "target", [50, 50, 50]),
+                (1, 4, "target", [89, 90, 90]),
+            ]
+        ]
+        settings = Experiment(seeds=(0, 1), shots=(0, 4)).as_record()
+        return Study(format=1, device="cpu", settings=settings, rows=rows)
+
+    def test_a_seed_s_entry_is_its_smallest_target_shot_count_at_the_share(self):
+        first = first_shots(self._study(), "concepts", 0.9)
+        assert first["round"] == [0, None]
+        assert first["tone"] == [4, 4]
+        assert first["left"] == [0, 4]
+
+    def test_all_three_needs_every_concept_at_one_shot_count(self):
+        assert first_shots(self._study(), "concepts", 0.9)["all three"] == [4, None]

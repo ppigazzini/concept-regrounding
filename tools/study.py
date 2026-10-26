@@ -25,14 +25,17 @@ reproducible.pin()
 from regrounding.config import Experiment  # noqa: E402 - after the environment is pinned
 from regrounding.execution import resolve  # noqa: E402
 from regrounding.experiment import run  # noqa: E402
-from regrounding.study import Row, Study, differences, dumps, loads  # noqa: E402
+from regrounding.study import Row, Study, differences, dumps, first_shots, loads  # noqa: E402
 from regrounding.train import Mode  # noqa: E402
 
 MODES: tuple[Mode, ...] = ("concepts", "verdict")
 HEADER = (
-    "| test | shots | round % | tone % | left % | matched % | verdict % | FP at sens. % "
-    "| covered round % | covered tone % | covered left % | decided % | decided right % |"
+    "| test | shots | round % | tone % | left % | matched % | verdict % | always no % "
+    "| FP at sens. % | covered round % | covered tone % | covered left % | decided % "
+    "| decided right % |"
 )
+#: The shares of the target test scenes at which the first `k` of each seed is printed.
+SHARES = (0.9, 0.95)
 
 
 def job(task: tuple[Experiment, int, Mode, str]) -> list[Row]:
@@ -60,18 +63,43 @@ def measure(config: Experiment, device: str, jobs: int) -> Study:
 
 def _pct(values: list[float]) -> str:
     mean = sum(values) / len(values)
-    return f"{100 * mean:.1f} ({100 * min(values):.0f}-{100 * max(values):.0f})"
+    return f"{100 * mean:.1f} ({100 * min(values):.1f} to {100 * max(values):.1f})"
+
+
+def _first(study: Study, mode: str) -> list[str]:
+    """Render each seed's first `k` at every share in `SHARES`, censored past the last `k`."""
+    last = max(study["settings"]["shots"])
+    seeds = len(study["settings"]["seeds"])
+    head = ["| target concept |"]
+    rule = ["|---|"]
+    for share in SHARES:
+        head.append(f" first `k` at {100 * share:.0f} %, per seed | seeds reaching it |")
+        rule.append("---|---:|")
+    per_share = [first_shots(study, mode, share) for share in SHARES]
+    lines = ["".join(head), "".join(rule)]
+    for name in per_share[0]:
+        cells = []
+        for first in per_share:
+            ks = first[name]
+            cells.append(" ".join(f">{last}" if k is None else str(k) for k in ks))
+            cells.append(f"{sum(k is not None for k in ks)} of {seeds}")
+        lines.append(f"| {name} | " + " | ".join(cells) + " |")
+    return lines
 
 
 def table(study: Study) -> str:
-    """Render, per mode and shot count, the seed mean with the per-seed range."""
+    """Render, per mode and shot count, the seed mean with the per-seed range.
+
+    "always no" is the share of negatives, the verdict accuracy of a model that never says
+    yes, against which the verdict column reads.
+    """
     lines: list[str] = []
     for mode in MODES:
         lines += [
             f"## {mode}",
             "",
             HEADER,
-            "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
+            "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
         ]
         keys = sorted({(r["domain"] != "source", r["shots"]) for r in study["rows"]})
         for target, shots in keys:
@@ -86,6 +114,7 @@ def table(study: Study) -> str:
             cells += [
                 _pct([r["permuted_correct"] / (3 * r["scenes"]) for r in rows]),
                 _pct([r["verdict_correct"] / r["scenes"] for r in rows]),
+                _pct([r["negatives"] / r["scenes"] for r in rows]),
                 _pct([r["false_positives"] / max(1, r["negatives"]) for r in rows]),
             ]
             cells += [_pct([r["covered"][i] / r["scenes"] for r in rows]) for i in range(3)]
@@ -95,7 +124,7 @@ def table(study: Study) -> str:
             ]
             domain = "target" if target else "source"
             lines.append(f"| {domain} | {shots} | " + " | ".join(cells) + " |")
-        lines.append("")
+        lines += ["", *_first(study, mode), ""]
     return "\n".join(lines)
 
 

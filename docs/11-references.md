@@ -23,6 +23,9 @@
   [arXiv:2107.07511](https://arxiv.org/abs/2107.07511)
 - R. J. Tibshirani, R. Foygel Barber, E. J. Candès, A. Ramdas. Conformal prediction under
   covariate shift. NeurIPS 2019. [arXiv:1904.06019](https://arxiv.org/abs/1904.06019)
+- R. Foygel Barber, E. J. Candès, A. Ramdas, R. J. Tibshirani. Conformal prediction beyond
+  exchangeability. Annals of Statistics 51(2), 2023.
+  [arXiv:2202.13415](https://arxiv.org/abs/2202.13415)
 
 ## Few-shot transfer
 

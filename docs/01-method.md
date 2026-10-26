@@ -24,7 +24,8 @@ conjunction, is true in one scene out of eight. Two styles draw the same concept
 | target | yellow, 50 degrees | teal, 180 degrees | 3 to 7 | 3 by 3 mean |
 
 Every tone has saturation 0.8 and value 0.9. A source scene draws its hue from the tone's
-family, so the features learn shape and position apart from any one colour. Each target hue
+family, so that no one colour goes with a shape or a position in the source scenes. Each
+target hue
 lies 20 degrees outside the other tone's source family and 150 degrees from its own, so a
 cue of the form "warm means tone 1" reads inverted after the shift.
 
@@ -91,10 +92,17 @@ Every measure is a count on a test set of 1000 scenes, one row per model and tes
 | `covered` | per concept, scenes whose conformal set holds the true value |
 | `decided`, `decided_correct` | scenes where the three-valued verdict is decided, and decided right |
 
-`permuted_correct` above the sum of `concept_correct` says the outputs carry the concepts
-under the wrong names. `false_positives` compares models at one sensitivity instead of at
-one threshold, which a shift in calibration would move. `verdict_correct` is bounded below
-by the base rate: a model that never says yes gets the 7 negatives in 8 right, 87.5 %.
+`permuted_correct` exceeds the sum of `concept_correct` whenever some output agrees with
+another concept more than with its own, which a constant or an inverted output can do; the
+matching never flips an output, so the excess does not by itself show renamed concepts.
+`false_positives` compares models at one sensitivity instead of at one threshold, which a
+shift in calibration would move. A model that never says yes gets every negative right, 7
+scenes in 8 on average; `tools/study.py` prints that rate per row as "always no", and
+`verdict_correct` reads against it.
+
+`tools/study.py` also prints, per seed, the first `k` at which a concept is right on 90 %
+and on 95 % of the target test scenes, censored at the largest `k` of the study: the count
+the question asks for.
 
 ## Conformal sets
 
@@ -106,10 +114,14 @@ least 0.9 (Angelopoulos and Bates 2021).
 
 The calibration scenes are source scenes, for the source model and for every re-grounded
 one: `k` target scenes are too few to calibrate on, since at `k = 12` and `alpha` 0.1 the
-rank `ceil(13 × 0.9)` is the largest score. Target scenes are not exchangeable with source
-scenes, so the guarantee does not carry over, and `covered` on the target measures how much
-of it is lost. Weighting the calibration scores by the likelihood ratio between the styles
-(Tibshirani et al. 2019) is the known correction; it is not implemented.
+rank `ceil(13 × 0.9)` is the largest score. They carry concept labels, so under verdict
+supervision the sets use labels the training never saw. Target scenes are not exchangeable
+with source scenes, so the guarantee does not carry over, and `covered` on the target
+measures what is left of it. No correction applies: the styles share no scene, so the
+total-variation distance between them is 1 and the bound of Barber et al. 2023 is vacuous,
+and likelihood-ratio weighting (Tibshirani et al. 2019) needs the target inside the
+source's support. A set that holds both values counts as covering, and the nonconformity
+score can leave a set empty; neither is counted.
 
 ## Reproducibility
 
@@ -130,6 +142,16 @@ the last bit into different counts.
 
 - Synthetic scenes, three binary concepts, one rule. A rule other than a conjunction, or
   concepts that are not independent, is not measured.
+- Under concept supervision the rule enters only the measures: re-grounding trains each
+  concept on its own label, so a target with another rule would give the same concept
+  counts. No condition varies the rule or passes target supervision through it.
+- Every `k` gets the same 150 steps at a rate of 0.001, so the count holds the optimiser's
+  budget as well as the scenes.
+- The placement keeps a square's centre farther from B than a circle's, since a square
+  reaches 1.2 times its radius, so the distance between the objects carries part of
+  `round`; how much is not measured.
+- The source hue families and the scene layout were fixed after pilot runs scored on target
+  test scenes, seeds 0 to 4 among them.
 - The shift is one fixed pair of styles. How the counts depend on which property shifts —
   palette, size, blur — is not separated.
 - Re-grounding is plain fine-tuning. No method built for few-shot transfer is compared
