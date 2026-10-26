@@ -85,6 +85,25 @@ holds the rows of the main study's ceiling and from-scratch models unchanged.
   seeds, lower median 64.
 - **No procedure re-grounds `round` within 64 scenes.**
 
+## Draws
+
+One more study (`regrounding-draws.json`) re-grounds each seed's source model, under concept
+supervision, on 10 draws of the target pool instead of one, the first being the main study's;
+its brackets run over the 200 seed and draw pairs.
+
+| target concept | first `k` at 90 %, per seed, lowest..highest of its 10 draws | pairs reaching it | lower median |
+|---|---|---:|---:|
+| `tone` | 8..32 8..32 16..32 8..32 4..32 8..32 8..32 8..16 8..32 8..32 16..32 8..64 8..32 32..64 16..32 8..64 8..64 4..32 4..32 8..16 | 200 of 200 | 16 |
+| `left` | 0 in every draw of every seed | 200 of 200 | 0 |
+| `round` | >64 in every draw of every seed | 0 of 200 | >64 |
+
+- **The count holds over draws:** `tone` reaches 90 % in 200 of 200 pairs, lower median
+  16, as in the main study's single draw; at `k = 16` it is right on 92.1 % (52.6 to
+  100.0) of the scenes.
+- **The draw moves the count as much as the seed does.** Within a seed the first `k` spans
+  a factor of 4 or more, such as 8 to 32, in 14 of the 20 seeds, and the seeds' ranges
+  overlap: which scenes are drawn moves the count as much as how the model trained.
+
 ## Which shift
 
 Three more studies change one property of the target at a time, the source's look
@@ -200,4 +219,3 @@ source calibration scenes (`regrounding-conditional.json`), the target coverage 
   0.01, is not tuned.
 - Conformal sets calibrated on the `k` target scenes themselves, which re-grounding also
   trains on (Fisch et al. 2021 calibrate on few scenes with auxiliary tasks).
-- How much of a seed's range is the draw of its `k` scenes.

@@ -36,6 +36,7 @@ class Row(TypedDict, closed=True):
     shots: Count
     domain: Literal["source", "target"]
     trained: Literal["source", "regrounded", "ceiling", "scratch"]
+    draw: Count
     scenes: Count
     agreement: Matrix
     verdict_agreement: Triple
@@ -58,6 +59,7 @@ class DirectRow(TypedDict, closed=True):
     shots: Count
     domain: Literal["source", "target"]
     trained: Literal["source", "regrounded", "ceiling", "scratch"]
+    draw: Count
     scenes: Count
     verdict_correct: Count
     true_positives: Count
@@ -86,7 +88,7 @@ STUDY = Validator(Study)
 #: NumPy's generator and not from torch's floating point, so these compare exactly at any
 #: tolerance: a tolerance on them would accept a row of the wrong seed or shot count.
 IDENTITY = frozenset(
-    {"mode", "seed", "shots", "domain", "trained", "scenes", "positives", "negatives"}
+    {"mode", "seed", "shots", "domain", "trained", "draw", "scenes", "positives", "negatives"}
 )
 
 #: The 6 ways to assign the three outputs to the three concepts.
@@ -160,28 +162,32 @@ def check_rows(study: Study) -> list[str]:
 
 
 def first_shots(study: Study, mode: str, share: float) -> dict[str, list[int | None]]:
-    """Return, per concept and for the three together, each seed's smallest target ``k``.
+    """Return, per concept and for the three together, each draw's smallest target ``k``.
 
-    A seed's entry is the smallest shot count at which the concept is right on at least
-    ``share`` of the target test scenes, or `None` when no shot count of the study reaches
-    it: the count is censored at the largest ``k``, and `None` says so rather than
-    standing in for a number. Seeds are in the order of the study's settings.
+    An entry is the smallest shot count at which the concept is right on at least ``share``
+    of the target test scenes, or `None` when no shot count of the study reaches it: the
+    count is censored at the largest ``k``, and `None` says so rather than standing in for
+    a number. Entries run over the seeds of the settings and, within a seed, its draws.
     """
     names = ("round", "tone", "left")
     out: dict[str, list[int | None]] = {name: [] for name in (*names, "all three")}
     for seed in study["settings"]["seeds"]:
-        rows = sorted(
-            (r for r in study["rows"] if r["mode"] == mode and r["seed"] == seed),
-            key=lambda r: r["shots"],
-        )
-        reached = [
-            (r["shots"], [c >= share * r["scenes"] for c in identity(r)])
-            for r in rows
-            if r["trained"] == "regrounded"
-        ]
-        for i, name in enumerate(names):
-            out[name].append(next((k for k, ok in reached if ok[i]), None))
-        out["all three"].append(next((k for k, ok in reached if all(ok)), None))
+        for draw in range(study["settings"]["draws"]):
+            rows = sorted(
+                (
+                    r
+                    for r in study["rows"]
+                    if r["mode"] == mode
+                    and r["seed"] == seed
+                    and r["trained"] == "regrounded"
+                    and r["draw"] == draw
+                ),
+                key=lambda r: r["shots"],
+            )
+            reached = [(r["shots"], [c >= share * r["scenes"] for c in identity(r)]) for r in rows]
+            for i, name in enumerate(names):
+                out[name].append(next((k for k, ok in reached if ok[i]), None))
+            out["all three"].append(next((k for k, ok in reached if all(ok)), None))
     return out
 
 

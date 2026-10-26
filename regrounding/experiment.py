@@ -2,7 +2,7 @@
 
 Every scene for a seed is drawn from one generator, in a fixed order -- source training,
 source calibration, source test, target pool, target test, target training, target
-calibration -- so every
+calibration, and the pools of the further draws -- so every
 supervision mode sees the same scenes, and the ``k`` scenes for re-grounding are the first
 ``k`` of the target pool, drawn in complementary pairs and nested across ``k``.
 
@@ -42,6 +42,25 @@ from regrounding.train import Mode, Regrounding, fit, logits, reground
 type Run = Literal["concepts", "verdict", "mixed"]
 type Trained = Literal["source", "regrounded", "ceiling", "scratch"]
 
+
+@dataclass(frozen=True, slots=True)
+class Key:
+    """Which model a row measures: its seed, shot count, how it was trained, and its draw.
+
+    The source model is measured on source scenes and every other model on target scenes.
+    """
+
+    seed: int
+    shots: int
+    trained: Trained
+    draw: int = 0
+
+    @property
+    def domain(self) -> Literal["source", "target"]:
+        """Return the style of the test scenes: the source model's own, the target's else."""
+        return "source" if self.trained == "source" else "target"
+
+
 #: Per mode, the supervision of the source training and of every target fine-tuning.
 SUPERVISION: dict[str, tuple[Mode, Mode]] = {
     "concepts": ("concepts", "concepts"),
@@ -79,14 +98,9 @@ def measure(
     sensitivity: float,
     *,
     mode: Run,
-    seed: int,
-    shots: int,
-    trained: Trained,
+    key: Key,
 ) -> Row:
-    """Return one row of counts for one model's concept logits on one test set.
-
-    The source model is measured on source scenes and every other model on target scenes.
-    """
+    """Return one row of counts for one model's concept logits on one test set."""
     probs = torch.sigmoid(scores)
     bits = probs >= _HALF
     truth = concepts.bool()
@@ -96,10 +110,11 @@ def measure(
     decided, value = rule.three_valued(has0, has1)
     return Row(
         mode=mode,
-        seed=seed,
-        shots=shots,
-        domain="source" if trained == "source" else "target",
-        trained=trained,
+        seed=key.seed,
+        shots=key.shots,
+        domain=key.domain,
+        trained=key.trained,
+        draw=key.draw,
         scenes=int(concepts.shape[0]),
         agreement=[[int((bits[:, i] == truth[:, j]).sum()) for j in range(3)] for i in range(3)],
         verdict_agreement=[int((bits[:, i] == verdict_truth).sum()) for i in range(3)],
@@ -117,23 +132,18 @@ def measure(
 
 
 def measure_direct(
-    scores: torch.Tensor,
-    concepts: torch.Tensor,
-    sensitivity: float,
-    *,
-    seed: int,
-    shots: int,
-    trained: Trained,
+    scores: torch.Tensor, concepts: torch.Tensor, sensitivity: float, *, key: Key
 ) -> DirectRow:
     """Return one row of verdict counts for a direct network's logits on one test set."""
     score = scores[:, 0]
     predicted = torch.sigmoid(score) >= _HALF
     truth = rule.verdict(concepts.bool())
     return DirectRow(
-        seed=seed,
-        shots=shots,
-        domain="source" if trained == "source" else "target",
-        trained=trained,
+        seed=key.seed,
+        shots=key.shots,
+        domain=key.domain,
+        trained=key.trained,
+        draw=key.draw,
         scenes=int(concepts.shape[0]),
         verdict_correct=int((predicted == truth).sum()),
         true_positives=int((predicted & truth).sum()),
@@ -152,6 +162,8 @@ class _Scenes:
     target_test: tuple[torch.Tensor, torch.Tensor]
     target_train: tuple[torch.Tensor, torch.Tensor]
     target_calibration: tuple[torch.Tensor, torch.Tensor]
+    #: The pools of draws 1 onward; draw 0 is ``pool``.
+    pools: tuple[tuple[torch.Tensor, torch.Tensor], ...]
 
 
 def _draw(config: Experiment, seed: int, device: torch.device) -> _Scenes:
@@ -170,15 +182,26 @@ def _draw(config: Experiment, seed: int, device: torch.device) -> _Scenes:
     target_test = draw(target, config.test)
     target_train = draw(target, config.target_train)
     target_calibration = draw(target, config.target_calibration)
+    pools = tuple(
+        _tensors(scenes.paired(rng, target, config.pool, size), device)
+        for _ in range(config.draws - 1)
+    )
     return _Scenes(
-        source, calibration, source_test, pool, target_test, target_train, target_calibration
+        source,
+        calibration,
+        source_test,
+        pool,
+        target_test,
+        target_train,
+        target_calibration,
+        pools,
     )
 
 
 def _models(
     config: Experiment, seed: int, mode: str, outputs: int, data: _Scenes, device: torch.device
-) -> Iterator[tuple[ConceptNet, int, Trained]]:
-    """Yield every model of one seed and mode with its shot count and how it was trained.
+) -> Iterator[tuple[ConceptNet, Key]]:
+    """Yield every model of one seed and mode with the key of its row.
 
     One torch generator, seeded by the seed, draws every initial weight and every batch
     order in a fixed sequence: the source model, then the ceiling, then the model from
@@ -210,18 +233,19 @@ def _models(
     )
     rehearsed = data.source[0][: config.rehearsal], data.source[1][: config.rehearsal]
     model = train(ConceptNet(generator, outputs, size).to(device), data.source, source_mode)
-    yield model, 0, "source"
-    for k in config.shots:
-        adapted = copy.deepcopy(model)
-        if k:
-            images = torch.cat([data.pool[0][:k], rehearsed[0]])
-            concepts = torch.cat([data.pool[1][:k], rehearsed[1]])
-            reground(adapted, images, concepts, mode=target_mode, how=how)
-        yield adapted, k, "regrounded"
+    yield model, Key(seed, 0, "source")
+    for draw, pool in enumerate((data.pool, *data.pools)):
+        for k in config.shots:
+            adapted = copy.deepcopy(model)
+            if k:
+                images = torch.cat([pool[0][:k], rehearsed[0]])
+                concepts = torch.cat([pool[1][:k], rehearsed[1]])
+                reground(adapted, images, concepts, mode=target_mode, how=how)
+            yield adapted, Key(seed, k, "regrounded", draw)
     many = config.target_train
-    yield train(copy.deepcopy(model), data.target_train, target_mode), many, "ceiling"
+    yield train(copy.deepcopy(model), data.target_train, target_mode), Key(seed, many, "ceiling")
     scratch = ConceptNet(generator, outputs, size).to(device)
-    yield train(scratch, data.target_train, target_mode), many, "scratch"
+    yield train(scratch, data.target_train, target_mode), Key(seed, many, "scratch")
 
 
 def run(config: Experiment, seed: int, mode: Run, device: torch.device) -> list[Row]:
@@ -230,9 +254,9 @@ def run(config: Experiment, seed: int, mode: Run, device: torch.device) -> list[
     seed_everything(seed)
     data = _draw(config, seed, device)
     rows: list[Row] = []
-    for model, k, trained in _models(config, seed, mode, 3, data, device):
-        test = data.source_test if trained == "source" else data.target_test
-        on_target = trained != "source" and config.calibrate_on == "target"
+    for model, key in _models(config, seed, mode, 3, data, device):
+        test = data.source_test if key.domain == "source" else data.target_test
+        on_target = key.domain == "target" and config.calibrate_on == "target"
         images, labels = data.target_calibration if on_target else data.calibration
         threshold = conformal.thresholds(
             torch.sigmoid(logits(model, images)),
@@ -248,9 +272,7 @@ def run(config: Experiment, seed: int, mode: Run, device: torch.device) -> list[
                 threshold,
                 config.sensitivity,
                 mode=mode,
-                seed=seed,
-                shots=k,
-                trained=trained,
+                key=key,
             )
         )
     return rows
@@ -262,10 +284,7 @@ def run_direct(config: Experiment, seed: int, device: torch.device) -> list[Dire
     seed_everything(seed)
     data = _draw(config, seed, device)
     rows: list[DirectRow] = []
-    for model, k, trained in _models(config, seed, "direct", 1, data, device):
-        test = data.source_test if trained == "source" else data.target_test
-        scores = logits(model, test[0])
-        rows.append(
-            measure_direct(scores, test[1], config.sensitivity, seed=seed, shots=k, trained=trained)
-        )
+    for model, key in _models(config, seed, "direct", 1, data, device):
+        test = data.source_test if key.domain == "source" else data.target_test
+        rows.append(measure_direct(logits(model, test[0]), test[1], config.sensitivity, key=key))
     return rows

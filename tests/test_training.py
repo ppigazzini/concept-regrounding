@@ -195,6 +195,13 @@ class TestEndToEnd:
             }
 
     @pytest.mark.slow
+    def test_further_draws_add_rows_and_leave_the_first_draw_s_unchanged(self):
+        one = run(TINY, 0, "concepts", torch.device("cpu"))
+        two = run(TINY.updated(draws=2), 0, "concepts", torch.device("cpu"))
+        assert [r for r in two if r["draw"] == 0] == one
+        assert [(r["shots"], r["draw"]) for r in two if r["draw"] == 1] == [(0, 1), (4, 1)]
+
+    @pytest.mark.slow
     def test_a_job_is_reproducible_on_the_same_machine(self):
         first = run(TINY, 0, "verdict", torch.device("cpu"))
         again = run(TINY, 0, "verdict", torch.device("cpu"))

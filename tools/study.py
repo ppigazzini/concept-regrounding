@@ -126,24 +126,43 @@ def _median(ks: list[int | None], last: int) -> str:
 
 
 def _first(study: Study, mode: str) -> list[str]:
-    """Render each seed's first `k` at every share in `SHARES`, censored past the last `k`."""
+    """Render the first `k` at every share in `SHARES`, censored past the last `k`.
+
+    With one draw per seed the entries are the seeds'; with more, an entry is the lowest
+    to highest first `k` over a seed's draws, and the counts run over every draw.
+    """
     last = max(study["settings"]["shots"])
     seeds = len(study["settings"]["seeds"])
+    draws = study["settings"]["draws"]
+    entries = "per seed" if draws == 1 else f"per seed, lowest..highest of {draws} draws"
     head = ["| target concept |"]
     rule = ["|---|"]
     for share in SHARES:
-        head.append(
-            f" first `k` at {100 * share:.0f} %, per seed | seeds reaching it | lower median |"
-        )
+        head.append(f" first `k` at {100 * share:.0f} %, {entries} | reaching it | lower median |")
         rule.append("---|---:|---:|")
     per_share = [first_shots(study, mode, share) for share in SHARES]
     lines = ["".join(head), "".join(rule)]
+
+    def shown(k: int | None) -> str:
+        return f">{last}" if k is None else str(k)
+
     for name in per_share[0]:
         cells = []
         for first in per_share:
             ks = first[name]
-            cells.append(" ".join(f">{last}" if k is None else str(k) for k in ks))
-            cells.append(f"{sum(k is not None for k in ks)} of {seeds}")
+            by_seed = [ks[i : i + draws] for i in range(0, len(ks), draws)]
+            if draws == 1:
+                cells.append(" ".join(shown(k) for (k,) in by_seed))
+            else:
+                ordered = [
+                    sorted(group, key=lambda k: math.inf if k is None else k) for group in by_seed
+                ]
+                spans = (
+                    shown(g[0]) if g[0] == g[-1] else f"{shown(g[0])}..{shown(g[-1])}"
+                    for g in ordered
+                )
+                cells.append(" ".join(spans))
+            cells.append(f"{sum(k is not None for k in ks)} of {seeds * draws}")
             cells.append(_median(ks, last))
         lines.append(f"| {name} | " + " | ".join(cells) + " |")
     return lines
@@ -224,6 +243,7 @@ def main(argv: list[str]) -> int:
     parser.add_argument("--rehearsal", type=_positive, help="source scenes in every batch")
     parser.add_argument("--calibrate-on", choices=["source", "target"])
     parser.add_argument("--conditional", action="store_true", help="one threshold per value")
+    parser.add_argument("--draws", type=_positive, help="draws of the target pool per seed")
     parser.add_argument(
         "--native-kernels",
         action="store_true",
@@ -240,6 +260,7 @@ def main(argv: list[str]) -> int:
         "rehearsal": args.rehearsal,
         "calibrate_on": args.calibrate_on,
         "conditional": args.conditional or None,
+        "draws": args.draws,
     }
     chosen = {
         key: value for key, value in chosen.items() if value is not None

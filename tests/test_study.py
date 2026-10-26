@@ -28,6 +28,7 @@ def _row(**changes) -> Row:
         "shots": 0,
         "domain": "target",
         "trained": "regrounded",
+        "draw": 0,
         "scenes": 100,
         "agreement": [[90, 50, 50], [50, 80, 50], [50, 50, 95]],
         "verdict_agreement": [60, 60, 60],
@@ -51,6 +52,7 @@ def _direct(**changes) -> DirectRow:
         "shots": 0,
         "domain": "target",
         "trained": "regrounded",
+        "draw": 0,
         "scenes": 100,
         "verdict_correct": 85,
         "true_positives": 4,
@@ -218,3 +220,18 @@ class TestFirstShots:
 
     def test_all_three_needs_every_concept_at_one_shot_count(self):
         assert first_shots(self._study(), "concepts", 0.9)["all three"] == [4, None]
+
+
+class TestDraws:
+    def test_a_draw_s_entry_follows_its_seed_s_entry(self):
+        rows = [
+            _row(seed=0, shots=k, draw=d, agreement=_diagonal(50, correct, 50))
+            for d, k, correct in [(0, 0, 10), (0, 4, 95), (1, 0, 10), (1, 4, 20)]
+        ]
+        settings = Experiment(seeds=(0,), shots=(0, 4), draws=2).as_record()
+        study = Study(format=2, device="cpu", settings=settings, rows=rows, direct=[])
+        assert first_shots(study, "concepts", 0.9)["tone"] == [4, None]
+
+    def test_a_tolerance_never_accepts_a_row_of_another_draw(self):
+        moved = _study(_row(draw=1))
+        assert differences(_study(), moved, tolerance=0.05) == ["rows[0].draw: 0 != 1"]

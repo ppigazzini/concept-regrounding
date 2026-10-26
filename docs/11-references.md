@@ -45,6 +45,8 @@
 
 ## Few-shot transfer
 
+- X. Bouthillier et al. Accounting for variance in machine learning benchmarks. MLSys 2021.
+  [arXiv:2103.03098](https://arxiv.org/abs/2103.03098)
 - W.-Y. Chen, Y.-C. Liu, Z. Kira, Y.-C. F. Wang, J.-B. Huang. A closer look at few-shot
   classification. ICLR 2019. [arXiv:1904.04232](https://arxiv.org/abs/1904.04232)
 

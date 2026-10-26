@@ -1,6 +1,6 @@
 import torch
 
-from regrounding.experiment import _false_positives_at, measure, measure_direct
+from regrounding.experiment import Key, _false_positives_at, measure, measure_direct
 
 
 def _measure(logits, concepts, threshold=0.5):
@@ -10,9 +10,7 @@ def _measure(logits, concepts, threshold=0.5):
         torch.full((3,), threshold),
         0.9,
         mode="concepts",
-        seed=0,
-        shots=0,
-        trained="regrounded",
+        key=Key(0, 0, "regrounded"),
     )
 
 
@@ -71,10 +69,9 @@ class TestMeasureDirect:
             torch.tensor([[2.0], [-3.0], [3.0], [-1.0]]),
             torch.tensor(CONCEPTS),
             0.9,
-            seed=0,
-            shots=4,
-            trained="regrounded",
+            key=Key(0, 4, "regrounded", draw=2),
         )
+        assert (row["shots"], row["draw"], row["domain"]) == (4, 2, "target")
         assert (row["positives"], row["negatives"]) == (1, 3)
         assert row["true_positives"] == 1
         assert row["verdict_correct"] == 3

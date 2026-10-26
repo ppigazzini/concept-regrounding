@@ -52,6 +52,9 @@ class Experiment:
         "direct",
     )
     shots: tuple[Shots, ...] = (0, 1, 2, 4, 8, 16, 32, 64)
+    #: Independent draws of the target pool per seed, the first being the one every study
+    #: has; the others come after every other scene of the seed.
+    draws: Annotated[int, NOT_BOOL, Ge(1), Le(100)] = 1
     #: Seeds no pilot run used: the scene design was fixed on runs scored on the target
     #: test scenes of seeds 0 to 4 and 100 to 104.
     seeds: tuple[Seed, ...] = tuple(range(10, 30))

@@ -202,5 +202,7 @@ place of the portable ones, 300 of 704 fields differ, the largest by 804 of 1000
   meta-learning, is compared (Chen et al. 2019 survey the baselines), and no method that
   adapts normalisation statistics applies, since the network has no normalisation layer.
 - The conformal sets are calibrated on source scenes and are not corrected for the shift.
-- The `k` scenes are one nested draw per seed. The per-seed range holds which scenes were
-  drawn as well as how the model trained, and the two are not separated.
+- A study's `k` scenes are one nested draw per seed, so its per-seed range holds which
+  scenes were drawn as well as how the model trained. `draws` re-grounds the same source
+  model on further draws of the pool, drawn after every other scene of the seed, which
+  separates the two (Bouthillier et al. 2021); one study runs 10 draws.
