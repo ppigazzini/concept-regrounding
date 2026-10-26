@@ -4,7 +4,19 @@ from typing import cast
 import pytest
 
 from regrounding.config import Experiment
-from regrounding.study import Row, Study, StudyError, differences, dumps, first_shots, loads
+from regrounding.study import (
+    Row,
+    Study,
+    StudyError,
+    differences,
+    dumps,
+    first_shots,
+    identity,
+    loads,
+    matched,
+    restrict,
+    signed,
+)
 
 
 def _row(**changes) -> Row:
@@ -14,13 +26,16 @@ def _row(**changes) -> Row:
         "shots": 0,
         "domain": "target",
         "scenes": 100,
-        "concept_correct": [90, 80, 95],
-        "permuted_correct": 265,
+        "agreement": [[90, 50, 50], [50, 80, 50], [50, 50, 95]],
+        "verdict_agreement": [60, 60, 60],
         "verdict_correct": 90,
+        "true_positives": 8,
         "positives": 12,
         "negatives": 88,
         "false_positives": 5,
         "covered": [91, 92, 93],
+        "empty": [2, 3, 1],
+        "full": [10, 12, 9],
         "decided": 70,
         "decided_correct": 66,
     }
@@ -29,7 +44,7 @@ def _row(**changes) -> Row:
 
 def _study(*rows: Row) -> Study:
     return Study(
-        format=1, device="cpu", settings=Experiment().as_record(), rows=list(rows) or [_row()]
+        format=2, device="cpu", settings=Experiment().as_record(), rows=list(rows) or [_row()]
     )
 
 
@@ -42,6 +57,7 @@ class TestStudyFile:
         [
             (lambda r: r.__setitem__("verdict_correct", True), "rows[0].verdict_correct"),
             (lambda r: r.__setitem__("covered", [1, 2]), "rows[0].covered"),
+            (lambda r: r.__setitem__("agreement", [[1, 2, 3]]), "rows[0].agreement"),
             (lambda r: r.__setitem__("extra", 1), "rows[0].extra"),
             (lambda r: r.__setitem__("domain", "elsewhere"), "rows[0].domain"),
         ],
@@ -56,9 +72,12 @@ class TestStudyFile:
         ("changes", "named"),
         [
             ({"positives": 13}, "positives"),
-            ({"permuted_correct": 200}, "identity"),
-            ({"permuted_correct": 301, "concept_correct": [100, 100, 100]}, "exceeds"),
+            ({"agreement": [[101, 0, 0], [0, 0, 0], [0, 0, 0]]}, "exceeds"),
             ({"decided_correct": 71}, "part exceeds"),
+            ({"true_positives": 13}, "part exceeds"),
+            ({"verdict_correct": 95, "true_positives": 6}, "part exceeds"),
+            ({"full": [92, 12, 9]}, "both empty and covering"),
+            ({"empty": [10, 3, 1]}, "both empty and covering"),
         ],
     )
     def test_counts_that_contradict_each_other_are_refused(self, changes, named):
@@ -66,11 +85,31 @@ class TestStudyFile:
             dumps(_study(_row(**changes)))
 
 
+class TestMatchings:
+    # Output 0 is constant (right on the 50 round scenes of 100), output 1 is tone
+    # inverted, output 2 is left: the identity scores 50 + 0 + 100.
+    ROW = _row(agreement=[[50, 50, 50], [50, 0, 50], [50, 50, 100]])
+
+    def test_the_identity_reads_the_diagonal(self):
+        assert identity(self.ROW) == [50, 0, 100]
+
+    def test_the_best_permutation_can_gain_without_renamed_concepts(self):
+        assert matched(self.ROW) == 200
+
+    def test_a_signed_matching_credits_the_inverted_output(self):
+        assert signed(self.ROW) == 250
+
+
 class TestCheck:
     def test_a_tolerance_accepts_a_small_move_and_names_a_large_one(self):
         moved = _study(_row(verdict_correct=91))
         assert differences(_study(), moved, tolerance=0.02) == []
         assert differences(_study(), moved) == ["rows[0].verdict_correct: 90 != 91"]
+
+    def test_a_tolerance_applies_to_every_entry_of_a_matrix(self):
+        moved = _study(_row(agreement=[[90, 50, 50], [50, 80, 50], [50, 50, 99]]))
+        assert differences(_study(), moved, tolerance=0.05) == []
+        assert len(differences(_study(), moved, tolerance=0.03)) == 1
 
     @pytest.mark.parametrize("key", ["seed", "shots"])
     def test_a_tolerance_never_accepts_a_row_of_another_seed_or_shot_count(self, key):
@@ -84,11 +123,27 @@ class TestCheck:
             "rows[0].negatives: 88 != 87",
         ]
 
+    def test_a_slice_keeps_the_first_seeds_and_their_rows(self):
+        study = Study(
+            format=2,
+            device="cpu",
+            settings=Experiment(seeds=(3, 7, 9)).as_record(),
+            rows=[_row(seed=3), _row(seed=7), _row(seed=9)],
+        )
+        sliced = restrict(study, 2)
+        assert sliced["settings"]["seeds"] == [3, 7]
+        assert [r["seed"] for r in sliced["rows"]] == [3, 7]
+        assert sliced["settings"] | {"seeds": [3, 7, 9]} == study["settings"]
+
+
+def _diagonal(round_, tone, left):
+    return [[round_, 50, 50], [50, tone, 50], [50, 50, left]]
+
 
 class TestFirstShots:
     def _study(self):
         rows = [
-            _row(seed=seed, shots=k, domain=domain, concept_correct=correct, permuted_correct=280)
+            _row(seed=seed, shots=k, domain=domain, agreement=_diagonal(*correct))
             for seed, k, domain, correct in [
                 (0, 0, "source", [100, 100, 100]),
                 (0, 0, "target", [95, 10, 92]),
@@ -98,7 +153,7 @@ class TestFirstShots:
             ]
         ]
         settings = Experiment(seeds=(0, 1), shots=(0, 4)).as_record()
-        return Study(format=1, device="cpu", settings=settings, rows=rows)
+        return Study(format=2, device="cpu", settings=settings, rows=rows)
 
     def test_a_seed_s_entry_is_its_smallest_target_shot_count_at_the_share(self):
         first = first_shots(self._study(), "concepts", 0.9)

@@ -64,8 +64,9 @@ stays near chance. The count is censored at 12: no seed reaches 90 % on `round` 
 three concepts together within 12 target scenes, one seed of 5 does on `tone`, and the
 verdict accuracy at `k = 12`, 88.7 % (84.4 to 94.0), is level with the 87.5 % of a model
 that never says yes. Trained from verdicts alone, the model gets 99.9 % (99.6 to 100.0) of
-the source verdicts right through outputs that agree with the named concepts on 64.0 %,
-62.9 % and 63.6 % of the scenes, a reasoning shortcut. `uv run python tools/study.py --check
+the source verdicts right through outputs that agree with the named concepts on 63.9 %,
+62.7 % and 63.7 % of the scenes and each equal the verdict itself on 98.2 % or more, a
+reasoning shortcut. `uv run python tools/study.py --check
 docs/studies/regrounding.json` reruns the study;
 [`docs/04-results.md`](docs/04-results.md) has every count and what is open.
 

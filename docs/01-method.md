@@ -40,9 +40,10 @@ properties on the drawn images.
 ## Rule
 
 The verdict is the conjunction of the three concepts, in `regrounding/rule.py`. It is
-never trained and never re-grounded. On concept probabilities it scores a scene by their
-product, the probability of the conjunction for independent concepts; on concept prediction
-sets it is three-valued: true when every set is exactly {1}, false when some set is exactly
+never trained and never re-grounded. On concept logits it scores a scene by the log of the
+product of the concept probabilities, the log-probability of the conjunction for independent
+concepts, as the sum of their log-sigmoids, which keeps apart scenes whose product
+underflows to zero; on concept prediction sets it is three-valued: true when every set is exactly {1}, false when some set is exactly
 {0}, undecided otherwise.
 
 ## Model
@@ -54,8 +55,7 @@ relation between two positions, which a global average would discard.
 ## Supervision
 
 - **concepts**: each output is trained, with binary cross-entropy, as the concept it names.
-- **verdict**: only the conjunction is trained, through the product of the three
-  probabilities. Nothing ties an output to the concept it is named after, and a model can
+- **verdict**: only the conjunction is trained, through the rule's log-score in float64. Nothing ties an output to the concept it is named after, and a model can
   get the verdict right through concepts that mean something else: a reasoning shortcut
   (Marconato et al. 2023). The conjunction is symmetric in its three inputs, so the
   outputs are also scored under the best matching of outputs to concepts.
@@ -85,16 +85,19 @@ Every measure is a count on a test set of 1000 scenes, one row per model and tes
 
 | count | what it counts |
 |---|---|
-| `concept_correct` | per concept, scenes where output `i` thresholded at one half equals concept `i` |
-| `permuted_correct` | the same summed over the three concepts, under the best of the 6 matchings |
-| `verdict_correct` | scenes where the rule on the thresholded outputs gives the true verdict |
-| `false_positives` | negatives scored at or above the highest product threshold that reaches 90 % of positives |
-| `covered` | per concept, scenes whose conformal set holds the true value |
+| `agreement` | 3 by 3: scenes where output `i` thresholded at one half equals concept `j` |
+| `verdict_agreement` | per output, scenes where it equals the verdict |
+| `verdict_correct`, `true_positives` | scenes where the rule on the thresholded outputs gives the true verdict, and how many of them are positive |
+| `false_positives` | negatives whose log-score is at or above the highest threshold that reaches 90 % of positives |
+| `covered`, `empty`, `full` | per concept, scenes whose conformal set holds the true value, holds neither value, holds both |
 | `decided`, `decided_correct` | scenes where the three-valued verdict is decided, and decided right |
 
-`permuted_correct` exceeds the sum of `concept_correct` whenever some output agrees with
-another concept more than with its own, which a constant or an inverted output can do; the
-matching never flips an output, so the excess does not by itself show renamed concepts.
+`tools/study.py` reads three matchings off `agreement`: the identity, its diagonal; the
+best of the 6 permutations of outputs to concepts; and the best of the 48 that may also
+flip an output, which credits an output that reads its concept inverted. The best
+permutation exceeds the identity whenever some output agrees with another concept more than
+with its own, which a constant output can do, so the excess does not by itself show
+renamed concepts.
 `false_positives` compares models at one sensitivity instead of at one threshold, which a
 shift in calibration would move. A model that never says yes gets every negative right, 7
 scenes in 8 on average; `tools/study.py` prints that rate per row as "always no", and
@@ -110,7 +113,8 @@ Split conformal prediction, per concept: the nonconformity of a label is one min
 probability the model gives it, and the threshold is the `ceil((n + 1)(1 - alpha))`-th
 smallest nonconformity over `n` calibration scenes, with `alpha` 0.1. On a scene
 exchangeable with the calibration scenes the set holds the true value with probability at
-least 0.9 (Angelopoulos and Bates 2021).
+least 0.9 (Angelopoulos and Bates 2021). When the rank passes `n`, fewer than `1 / alpha - 1`
+calibration scenes, the threshold is infinite and every set holds both values.
 
 The calibration scenes are source scenes, for the source model and for every re-grounded
 one: `k` target scenes are too few to calibrate on, since at `k = 12` and `alpha` 0.1 the
@@ -121,7 +125,7 @@ measures what is left of it. No correction applies: the styles share no scene, s
 total-variation distance between them is 1 and the bound of Barber et al. 2023 is vacuous,
 and likelihood-ratio weighting (Tibshirani et al. 2019) needs the target inside the
 source's support. A set that holds both values counts as covering, and the nonconformity
-score can leave a set empty; neither is counted.
+score can leave a set empty; `full` and `empty` count both.
 
 ## Reproducibility
 

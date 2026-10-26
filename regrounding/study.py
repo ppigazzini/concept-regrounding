@@ -5,8 +5,14 @@ reruns the experiment and compares. Its shape is declared once, here, as closed 
 checked by valgebra: a key the format does not name is refused, every count is a
 non-negative integer that is not a ``bool``, and every failure is reported at once with
 its path. The rules between fields of a row are plain Python in `check_rows`.
+
+A row holds counts and nothing derived from them. How well the outputs carry the concepts
+is the 3 by 3 count of scenes where output ``i`` equals concept ``j``; the identity, the
+best permutation and the best signed permutation are read off it by `identity`, `matched`
+and `signed` where they are printed.
 """
 
+import itertools
 import json
 from typing import Annotated, Any, Literal
 
@@ -17,6 +23,7 @@ from regrounding._valgebra import NOT_BOOL, ValidationError, Validator
 
 type Count = Annotated[int, NOT_BOOL, Ge(0)]
 type Triple = Annotated[list[Count], Len(3, 3)]
+type Matrix = Annotated[list[Triple], Len(3, 3)]
 
 
 class Row(TypedDict, closed=True):
@@ -27,13 +34,16 @@ class Row(TypedDict, closed=True):
     shots: Count
     domain: Literal["source", "target"]
     scenes: Count
-    concept_correct: Triple
-    permuted_correct: Count
+    agreement: Matrix
+    verdict_agreement: Triple
     verdict_correct: Count
+    true_positives: Count
     positives: Count
     negatives: Count
     false_positives: Count
     covered: Triple
+    empty: Triple
+    full: Triple
     decided: Count
     decided_correct: Count
 
@@ -41,7 +51,7 @@ class Row(TypedDict, closed=True):
 class Study(TypedDict, closed=True):
     """The settings and every row of one run."""
 
-    format: Literal[1]
+    format: Literal[2]
     device: Literal["cpu", "cuda"]
     settings: dict[str, Any]
     rows: list[Row]
@@ -58,21 +68,60 @@ STUDY = Validator(Study)
 #: tolerance: a tolerance on them would accept a row of the wrong seed or shot count.
 IDENTITY = frozenset({"mode", "seed", "shots", "domain", "scenes", "positives", "negatives"})
 
+#: The 6 ways to assign the three outputs to the three concepts.
+_PERMUTATIONS = tuple(itertools.permutations(range(3)))
+
+
+def identity(row: Row) -> list[int]:
+    """Return, per concept, the scenes where the output named after it equals it."""
+    return [row["agreement"][i][i] for i in range(3)]
+
+
+def matched(row: Row) -> int:
+    """Return the scenes right summed over the concepts, under the best of the 6 matchings."""
+    a = row["agreement"]
+    return max(sum(a[i][p[i]] for i in range(3)) for p in _PERMUTATIONS)
+
+
+def signed(row: Row) -> int:
+    """Return the same under the best of the 48 matchings that may also flip an output.
+
+    A flipped output is right where it is wrong, so it scores the scenes less its
+    agreement; an inverted concept, as a colour cue reads after the palette shift, is
+    credited here and not by `matched`.
+    """
+    a, n = row["agreement"], row["scenes"]
+    return max(sum(max(a[i][p[i]], n - a[i][p[i]]) for i in range(3)) for p in _PERMUTATIONS)
+
 
 def check_rows(study: Study) -> list[str]:
     """Return every rule between two fields that a row breaks."""
     out: list[str] = []
     for i, r in enumerate(study["rows"]):
         n = r["scenes"]
-        bounded = [*r["concept_correct"], *r["covered"], r["verdict_correct"], r["decided"]]
-        if any(c > n for c in bounded) or r["permuted_correct"] > 3 * n:
+        bounded = [
+            *(c for line in r["agreement"] for c in line),
+            *r["verdict_agreement"],
+            *r["covered"],
+            r["verdict_correct"],
+            r["decided"],
+        ]
+        if any(c > n for c in bounded):
             out.append(f"rows[{i}]: a count exceeds the {n} scenes")
         if r["positives"] + r["negatives"] != n:
             out.append(f"rows[{i}]: positives + negatives != scenes")
-        if r["false_positives"] > r["negatives"] or r["decided_correct"] > r["decided"]:
+        if (
+            r["false_positives"] > r["negatives"]
+            or r["decided_correct"] > r["decided"]
+            or r["true_positives"] > min(r["positives"], r["verdict_correct"])
+            or r["verdict_correct"] - r["true_positives"] > r["negatives"]
+        ):
             out.append(f"rows[{i}]: a part exceeds its whole")
-        if r["permuted_correct"] < sum(r["concept_correct"]):
-            out.append(f"rows[{i}]: the best matching is worse than the identity")
+        if any(
+            full > covered or covered + empty > n
+            for full, covered, empty in zip(r["full"], r["covered"], r["empty"], strict=True)
+        ):
+            out.append(f"rows[{i}]: a set is both empty and covering, or full and not covering")
     return out
 
 
@@ -92,7 +141,7 @@ def first_shots(study: Study, mode: str, share: float) -> dict[str, list[int | N
             key=lambda r: r["shots"],
         )
         reached = [
-            (r["shots"], [c >= share * r["scenes"] for c in r["concept_correct"]])
+            (r["shots"], [c >= share * r["scenes"] for c in identity(r)])
             for r in rows
             if r["domain"] == "target"
         ]
@@ -100,6 +149,18 @@ def first_shots(study: Study, mode: str, share: float) -> dict[str, list[int | N
             out[name].append(next((k for k, ok in reached if ok[i]), None))
         out["all three"].append(next((k for k, ok in reached if all(ok)), None))
     return out
+
+
+def restrict(study: Study, seeds: int) -> Study:
+    """Return the study's first ``seeds`` seeds: their settings and their rows.
+
+    A rerun of the first seeds of a study is compared against this, so a check can rerun
+    a slice of a study that is too long to rerun whole.
+    """
+    kept = study["settings"]["seeds"][:seeds]
+    settings = study["settings"] | {"seeds": kept}
+    rows = [r for r in study["rows"] if r["seed"] in kept]
+    return Study(format=study["format"], device=study["device"], settings=settings, rows=rows)
 
 
 def loads(text: str) -> Study:
@@ -126,13 +187,19 @@ def dumps(study: Study) -> str:
     return json.dumps(study, indent=1) + "\n"
 
 
+def _counts(value: object) -> list[int]:
+    """Return a field's counts, flattened: every field outside `IDENTITY` holds counts."""
+    if isinstance(value, list):
+        return [c for item in value for c in _counts(item)]
+    return [value] if isinstance(value, int) else []
+
+
 def differences(expected: Study, actual: Study, tolerance: float = 0.0) -> list[str]:
     """Return one line per setting or count that differs by more than the tolerance.
 
-    ``tolerance`` is a fraction of a row's scenes. A run on the machine that produced the
-    study reproduces every count exactly; another machine's floating point can move a
-    count by a few scenes, and a nonzero tolerance says how many are accepted. It never
-    applies to the fields in `IDENTITY`.
+    ``tolerance`` is a fraction of a row's scenes, and it never applies to the fields in
+    `IDENTITY`. A run on the machine that produced the study reproduces every count
+    exactly.
     """
     out = (
         [f"settings: {expected['settings']} != {actual['settings']}"]
@@ -142,15 +209,16 @@ def differences(expected: Study, actual: Study, tolerance: float = 0.0) -> list[
     if len(expected["rows"]) != len(actual["rows"]):
         return [*out, f"rows: {len(expected['rows'])} != {len(actual['rows'])}"]
     for i, (old, new) in enumerate(zip(expected["rows"], actual["rows"], strict=True)):
+        allowed = tolerance * old["scenes"]
         for key in old:
-            allowed = 0.0 if key in IDENTITY else tolerance * old["scenes"]
             a, b = old[key], new[key]
-            if isinstance(a, list) and isinstance(b, list):
-                bad = any(abs(x - y) > allowed for x, y in zip(a, b, strict=True))
-            elif isinstance(a, int) and isinstance(b, int):
-                bad = abs(a - b) > allowed
-            else:
+            if key in IDENTITY:
                 bad = a != b
+            else:
+                x, y = _counts(a), _counts(b)
+                bad = len(x) != len(y) or any(
+                    abs(p - q) > allowed for p, q in zip(x, y, strict=True)
+                )
             if bad:
                 out.append(f"rows[{i}].{key}: {a} != {b}")
     return out

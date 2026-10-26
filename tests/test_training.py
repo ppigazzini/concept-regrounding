@@ -24,11 +24,11 @@ class TestVerdictLoss:
         generator = torch.Generator().manual_seed(0)
         logits = 3 * torch.randn((500, 3), generator=generator)
         concepts = torch.randint(0, 2, (500, 3), generator=generator)
-        product = torch.sigmoid(logits).prod(dim=-1)
-        expected = F.binary_cross_entropy(product, concepts.bool().all(dim=-1).float())
-        assert torch.allclose(loss(logits, concepts, "verdict"), expected, rtol=1e-5)
+        product = torch.sigmoid(logits.double()).prod(dim=-1)
+        expected = F.binary_cross_entropy(product, concepts.bool().all(dim=-1).double())
+        assert torch.allclose(loss(logits, concepts, "verdict"), expected, rtol=1e-9)
 
-    @pytest.mark.parametrize(("value", "label"), [(-12.0, 1), (40.0, 0)])
+    @pytest.mark.parametrize(("value", "label"), [(-12.0, 1), (40.0, 0), (100.0, 0)])
     def test_a_confidently_wrong_scene_keeps_its_gradient(self, value, label):
         logits = torch.full((1, 3), value, requires_grad=True)
         loss(logits, torch.full((1, 3), label), "verdict").backward()

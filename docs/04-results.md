@@ -37,7 +37,8 @@ the order 0 to 4, `>12` when no `k` of the study reaches it:
 - **`left` carries over** in 4 of 5 seeds: 94.6 % (82.3 to 99.2) before any re-grounding.
 - **`tone` reads inverted and moves with `k`.** It is right on 0.2 % (0.0 to 1.0) of the
   scenes at `k = 0`, so the inverted output is right on 99.0 to 100.0 %, and on 79.0 % (64.6
-  to 97.1) at `k = 12`.
+  to 97.1) at `k = 12`. The matching that may flip an output credits the inversion: 83.4 %
+  (77.3 to 86.6) at `k = 0`, against 66.9 % (60.2 to 77.1) for the best permutation.
 - **`round` stays near chance:** 55.4 % (49.5 to 60.5) at `k = 0` and 58.1 % (53.5 to
   61.8) at `k = 12`. Inferred, not separated by a study: the blur, since `round` is the one
   concept that rests on the outline and only the target blurs it.
@@ -52,27 +53,29 @@ the order 0 to 4, `>12` when no `k` of the study reaches it:
 ## Verdict supervision
 
 Trained from verdicts alone, the model gets 99.9 % (99.6 to 100.0) of the source verdicts
-right while its outputs agree with the named concepts on 64.0 % (63.1 to 65.1), 62.9 %
-(60.9 to 66.3) and 63.6 % (61.8 to 67.6) of the scenes, and under the best matching of
-outputs to concepts on 63.7 % (62.4 to 65.8): matching outputs to other concepts recovers
-almost nothing. Inferred, not measured: every output computes the whole conjunction, since
-an output equal to the verdict agrees with any one concept on 1/2 + 1/8 = 62.5 % of the
-scenes. Re-grounding from up to 12 target verdicts leaves every concept between 30.8 % and
-72.4 % in every seed, and the false positives at 90 % sensitivity at 79.0 % (33.9 to 98.0)
-at `k = 12`. The conformal sets of these models are calibrated on concept labels of source
-scenes, which verdict supervision otherwise never sees, so their coverage lies outside the
-premise of the mode.
+right while its outputs agree with the named concepts on 63.9 % (63.1 to 65.1), 62.7 %
+(60.8 to 66.2) and 63.7 % (61.8 to 66.3) of the scenes, and under the best signed matching
+of outputs to concepts on 63.6 % (62.3 to 65.1). Each output equals the verdict itself on
+99.9 % (99.7 to 100.0), 99.3 % (97.1 to 100.0) and 98.2 % (94.9 to 100.0) of the scenes:
+the three outputs compute the conjunction, and an output equal to the verdict agrees with
+any one concept on 1/2 + 1/8 = 62.5 % of the scenes. Re-grounding from up to 12 target
+verdicts leaves every concept between 32.4 % and 67.0 % in every seed, and the false
+positives at 90 % sensitivity at 81.8 % (36.8 to 97.9) at `k = 12`. The conformal sets of
+these models are calibrated on concept labels of source scenes, which verdict supervision
+otherwise never sees, so their coverage lies outside the premise of the mode.
 
 ## Conformal sets
 
 On the source, with sets calibrated on 500 source scenes, each concept's set holds the true
 value on 89.9 % (86.9 to 91.3), 90.7 % (88.1 to 93.2) and 90.2 % (89.1 to 91.7) of the
-scenes, where the guarantee is at least 90 % on average over calibration draws. A set that
-holds both values counts as covering, and a set can be empty; the study counts neither, so
-coverage is not the share of right singletons. On the target at `k = 0` the same thresholds
-cover `round` on 30.9 % (4.7 to 49.5), `tone` on 0.0 % (0.0 to 0.0) and `left` on 51.8 %
-(4.6 to 91.8). At `k = 12`, still calibrated on source scenes, `tone` is covered on 95.0 %
-(75.8 to 100.0), full sets included.
+scenes, where the guarantee is at least 90 % on average over calibration draws. No source
+set is full and 10.1 % (8.7 to 13.1), 9.3 % (6.8 to 11.9) and 9.8 % (8.3 to 10.9) are
+empty: every covering set is a right singleton. On the target at `k = 0` the same
+thresholds cover `round` on 30.9 % (4.7 to 49.5), `tone` on 0.0 % (0.0 to 0.0) and `left`
+on 51.8 % (4.6 to 91.8), and leave 44.4 % (0.0 to 95.2), 43.8 % (22.8 to 90.4) and 48.0 %
+(8.1 to 95.3) of the sets empty. At `k = 12`, still calibrated on source scenes, `tone` is
+covered on 95.0 % (75.8 to 100.0) of the scenes because its set holds both values on
+86.3 % (52.5 to 99.8): the coverage comes back as full sets, not as right singletons.
 
 No coverage bound holds on the target. The two styles share no scene, so the total-variation
 distance between them is 1 and the bound of Barber et al. 2023 is vacuous, and weighting the
@@ -88,4 +91,4 @@ the source's support, which it is not.
 - Whether the count belongs to the scenes or to the optimiser: every `k` gets 150 steps at
   a rate of 0.001.
 - Which of palette, size and blur moves which count.
-- How many sets are empty or full, and coverage with sets calibrated on target scenes.
+- Coverage with sets calibrated on target scenes.

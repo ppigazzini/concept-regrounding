@@ -24,8 +24,8 @@ type Mode = Literal["concepts", "verdict"]
 type Scope = Literal["readout", "head", "all"]
 
 #: The largest log-probability of the conjunction the loss takes, so that the log of its
-#: complement stays finite; reached only when every logit is above about 70.
-_LOG_ALMOST_ONE = -1e-30
+#: complement stays finite; in float64 it is reached only when every logit is above 690.
+_LOG_ALMOST_ONE = -1e-300
 
 
 def _log1mexp(x: torch.Tensor) -> torch.Tensor:
@@ -44,15 +44,16 @@ def _log1mexp(x: torch.Tensor) -> torch.Tensor:
 def loss(logits: torch.Tensor, concepts: torch.Tensor, mode: Mode) -> torch.Tensor:
     """Return the training loss of a batch under the given supervision.
 
-    Under verdict supervision the log of the product of the concept probabilities is
-    the sum of their log-sigmoids. A product taken in probability space and clamped away
-    from 0 and 1 has no gradient past the clamp, and a positive scene whose product falls
-    below it would never be pulled back.
+    Under verdict supervision the loss is the cross-entropy of the rule's log-score, in
+    float64. A product taken in probability space and clamped away from 0 and 1 has no
+    gradient past the clamp, so a positive scene whose product falls below it is never
+    pulled back; in float32 a negative scene with every logit above 75 has a log-score
+    that rounds to 0 and no gradient either.
     """
     if mode == "concepts":
         return F.binary_cross_entropy_with_logits(logits, concepts.float())
-    log_p = F.logsigmoid(logits).sum(dim=-1)
-    target = rule.verdict(concepts).float()
+    log_p = rule.log_score(logits.double())
+    target = rule.verdict(concepts).double()
     return -(target * log_p + (1.0 - target) * _log1mexp(log_p)).mean()
 
 
@@ -109,10 +110,7 @@ def reground(
 
 
 @torch.no_grad()
-def probabilities(model: nn.Module, images: torch.Tensor, batch_size: int = 512) -> torch.Tensor:
-    """Return the concept probabilities of every scene, in evaluation mode."""
+def logits(model: nn.Module, images: torch.Tensor, batch_size: int = 512) -> torch.Tensor:
+    """Return the concept logits of every scene, in evaluation mode."""
     model.eval()
-    parts = [
-        torch.sigmoid(model(images[i : i + batch_size])) for i in range(0, len(images), batch_size)
-    ]
-    return torch.cat(parts)
+    return torch.cat([model(images[i : i + batch_size]) for i in range(0, len(images), batch_size)])

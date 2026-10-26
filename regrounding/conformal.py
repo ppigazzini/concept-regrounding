@@ -28,12 +28,19 @@ def nonconformity(probabilities: torch.Tensor, label: int) -> torch.Tensor:
 
 
 def thresholds(probabilities: torch.Tensor, labels: torch.Tensor, alpha: float) -> torch.Tensor:
-    """Return one threshold per concept from calibration probabilities and labels."""
+    """Return one threshold per concept from calibration probabilities and labels.
+
+    When the rank passes the ``n`` calibration scores, fewer than ``1 / alpha - 1`` scenes,
+    the threshold is infinite and every set holds both labels: the largest score in its
+    place would give up the guarantee.
+    """
     n = probabilities.shape[0]
     scores = torch.where(
         labels.bool(), nonconformity(probabilities, 1), nonconformity(probabilities, 0)
     )
-    rank = min(n, math.ceil((n + 1) * (1.0 - alpha)))
+    rank = math.ceil((n + 1) * (1.0 - alpha))
+    if rank > n:
+        return torch.full(scores.shape[1:], math.inf, dtype=scores.dtype)
     return scores.sort(dim=0).values[rank - 1]
 
 

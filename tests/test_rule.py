@@ -8,8 +8,15 @@ class TestRule:
         bits = torch.tensor([[1, 1, 1], [1, 0, 1], [0, 0, 0]])
         assert rule.verdict(bits).tolist() == [True, False, False]
 
-    def test_the_score_is_the_product_of_the_probabilities(self):
-        assert torch.allclose(rule.score(torch.tensor([[0.5, 0.5, 0.8]])), torch.tensor([0.2]))
+    def test_the_score_is_the_log_of_the_product_of_the_probabilities(self):
+        logits = torch.tensor([[0.0, 0.0, 1.3862944]])
+        assert torch.allclose(rule.log_score(logits), torch.log(torch.tensor([0.2])))
+
+    def test_scenes_whose_product_underflows_keep_distinct_scores(self):
+        logits = torch.tensor([[-40.0] * 3, [-60.0] * 3])
+        assert torch.sigmoid(logits).prod(dim=-1).tolist() == [0.0, 0.0]
+        high, low = rule.log_score(logits).tolist()
+        assert high > low
 
 
 class TestThreeValued:

@@ -1,3 +1,5 @@
+import math
+
 import torch
 
 from regrounding import conformal
@@ -25,3 +27,25 @@ class TestConformalSets:
         assert not has0[:, 0].any()
         assert has0[:, 1].all()
         assert not has1[:, 1].any()
+
+    def test_too_few_calibration_scenes_give_full_sets(self):
+        probs = torch.tensor([[0.9, 0.1, 0.6]] * 5)
+        labels = torch.tensor([[1, 0, 1]] * 5)
+        threshold = conformal.thresholds(probs, labels, 0.1)
+        assert threshold.tolist() == [math.inf] * 3
+        has0, has1 = conformal.prediction_sets(probs, threshold)
+        assert has0.all()
+        assert has1.all()
+
+    def test_coverage_holds_from_the_smallest_calibration_size(self):
+        generator = torch.Generator().manual_seed(1)
+        covered = trials = 0
+        for n in (5, 9, 12):
+            for _ in range(400):
+                probs = torch.rand((n + 1, 1), generator=generator)
+                labels = (torch.rand((n + 1, 1), generator=generator) < probs).long()
+                q = conformal.thresholds(probs[:n], labels[:n], 0.1)
+                has0, has1 = conformal.prediction_sets(probs[n:], q)
+                covered += int(torch.where(labels[n:].bool(), has1, has0).item())
+                trials += 1
+        assert covered >= 0.9 * trials - 0.02 * trials

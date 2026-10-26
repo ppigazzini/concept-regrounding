@@ -5,15 +5,14 @@ source calibration, source test, target pool, target test -- so both supervision
 the same scenes, and the ``k`` scenes for re-grounding are the first ``k`` of the target
 pool, nested across ``k``.
 
-For each model the measures are counts on a test set: correct concepts, per concept and
-under the best matching of outputs to concepts; correct verdicts; false positive
-verdicts at the threshold that first reaches the configured sensitivity; how often the
-conformal set holds the true value, per concept; and how many three-valued verdicts are
-decided, and decided right.
+For each model the measures are counts on a test set: how often each output equals each
+concept and the verdict; correct verdicts and true positives; false positive verdicts at
+the threshold that first reaches the configured sensitivity; how often the conformal set
+holds the true value, is empty and is full, per concept; and how many three-valued verdicts
+are decided, and decided right.
 """
 
 import copy
-import itertools
 from typing import Literal
 
 import numpy as np
@@ -24,7 +23,7 @@ from regrounding.config import Experiment
 from regrounding.execution import apply_runtime, seed_everything
 from regrounding.model import ConceptNet
 from regrounding.study import Row
-from regrounding.train import Mode, fit, probabilities, reground
+from regrounding.train import Mode, fit, logits, reground
 
 #: A concept is read as present when its probability reaches one half.
 _HALF = 0.5
@@ -49,7 +48,7 @@ def _false_positives_at(scores: torch.Tensor, truth: torch.Tensor, sensitivity: 
 
 
 def measure(
-    probs: torch.Tensor,
+    scores: torch.Tensor,
     concepts: torch.Tensor,
     threshold: torch.Tensor,
     sensitivity: float,
@@ -59,14 +58,13 @@ def measure(
     shots: int,
     domain: Literal["source", "target"],
 ) -> Row:
-    """Return one row of counts for one model's probabilities on one test set."""
+    """Return one row of counts for one model's concept logits on one test set."""
+    probs = torch.sigmoid(scores)
     bits = probs >= _HALF
     truth = concepts.bool()
-    matches = [[int((bits[:, i] == truth[:, j]).sum()) for j in range(3)] for i in range(3)]
-    best = max(sum(matches[i][p[i]] for i in range(3)) for p in itertools.permutations(range(3)))
     verdict_truth = rule.verdict(truth)
+    predicted = rule.verdict(bits)
     has0, has1 = conformal.prediction_sets(probs, threshold)
-    covered = torch.where(truth, has1, has0).sum(dim=0)
     decided, value = rule.three_valued(has0, has1)
     return Row(
         mode=mode,
@@ -74,13 +72,16 @@ def measure(
         shots=shots,
         domain=domain,
         scenes=int(concepts.shape[0]),
-        concept_correct=[matches[i][i] for i in range(3)],
-        permuted_correct=best,
-        verdict_correct=int((rule.verdict(bits) == verdict_truth).sum()),
+        agreement=[[int((bits[:, i] == truth[:, j]).sum()) for j in range(3)] for i in range(3)],
+        verdict_agreement=[int((bits[:, i] == verdict_truth).sum()) for i in range(3)],
+        verdict_correct=int((predicted == verdict_truth).sum()),
+        true_positives=int((predicted & verdict_truth).sum()),
         positives=int(verdict_truth.sum()),
         negatives=int((~verdict_truth).sum()),
-        false_positives=_false_positives_at(rule.score(probs), verdict_truth, sensitivity),
-        covered=[int(c) for c in covered],
+        false_positives=_false_positives_at(rule.log_score(scores), verdict_truth, sensitivity),
+        covered=[int(c) for c in torch.where(truth, has1, has0).sum(dim=0)],
+        empty=[int(c) for c in (~has0 & ~has1).sum(dim=0)],
+        full=[int(c) for c in (has0 & has1).sum(dim=0)],
         decided=int(decided.sum()),
         decided_correct=int((decided & (value == verdict_truth)).sum()),
     )
@@ -109,20 +110,26 @@ def run(config: Experiment, seed: int, mode: Mode, device: torch.device) -> list
         learning_rate=config.learning_rate,
         generator=generator,
     )
-    rows: list[Row] = []
-    threshold = conformal.thresholds(probabilities(model, calib[0]), calib[1], config.alpha)
-    rows.append(
-        measure(
-            probabilities(model, source_test[0]),
-            source_test[1],
+
+    def evaluate(
+        m: ConceptNet,
+        test: tuple[torch.Tensor, torch.Tensor],
+        k: int,
+        domain: Literal["source", "target"],
+    ) -> Row:
+        threshold = conformal.thresholds(torch.sigmoid(logits(m, calib[0])), calib[1], config.alpha)
+        return measure(
+            logits(m, test[0]),
+            test[1],
             threshold,
             config.sensitivity,
             mode=mode,
             seed=seed,
-            shots=0,
-            domain="source",
+            shots=k,
+            domain=domain,
         )
-    )
+
+    rows = [evaluate(model, source_test, 0, "source")]
     for k in config.shots:
         adapted = copy.deepcopy(model)
         reground(
@@ -134,17 +141,5 @@ def run(config: Experiment, seed: int, mode: Mode, device: torch.device) -> list
             learning_rate=config.regrounding_rate,
             scope=config.regrounding_scope,
         )
-        k_threshold = conformal.thresholds(probabilities(adapted, calib[0]), calib[1], config.alpha)
-        rows.append(
-            measure(
-                probabilities(adapted, target_test[0]),
-                target_test[1],
-                k_threshold,
-                config.sensitivity,
-                mode=mode,
-                seed=seed,
-                shots=k,
-                domain="target",
-            )
-        )
+        rows.append(evaluate(adapted, target_test, k, "target"))
     return rows

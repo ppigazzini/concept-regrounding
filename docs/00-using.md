@@ -45,8 +45,9 @@ computed where they are printed. `--check` reads the settings back from the file
 and prints one line per count that differs. On the machine that wrote the file every count
 reproduces exactly. Whether another machine does is untested; `regrounding/reproducible.py`
 and `regrounding/execution.py` remove the kernel choices that depend on the CPU, and
-`docs/01-method.md` states each. `--tolerance` accepts a move of a stated fraction of a
-row's scenes.
+`docs/01-method.md` states each. `--check --seeds N` reruns the first `N` seeds of the file
+and compares their rows, and `--tolerance`, a fraction of a row's scenes below 1, accepts a
+count that moves by up to that many scenes.
 
 ## Explore on a GPU
 
