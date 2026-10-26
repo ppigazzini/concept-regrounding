@@ -184,6 +184,17 @@ class TestEndToEnd:
         assert [a == b for a, b in zip(plain, rehearsed, strict=True)] == kept
 
     @pytest.mark.slow
+    def test_target_calibration_moves_the_target_sets_and_nothing_else(self):
+        plain = run(TINY, 0, "concepts", torch.device("cpu"))
+        on_target = run(TINY.updated(calibrate_on="target"), 0, "concepts", torch.device("cpu"))
+        sets = {"covered", "empty", "full", "decided", "decided_correct"}
+        assert on_target[0] == plain[0]
+        for a, b in zip(plain[1:], on_target[1:], strict=True):
+            assert {k: v for k, v in a.items() if k not in sets} == {
+                k: v for k, v in b.items() if k not in sets
+            }
+
+    @pytest.mark.slow
     def test_a_job_is_reproducible_on_the_same_machine(self):
         first = run(TINY, 0, "verdict", torch.device("cpu"))
         again = run(TINY, 0, "verdict", torch.device("cpu"))

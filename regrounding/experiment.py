@@ -1,7 +1,8 @@
 """One seed and one supervision mode: train on the source, re-ground on k target scenes, measure.
 
 Every scene for a seed is drawn from one generator, in a fixed order -- source training,
-source calibration, source test, target pool, target test, target training -- so every
+source calibration, source test, target pool, target test, target training, target
+calibration -- so every
 supervision mode sees the same scenes, and the ``k`` scenes for re-grounding are the first
 ``k`` of the target pool, drawn in complementary pairs and nested across ``k``.
 
@@ -150,6 +151,7 @@ class _Scenes:
     pool: tuple[torch.Tensor, torch.Tensor]
     target_test: tuple[torch.Tensor, torch.Tensor]
     target_train: tuple[torch.Tensor, torch.Tensor]
+    target_calibration: tuple[torch.Tensor, torch.Tensor]
 
 
 def _draw(config: Experiment, seed: int, device: torch.device) -> _Scenes:
@@ -167,7 +169,10 @@ def _draw(config: Experiment, seed: int, device: torch.device) -> _Scenes:
     pool = _tensors(scenes.paired(rng, target, config.pool, size), device)
     target_test = draw(target, config.test)
     target_train = draw(target, config.target_train)
-    return _Scenes(source, calibration, source_test, pool, target_test, target_train)
+    target_calibration = draw(target, config.target_calibration)
+    return _Scenes(
+        source, calibration, source_test, pool, target_test, target_train, target_calibration
+    )
 
 
 def _models(
@@ -227,8 +232,14 @@ def run(config: Experiment, seed: int, mode: Run, device: torch.device) -> list[
     rows: list[Row] = []
     for model, k, trained in _models(config, seed, mode, 3, data, device):
         test = data.source_test if trained == "source" else data.target_test
-        calibration = torch.sigmoid(logits(model, data.calibration[0]))
-        threshold = conformal.thresholds(calibration, data.calibration[1], config.alpha)
+        on_target = trained != "source" and config.calibrate_on == "target"
+        images, labels = data.target_calibration if on_target else data.calibration
+        threshold = conformal.thresholds(
+            torch.sigmoid(logits(model, images)),
+            labels,
+            config.alpha,
+            conditional=config.conditional,
+        )
         scores = logits(model, test[0])
         rows.append(
             measure(

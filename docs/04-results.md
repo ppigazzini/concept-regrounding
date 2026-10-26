@@ -179,10 +179,25 @@ distance between them is 1 and the bound of Barber et al. 2023 is vacuous, and w
 calibration scores by the likelihood ratio (Tibshirani et al. 2019) needs the target inside
 the source's support, which it is not.
 
+Two more studies change the calibration of the target models, under concept supervision on
+the same 20 seeds. Calibrated on 500 labelled target scenes
+(`regrounding-target-calibrated.json`), every target model's sets cover each concept on
+89.6 % to 91.3 % of the scenes at every `k`,
+as exchangeability with the target test scenes guarantees, and the counts say what valid
+sets cost: at `k = 0` the `tone` set holds both values on 97.4 % (88.1 to 100.0) of the
+scenes, at `k = 64` on 0.0 % (0.0 to 0.0), and the three-valued verdict is decided on
+81.2 % (71.3 to 94.8) of the scenes, right on 78.9 % (70.2 to 92.5), against 60.6 % (48.6
+to 78.0) and 58.0 % (46.4 to 75.5) at `k = 0`. With one threshold per concept value on the
+source calibration scenes (`regrounding-conditional.json`), the target coverage stays short:
+`round` at 45.4 % (13.2 to 51.9) at `k = 64`; the verdict is decided on 91.0 % (38.8 to
+100.0) and right on 81.0 % (38.8 to 89.1), where one threshold per concept decides 41.6 %
+(30.8 to 57.9) and gets 41.4 % (30.8 to 57.8) right.
+
 ## Open
 
 - A rule other than the conjunction, and a condition that varies the rule.
 - How the converged count depends on the pull toward the source readout, whose weight,
   0.01, is not tuned.
-- Coverage with sets calibrated on target scenes.
+- Conformal sets calibrated on the `k` target scenes themselves, which re-grounding also
+  trains on (Fisch et al. 2021 calibrate on few scenes with auxiliary tasks).
 - How much of a seed's range is the draw of its `k` scenes.

@@ -57,6 +57,9 @@
    29
   ],
   "alpha": 0.1,
+  "calibrate_on": "source",
+  "target_calibration": 500,
+  "conditional": false,
   "sensitivity": 0.9
  },
  "rows": [

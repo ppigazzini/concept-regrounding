@@ -158,6 +158,14 @@ and likelihood-ratio weighting (Tibshirani et al. 2019) needs the target inside 
 source's support. A set that holds both values counts as covering, and the nonconformity
 score can leave a set empty; `full` and `empty` count both.
 
+Two settings change the calibration of every target model; the source model keeps its
+source calibration. `calibrate_on="target"` calibrates on 500 labelled target scenes drawn
+after every other scene, exchangeable with the target test scenes, so coverage holds by
+construction and the counts say how large valid sets are after re-grounding: a reference
+that needs more labelled target scenes than the `k`. `conditional=True` gives each value of
+a concept its own threshold, the quantile over the calibration scenes that carry it
+(Mondrian; Vovk 2013), so the guarantee holds for each value apart instead of over scenes.
+
 ## Reproducibility
 
 A published study runs on the CPU, one job per process and one thread per job. Before

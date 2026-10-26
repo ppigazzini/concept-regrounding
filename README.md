@@ -70,9 +70,10 @@ rule do not re-ground the concepts either, but they rank target scenes with 11.6
 24.8) false positives at 90 % sensitivity at `k = 64`, against 57.2 % (16.8 to 90.4) for a
 network that learns the verdict without concepts or rule. The palette alone sets the
 count for `tone`, and the blur alone stops `round`. Fitted to convergence instead of moved
-by 150 steps, the readout alone re-grounds `tone` with a lower median of 8 scenes. `uv run python tools/study.py --check
-docs/studies/regrounding.json` reruns the study;
-[`docs/04-results.md`](docs/04-results.md) has every count and what is open.
+by 150 steps, the readout alone re-grounds `tone` with a lower median of 8 scenes.
+`uv run python tools/study.py --check docs/studies/regrounding.json` reruns the study;
+[`docs/04-results.md`](docs/04-results.md) has every count, the ten studies and what is
+open.
 
 ## Limits
 

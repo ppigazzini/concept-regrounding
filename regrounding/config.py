@@ -56,6 +56,12 @@ class Experiment:
     #: test scenes of seeds 0 to 4 and 100 to 104.
     seeds: tuple[Seed, ...] = tuple(range(10, 30))
     alpha: Annotated[float, Gt(0.0), Lt(0.5)] = 0.1
+    #: Where the sets of every target model are calibrated: on the source calibration
+    #: scenes, or on ``target_calibration`` labelled target scenes drawn after all others.
+    calibrate_on: Literal["source", "target"] = "source"
+    target_calibration: Count = 500
+    #: One threshold per value of a concept (Mondrian) instead of one per concept.
+    conditional: bool = False
     sensitivity: Rate = 0.9
 
     def __post_init__(self) -> None:

@@ -38,6 +38,10 @@
 - R. Foygel Barber, E. J. Candès, A. Ramdas, R. J. Tibshirani. Conformal prediction beyond
   exchangeability. Annals of Statistics 51(2), 2023.
   [arXiv:2202.13415](https://arxiv.org/abs/2202.13415)
+- V. Vovk. Conditional validity of inductive conformal predictors. Machine Learning 92,
+  2013. [arXiv:1209.2673](https://arxiv.org/abs/1209.2673)
+- A. Fisch, T. Schuster, T. Jaakkola, R. Barzilay. Few-shot conformal prediction with
+  auxiliary tasks. ICML 2021. [arXiv:2102.08898](https://arxiv.org/abs/2102.08898)
 
 ## Few-shot transfer
 

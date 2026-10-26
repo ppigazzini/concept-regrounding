@@ -222,6 +222,8 @@ def main(argv: list[str]) -> int:
     parser.add_argument("--scope", choices=["first", "readout", "head", "all"])
     parser.add_argument("--fit", choices=["steps", "converged"])
     parser.add_argument("--rehearsal", type=_positive, help="source scenes in every batch")
+    parser.add_argument("--calibrate-on", choices=["source", "target"])
+    parser.add_argument("--conditional", action="store_true", help="one threshold per value")
     parser.add_argument(
         "--native-kernels",
         action="store_true",
@@ -236,6 +238,8 @@ def main(argv: list[str]) -> int:
         "regrounding_scope": args.scope,
         "regrounding_fit": args.fit,
         "rehearsal": args.rehearsal,
+        "calibrate_on": args.calibrate_on,
+        "conditional": args.conditional or None,
     }
     chosen = {
         key: value for key, value in chosen.items() if value is not None

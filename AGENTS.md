@@ -33,6 +33,8 @@ uv run --no-sync python tools/study.py --check docs/studies/regrounding-first.js
 uv run --no-sync python tools/study.py --check docs/studies/regrounding-readout.json
 uv run --no-sync python tools/study.py --check docs/studies/regrounding-converged.json
 uv run --no-sync python tools/study.py --check docs/studies/regrounding-rehearsal.json
+uv run --no-sync python tools/study.py --check docs/studies/regrounding-target-calibrated.json
+uv run --no-sync python tools/study.py --check docs/studies/regrounding-conditional.json
 ```
 
 All of them must be clean before a commit. A published study adds its
