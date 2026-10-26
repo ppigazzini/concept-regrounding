@@ -5,7 +5,9 @@ lowest and highest seed in brackets, from `docs/studies/regrounding.json`;
 `uv run python tools/study.py --check docs/studies/regrounding.json` reruns it, prints these
 tables and compares every count. The settings are the defaults of `Experiment` in
 `regrounding/config.py`: head re-grounding for 150 steps at a rate of 0.001, `k` from 0 to
-64 drawn in complementary pairs, and conformal sets at `alpha` 0.1. The study runs seeds 10
+64 drawn in complementary pairs, and conformal sets at `alpha` 0.1. The concepts, verdict
+and mixed rows are models with three concept outputs; the direct rows are a network with
+one output, the verdict. The study runs seeds 10
 to 29; the source hue families and the scene layout were fixed on pilot runs of other
 seeds.
 
@@ -69,6 +71,38 @@ with the verdict right on 98.3 % (93.8 to 99.7). The conformal sets of these mod
 calibrated on concept labels of source scenes, which verdict supervision otherwise never
 sees, so their coverage lies outside the premise of the mode.
 
+## The rule's part
+
+Under concept supervision the rule enters only the measures. Two conditions put target
+verdicts, one bit per scene, through it or around it. **mixed** starts from the concept
+model of the source and re-grounds it from target verdicts through the fixed rule;
+**direct** is a network of the same architecture with one output, the verdict, trained on
+source verdicts and fine-tuned on the same target verdicts, with no concepts and no rule.
+
+| test | `k` | false positives at 90 % sensitivity, mixed % | the same, direct % | verdict, mixed % | verdict, direct % |
+|---|---:|---:|---:|---:|---:|
+| source | 0 | 0.0 (0.0 to 0.0) | 1.2 (0.0 to 12.9) | 99.9 (99.6 to 100.0) | 98.7 (88.1 to 100.0) |
+| target | 0 | 80.0 (61.5 to 90.6) | 99.3 (98.3 to 99.9) | 86.3 (81.2 to 89.2) | 84.4 (62.9 to 89.2) |
+| target | 1 | 38.3 (10.1 to 97.1) | 90.7 (45.8 to 99.9) | 65.9 (31.4 to 84.6) | 20.4 (11.5 to 40.5) |
+| target | 4 | 25.7 (10.0 to 76.6) | 97.7 (92.0 to 99.7) | 84.0 (70.9 to 89.1) | 56.3 (13.2 to 86.5) |
+| target | 16 | 19.0 (8.8 to 80.9) | 83.6 (33.6 to 99.8) | 88.0 (83.8 to 92.6) | 80.1 (22.8 to 88.0) |
+| target | 64 | 11.6 (5.2 to 24.8) | 57.2 (16.8 to 90.4) | 90.8 (86.2 to 95.5) | 86.0 (72.1 to 88.6) |
+| target, every weight | 3000 | 0.0 (0.0 to 0.1) | 6.1 (0.0 to 100.0) | 99.2 (96.4 to 99.9) | 97.4 (86.7 to 99.9) |
+| target, from scratch | 3000 | 0.7 (0.0 to 11.4) | 9.8 (0.0 to 15.9) | 98.3 (88.2 to 99.9) | 90.7 (85.6 to 98.6) |
+
+- **The fixed rule carries target verdicts to the verdict.** At every `k` the mixed model
+  ranks target scenes with fewer false positives than the direct network: 19.0 % against
+  83.6 % at `k = 16`, 11.6 % against 57.2 % at `k = 64`. The direct network's verdict is
+  below the always-no rate, 87.5 %, at every `k` up to 64.
+- **It does not carry them to the concepts.** Re-grounded from verdicts, `tone` reaches
+  90 % in 0 of 20 seeds within 64 scenes and stands at 49.7 % (43.5 to 55.3) at `k = 64`,
+  against a lower median of 16 scenes with concept labels; `left` falls from 97.7 % to
+  83.2 % (59.2 to 98.1). With 3000 target verdicts on every weight the verdict is right on
+  99.2 % (96.4 to 99.9) while the concepts are at 64.8 % (49.5 to 74.3), 49.4 % (38.8 to
+  64.3) and 67.4 % (48.6 to 93.0), and the `round` output equals the verdict on 91.7 %
+  (77.3 to 99.3) of the scenes: a reasoning shortcut reached from grounded concepts, as
+  verdict supervision on a conjunction permits (Marconato et al. 2023).
+
 ## Conformal sets
 
 Under concept supervision, with sets calibrated on 500 source scenes, each concept's set
@@ -89,8 +123,7 @@ the source's support, which it is not.
 
 ## Open
 
-- Whether holding the rule fixed contributes: under concept supervision the rule enters only
-  the measures, and no condition passes target supervision through it.
+- A rule other than the conjunction, and a condition that varies the rule.
 - Whether the count belongs to the scenes or to the optimiser: every `k` gets 150 steps at
   a rate of 0.001.
 - Which of palette, size and blur moves which count.

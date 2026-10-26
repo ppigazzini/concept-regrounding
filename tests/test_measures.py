@@ -1,6 +1,6 @@
 import torch
 
-from regrounding.experiment import _false_positives_at, measure
+from regrounding.experiment import _false_positives_at, measure, measure_direct
 
 
 def _measure(logits, concepts, threshold=0.5):
@@ -63,3 +63,19 @@ class TestMatchedSensitivity:
 
     def test_no_positive_scene_counts_no_false_positive(self):
         assert _false_positives_at(torch.tensor([1.0]), torch.tensor([False]), 0.9) == 0
+
+
+class TestMeasureDirect:
+    def test_the_single_output_is_the_verdict(self):
+        row = measure_direct(
+            torch.tensor([[2.0], [-3.0], [3.0], [-1.0]]),
+            torch.tensor(CONCEPTS),
+            0.9,
+            seed=0,
+            shots=4,
+            trained="regrounded",
+        )
+        assert (row["positives"], row["negatives"]) == (1, 3)
+        assert row["true_positives"] == 1
+        assert row["verdict_correct"] == 3
+        assert row["false_positives"] == 1

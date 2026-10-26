@@ -5,6 +5,7 @@ import pytest
 
 from regrounding.config import Experiment
 from regrounding.study import (
+    DirectRow,
     Row,
     Study,
     StudyError,
@@ -43,9 +44,29 @@ def _row(**changes) -> Row:
     return cast("Row", row | changes)
 
 
-def _study(*rows: Row) -> Study:
+def _direct(**changes) -> DirectRow:
+    row: dict = {
+        "seed": 0,
+        "shots": 0,
+        "domain": "target",
+        "trained": "regrounded",
+        "scenes": 100,
+        "verdict_correct": 85,
+        "true_positives": 4,
+        "positives": 12,
+        "negatives": 88,
+        "false_positives": 20,
+    }
+    return cast("DirectRow", row | changes)
+
+
+def _study(*rows: Row, direct: tuple[DirectRow, ...] = ()) -> Study:
     return Study(
-        format=2, device="cpu", settings=Experiment().as_record(), rows=list(rows) or [_row()]
+        format=2,
+        device="cpu",
+        settings=Experiment().as_record(),
+        rows=list(rows) or [_row()],
+        direct=list(direct) or [_direct()],
     )
 
 
@@ -85,6 +106,18 @@ class TestStudyFile:
         with pytest.raises(StudyError, match=named):
             dumps(_study(_row(**changes)))
 
+    @pytest.mark.parametrize(
+        ("changes", "named"),
+        [
+            ({"positives": 13}, r"direct\[0\]: positives"),
+            ({"false_positives": 89}, r"direct\[0\]: a part exceeds"),
+            ({"verdict_correct": 101}, r"direct\[0\]: a count exceeds"),
+        ],
+    )
+    def test_a_direct_row_is_held_to_the_verdict_s_rules(self, changes, named):
+        with pytest.raises(StudyError, match=named):
+            dumps(_study(direct=(_direct(**changes),)))
+
 
 class TestMatchings:
     # Output 0 is constant (right on the 50 round scenes of 100), output 1 is tone
@@ -117,6 +150,11 @@ class TestCheck:
         moved = _study(_row(**{key: 1}))
         assert differences(_study(), moved, tolerance=0.05) == [f"rows[0].{key}: 0 != 1"]
 
+    def test_a_direct_row_is_compared_like_a_row(self):
+        moved = _study(direct=(_direct(false_positives=25),))
+        assert differences(_study(), moved) == ["direct[0].false_positives: 20 != 25"]
+        assert differences(_study(), moved, tolerance=0.05) == []
+
     def test_a_tolerance_never_accepts_a_row_of_other_scenes(self):
         moved = _study(_row(positives=13, negatives=87))
         assert differences(_study(), moved, tolerance=0.05) == [
@@ -130,10 +168,12 @@ class TestCheck:
             device="cpu",
             settings=Experiment(seeds=(3, 7, 9)).as_record(),
             rows=[_row(seed=3), _row(seed=7), _row(seed=9)],
+            direct=[_direct(seed=3), _direct(seed=9)],
         )
         sliced = restrict(study, 2)
         assert sliced["settings"]["seeds"] == [3, 7]
         assert [r["seed"] for r in sliced["rows"]] == [3, 7]
+        assert [r["seed"] for r in sliced["direct"]] == [3]
         assert sliced["settings"] | {"seeds": [3, 7, 9]} == study["settings"]
 
 
@@ -156,7 +196,7 @@ class TestFirstShots:
             ]
         ]
         settings = Experiment(seeds=(0, 1), shots=(0, 4)).as_record()
-        return Study(format=2, device="cpu", settings=settings, rows=rows)
+        return Study(format=2, device="cpu", settings=settings, rows=rows, direct=[])
 
     def test_a_seed_s_entry_is_its_smallest_target_shot_count_at_the_share(self):
         first = first_shots(self._study(), "concepts", 0.9)

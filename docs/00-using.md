@@ -17,10 +17,10 @@ build carries CUDA; the published studies do not use it.
 uv run python tools/study.py
 ```
 
-Trains one model per seed and supervision mode on source scenes, re-grounds a copy of it on
-the first `k` labelled target scenes for every `k` in the settings, and prints, per mode and
-`k`, the seed mean of each measure with the per-seed range in brackets, then each seed's
-first `k` at 90 % and at 95 %. Every
+Trains one model per seed and supervision mode, concepts, verdict, mixed and direct, on
+source scenes, re-grounds a copy of it on the first `k` labelled target scenes for every `k`
+in the settings, and prints, per mode and `k`, the seed mean of each measure with the
+per-seed range in brackets, then each seed's first `k` at 90 % and at 95 %. Every
 (seed, mode) job runs in its own process with one thread, one job per core; `--jobs`
 changes the count. `--seeds N` runs the first `N` seeds only.
 

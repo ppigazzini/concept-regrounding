@@ -16,10 +16,10 @@ import argparse
 import math
 import os
 import sys
-from collections.abc import Callable
+from collections.abc import Callable, Sequence
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
-from typing import Literal
+from typing import Any, Literal, cast
 
 from regrounding import reproducible
 
@@ -27,8 +27,9 @@ reproducible.pin()
 
 from regrounding.config import Experiment  # noqa: E402 - after the environment is pinned
 from regrounding.execution import resolve  # noqa: E402
-from regrounding.experiment import run  # noqa: E402
+from regrounding.experiment import Run, run, run_direct  # noqa: E402
 from regrounding.study import (  # noqa: E402
+    DirectRow,
     Row,
     Study,
     differences,
@@ -40,9 +41,9 @@ from regrounding.study import (  # noqa: E402
     restrict,
     signed,
 )
-from regrounding.train import Mode  # noqa: E402
 
-MODES: tuple[Mode, ...] = ("concepts", "verdict")
+#: The modes of the concept models; every seed also runs the direct verdict network.
+MODES: tuple[Run, ...] = ("concepts", "verdict", "mixed")
 #: Per row, what each column reads off the counts, as a share of its denominator.
 OUTPUTS: tuple[tuple[str, Callable[[Row], float]], ...] = (
     ("round %", lambda r: identity(r)[0] / r["scenes"]),
@@ -73,30 +74,40 @@ SETS: tuple[tuple[str, Callable[[Row], float]], ...] = (
     ("decided %", lambda r: r["decided"] / r["scenes"]),
     ("decided right %", lambda r: r["decided_correct"] / r["scenes"]),
 )
+VERDICTS: tuple[tuple[str, Callable[[DirectRow], float]], ...] = (
+    ("verdict %", lambda r: r["verdict_correct"] / r["scenes"]),
+    ("always no %", lambda r: r["negatives"] / r["scenes"]),
+    ("true positives %", lambda r: r["true_positives"] / max(1, r["positives"])),
+    ("FP at sens. %", lambda r: r["false_positives"] / max(1, r["negatives"])),
+)
 #: The shares of the target test scenes at which the first `k` of each seed is printed.
 SHARES = (0.9, 0.95)
 
 
-def job(task: tuple[Experiment, int, Mode, str]) -> list[Row]:
-    """Run one seed and one mode; a module-level function so a worker can run it."""
+def job(task: tuple[Experiment, int, Run | None, str]) -> list[Row] | list[DirectRow]:
+    """Run one seed and one mode, `None` for the direct network; a worker can run it."""
     config, seed, mode, device = task
+    if mode is None:
+        return run_direct(config, seed, resolve(device))
     return run(config, seed, mode, resolve(device))
 
 
 def measure(config: Experiment, device: str, jobs: int) -> Study:
     """Run every job and return the study, rows in a fixed order."""
-    tasks = [(config, seed, mode, device) for mode in MODES for seed in config.seeds]
+    modes: tuple[Run | None, ...] = (*MODES, None)
+    tasks = [(config, seed, mode, device) for mode in modes for seed in config.seeds]
     if jobs > 1 and device == "cpu":
         with ProcessPoolExecutor(max_workers=jobs, initializer=reproducible.hide_gpus) as pool:
             done = list(pool.map(job, tasks))
     else:
         done = [job(t) for t in tasks]
-    rows = [row for rows in done for row in rows]
+    split = len(MODES) * len(config.seeds)
     return Study(
         format=2,
         device="cuda" if device == "cuda" else "cpu",
         settings=config.as_record(),
-        rows=rows,
+        rows=[cast("Row", row) for rows in done[:split] for row in rows],
+        direct=[cast("DirectRow", row) for rows in done[split:] for row in rows],
     )
 
 
@@ -146,26 +157,17 @@ _LABELS = {
 }
 
 
-def _table(
-    study: Study, mode: str, columns: tuple[tuple[str, Callable[[Row], float]], ...]
-) -> list[str]:
-    """Render one table: per test set and shot count, each column's seed mean and range."""
+def _table(rows: Sequence[Any], columns: Sequence[tuple[str, Callable[[Any], float]]]) -> list[str]:
+    """Render one table: per kind of row and shot count, each column's seed mean and range."""
     lines = [
         "| test | shots | " + " | ".join(name for name, _ in columns) + " |",
         "|---|---:|" + "---:|" * len(columns),
     ]
-    for trained, shots in sorted(
-        {(r["trained"], r["shots"]) for r in study["rows"]},
-        key=lambda key: (_ORDER[key[0]], key[1]),
-    ):
-        rows = [
-            r
-            for r in study["rows"]
-            if r["mode"] == mode and r["trained"] == trained and r["shots"] == shots
-        ]
-        if rows:
-            cells = [_pct([read(r) for r in rows]) for _, read in columns]
-            lines.append(f"| {_LABELS[trained]} | {shots} | " + " | ".join(cells) + " |")
+    keys = sorted({(r["trained"], r["shots"]) for r in rows}, key=lambda k: (_ORDER[k[0]], k[1]))
+    for trained, shots in keys:
+        group = [r for r in rows if r["trained"] == trained and r["shots"] == shots]
+        cells = [_pct([read(r) for r in group]) for _, read in columns]
+        lines.append(f"| {_LABELS[trained]} | {shots} | " + " | ".join(cells) + " |")
     return lines
 
 
@@ -178,9 +180,10 @@ def table(study: Study) -> str:
     """
     lines: list[str] = []
     for mode in MODES:
-        lines += [f"## {mode}", "", *_table(study, mode, OUTPUTS), ""]
-        lines += [*_first(study, mode), "", *_table(study, mode, SETS), ""]
-    return "\n".join(lines)
+        rows = [r for r in study["rows"] if r["mode"] == mode]
+        lines += [f"## {mode}", "", *_table(rows, OUTPUTS), ""]
+        lines += [*_first(study, mode), "", *_table(rows, SETS), ""]
+    return "\n".join([*lines, "## direct", "", *_table(study["direct"], VERDICTS), ""])
 
 
 def _positive(text: str) -> int:

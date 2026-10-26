@@ -65,7 +65,10 @@ fine-tuning every weight on 3000 target scenes brings it to 96.0 % (73.4 to 99.8
 verdict rises above the 87.5 % of a model that never says yes only from `k = 32`. Trained
 from verdicts alone, the model gets 99.9 % (99.7 to 100.0) of the source verdicts right
 through outputs that each equal the verdict on 98.5 % or more of the scenes, a reasoning
-shortcut that 3000 target verdicts do not repair. `uv run python tools/study.py --check
+shortcut that 3000 target verdicts do not repair. Target verdicts passed through the fixed
+rule do not re-ground the concepts either, but they rank target scenes with 11.6 % (5.2 to
+24.8) false positives at 90 % sensitivity at `k = 64`, against 57.2 % (16.8 to 90.4) for a
+network that learns the verdict without concepts or rule. `uv run python tools/study.py --check
 docs/studies/regrounding.json` reruns the study;
 [`docs/04-results.md`](docs/04-results.md) has every count and what is open.
 

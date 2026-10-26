@@ -60,14 +60,22 @@ relation between two positions, which a global average would discard.
   get the verdict right through concepts that mean something else: a reasoning shortcut
   (Marconato et al. 2023). The conjunction is symmetric in its three inputs, so the
   outputs are also scored under the best matching of outputs to concepts.
+- **mixed**: the concepts are learnt from their labels on the source, as under **concepts**,
+  and every target fine-tuning is from verdicts through the rule, as under **verdict**: the
+  one condition in which the fixed rule carries the target supervision to the concepts.
+- **direct**: a network of the same architecture with one output, the verdict, trained
+  with binary cross-entropy on the verdict alone, with no concepts and no rule, and
+  measured on its verdicts only. At an equal number of target verdicts it is the baseline
+  against which the mixed mode says what the fixed rule adds.
 
-Both modes see the same scenes: every scene of a seed is drawn from one generator in a fixed
-order — source training, source calibration, source test, target pool, target test.
+Every mode sees the same scenes: every scene of a seed is drawn from one generator in a
+fixed order — source training, source calibration, source test, target pool, target test,
+target training.
 
 ## Re-grounding
 
 A copy of the source-trained model is fine-tuned on the first `k` scenes of the target pool,
-`k` from 0 to 64, with the supervision it was trained with, the whole batch per step, for a
+`k` from 0 to 64, with the target supervision of its mode, the whole batch per step, for a
 fixed number of steps. The pool is drawn in complementary pairs, the first a positive and
 its complement: scene `2 i + 1` carries the negation of scene `2 i`'s concepts, so the first
 `k` scenes hold both values of every concept at every even `k`, and a positive from
@@ -157,7 +165,8 @@ the last bit into different counts.
   concepts that are not independent, is not measured.
 - Under concept supervision the rule enters only the measures: re-grounding trains each
   concept on its own label, so a target with another rule would give the same concept
-  counts. No condition varies the rule or passes target supervision through it.
+  counts. The mixed mode passes the target supervision through the rule and the direct
+  network learns the verdict without it; no condition varies the rule.
 - Every `k` gets the same 150 steps at a rate of 0.001, so the count holds the optimiser's
   budget as well as the scenes.
 - The source hue families and the scene layout were fixed after pilot runs scored on target

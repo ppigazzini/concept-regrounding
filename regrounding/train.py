@@ -1,13 +1,14 @@
-"""Training from concept labels or from verdicts alone, and re-grounding on a few scenes.
+"""Training from concept labels or from verdicts, and re-grounding on a few scenes.
 
-With concept labels each output is supervised as the concept it names. With verdicts
-alone only the conjunction is supervised, through the product of the concept
-probabilities, and the outputs are free to mean whatever makes the conjunction right: the
-setting in which reasoning shortcuts arise (Marconato et al. 2023), measured by comparing
-the two.
+Three supervisions. With concept labels each output is supervised as the concept it
+names. With verdicts through the rule only the conjunction is supervised, through the
+rule's score of the concept outputs, and the outputs are free to mean whatever makes the
+conjunction right: the setting in which reasoning shortcuts arise (Marconato et al. 2023).
+With verdicts directly a single output is the verdict, with no concepts and no rule: the
+baseline that says what the fixed rule adds.
 
-Re-grounding fine-tunes the network on the ``k`` labelled target scenes with the same
-supervision it was trained with; the rule is untouched.
+Re-grounding fine-tunes the network on the ``k`` labelled target scenes; the rule is
+untouched.
 """
 
 import math
@@ -20,7 +21,7 @@ from torch import nn
 from regrounding import rule
 from regrounding.model import ConceptNet
 
-type Mode = Literal["concepts", "verdict"]
+type Mode = Literal["concepts", "verdict", "direct"]
 type Scope = Literal["readout", "head", "all"]
 
 #: The largest log-probability of the conjunction the loss takes, so that the log of its
@@ -52,6 +53,8 @@ def loss(logits: torch.Tensor, concepts: torch.Tensor, mode: Mode) -> torch.Tens
     """
     if mode == "concepts":
         return F.binary_cross_entropy_with_logits(logits, concepts.float())
+    if mode == "direct":
+        return F.binary_cross_entropy_with_logits(logits[:, 0], rule.verdict(concepts).float())
     log_p = rule.log_score(logits.double())
     target = rule.verdict(concepts).double()
     return -(target * log_p + (1.0 - target) * _log1mexp(log_p)).mean()

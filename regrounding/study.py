@@ -6,10 +6,12 @@ checked by valgebra: a key the format does not name is refused, every count is a
 non-negative integer that is not a ``bool``, and every failure is reported at once with
 its path. The rules between fields of a row are plain Python in `check_rows`.
 
-A row holds counts and nothing derived from them. How well the outputs carry the concepts
-is the 3 by 3 count of scenes where output ``i`` equals concept ``j``; the identity, the
-best permutation and the best signed permutation are read off it by `identity`, `matched`
-and `signed` where they are printed.
+A row holds counts and nothing derived from them. A `Row` is a model with three concept
+outputs and the rule over them; a `DirectRow` is a network that outputs the verdict alone,
+and holds the verdict's counts only, since it has no concepts to count. How well the
+outputs carry the concepts is the 3 by 3 count of scenes where output ``i`` equals
+concept ``j``; the identity, the best permutation and the best signed permutation are
+read off it by `identity`, `matched` and `signed` where they are printed.
 """
 
 import itertools
@@ -29,7 +31,7 @@ type Matrix = Annotated[list[Triple], Len(3, 3)]
 class Row(TypedDict, closed=True):
     """One model on one test set: counts only."""
 
-    mode: Literal["concepts", "verdict"]
+    mode: Literal["concepts", "verdict", "mixed"]
     seed: Count
     shots: Count
     domain: Literal["source", "target"]
@@ -49,6 +51,21 @@ class Row(TypedDict, closed=True):
     decided_correct: Count
 
 
+class DirectRow(TypedDict, closed=True):
+    """One network that outputs the verdict directly, on one test set: counts only."""
+
+    seed: Count
+    shots: Count
+    domain: Literal["source", "target"]
+    trained: Literal["source", "regrounded", "ceiling", "scratch"]
+    scenes: Count
+    verdict_correct: Count
+    true_positives: Count
+    positives: Count
+    negatives: Count
+    false_positives: Count
+
+
 class Study(TypedDict, closed=True):
     """The settings and every row of one run."""
 
@@ -56,6 +73,7 @@ class Study(TypedDict, closed=True):
     device: Literal["cpu", "cuda"]
     settings: dict[str, Any]
     rows: list[Row]
+    direct: list[DirectRow]
 
 
 class StudyError(ValueError):
@@ -97,34 +115,47 @@ def signed(row: Row) -> int:
     return max(sum(max(a[i][p[i]], n - a[i][p[i]]) for i in range(3)) for p in _PERMUTATIONS)
 
 
+def _verdict_rules(r: Row | DirectRow) -> list[str]:
+    """Return every rule between the verdict's counts that a row breaks, row or direct."""
+    out: list[str] = []
+    n = r["scenes"]
+    if r["verdict_correct"] > n:
+        out.append(f"a count exceeds the {n} scenes")
+    if r["positives"] + r["negatives"] != n:
+        out.append("positives + negatives != scenes")
+    if (
+        r["false_positives"] > r["negatives"]
+        or r["true_positives"] > min(r["positives"], r["verdict_correct"])
+        or r["verdict_correct"] - r["true_positives"] > r["negatives"]
+    ):
+        out.append("a part exceeds its whole")
+    return out
+
+
 def check_rows(study: Study) -> list[str]:
     """Return every rule between two fields that a row breaks."""
     out: list[str] = []
     for i, r in enumerate(study["rows"]):
         n = r["scenes"]
+        broken = _verdict_rules(r)
         bounded = [
             *(c for line in r["agreement"] for c in line),
             *r["verdict_agreement"],
             *r["covered"],
-            r["verdict_correct"],
             r["decided"],
         ]
         if any(c > n for c in bounded):
-            out.append(f"rows[{i}]: a count exceeds the {n} scenes")
-        if r["positives"] + r["negatives"] != n:
-            out.append(f"rows[{i}]: positives + negatives != scenes")
-        if (
-            r["false_positives"] > r["negatives"]
-            or r["decided_correct"] > r["decided"]
-            or r["true_positives"] > min(r["positives"], r["verdict_correct"])
-            or r["verdict_correct"] - r["true_positives"] > r["negatives"]
-        ):
-            out.append(f"rows[{i}]: a part exceeds its whole")
+            broken.append(f"a count exceeds the {n} scenes")
+        if r["decided_correct"] > r["decided"]:
+            broken.append("a part exceeds its whole")
         if any(
             full > covered or covered + empty > n
             for full, covered, empty in zip(r["full"], r["covered"], r["empty"], strict=True)
         ):
-            out.append(f"rows[{i}]: a set is both empty and covering, or full and not covering")
+            broken.append("a set is both empty and covering, or full and not covering")
+        out += [f"rows[{i}]: {line}" for line in dict.fromkeys(broken)]
+    for i, r in enumerate(study["direct"]):
+        out += [f"direct[{i}]: {line}" for line in _verdict_rules(r)]
     return out
 
 
@@ -161,9 +192,13 @@ def restrict(study: Study, seeds: int) -> Study:
     a slice of a study that is too long to rerun whole.
     """
     kept = study["settings"]["seeds"][:seeds]
-    settings = study["settings"] | {"seeds": kept}
-    rows = [r for r in study["rows"] if r["seed"] in kept]
-    return Study(format=study["format"], device=study["device"], settings=settings, rows=rows)
+    return Study(
+        format=study["format"],
+        device=study["device"],
+        settings=study["settings"] | {"seeds": kept},
+        rows=[r for r in study["rows"] if r["seed"] in kept],
+        direct=[r for r in study["direct"] if r["seed"] in kept],
+    )
 
 
 def loads(text: str) -> Study:
@@ -209,19 +244,22 @@ def differences(expected: Study, actual: Study, tolerance: float = 0.0) -> list[
         if (expected["settings"] != actual["settings"])
         else []
     )
-    if len(expected["rows"]) != len(actual["rows"]):
-        return [*out, f"rows: {len(expected['rows'])} != {len(actual['rows'])}"]
-    for i, (old, new) in enumerate(zip(expected["rows"], actual["rows"], strict=True)):
-        allowed = tolerance * old["scenes"]
-        for key in old:
-            a, b = old[key], new[key]
-            if key in IDENTITY:
-                bad = a != b
-            else:
-                x, y = _counts(a), _counts(b)
-                bad = len(x) != len(y) or any(
-                    abs(p - q) > allowed for p, q in zip(x, y, strict=True)
-                )
-            if bad:
-                out.append(f"rows[{i}].{key}: {a} != {b}")
+    for part in ("rows", "direct"):
+        olds, news = expected[part], actual[part]
+        if len(olds) != len(news):
+            out.append(f"{part}: {len(olds)} != {len(news)}")
+            continue
+        for i, (old, new) in enumerate(zip(olds, news, strict=True)):
+            allowed = tolerance * old["scenes"]
+            for key, a in old.items():
+                b = new.get(key)
+                if key in IDENTITY:
+                    bad = a != b
+                else:
+                    x, y = _counts(a), _counts(b)
+                    bad = len(x) != len(y) or any(
+                        abs(p - q) > allowed for p, q in zip(x, y, strict=True)
+                    )
+                if bad:
+                    out.append(f"{part}[{i}].{key}: {a} != {b}")
     return out

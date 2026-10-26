@@ -3,7 +3,7 @@ import torch
 import torch.nn.functional as F
 
 from regrounding.config import Experiment
-from regrounding.experiment import run
+from regrounding.experiment import run, run_direct
 from regrounding.model import ConceptNet
 from regrounding.train import loss, reground
 
@@ -36,6 +36,14 @@ class TestVerdictLoss:
         assert logits.grad is not None
         assert torch.isfinite(logits.grad).all()
         assert (logits.grad.abs() > 0.1).all()
+
+
+class TestDirectLoss:
+    def test_it_is_the_cross_entropy_of_the_one_output_against_the_verdict(self):
+        logits = torch.tensor([[2.0], [-1.0]])
+        concepts = torch.tensor([[1, 1, 1], [1, 0, 1]])
+        expected = F.binary_cross_entropy_with_logits(logits[:, 0], torch.tensor([1.0, 0.0]))
+        assert torch.equal(loss(logits, concepts, "direct"), expected)
 
 
 class TestModel:
@@ -103,6 +111,23 @@ class TestEndToEnd:
         ]
         assert [r["domain"] for r in rows] == ["source", *["target"] * 4]
         assert all(r["positives"] + r["negatives"] == r["scenes"] for r in rows)
+
+    @pytest.mark.slow
+    def test_the_mixed_mode_starts_from_the_concept_mode_s_source_model(self):
+        concepts = run(TINY, 0, "concepts", torch.device("cpu"))
+        mixed = run(TINY, 0, "mixed", torch.device("cpu"))
+        assert {**mixed[0], "mode": "concepts"} == concepts[0]
+        assert mixed[1] == {**concepts[1], "mode": "mixed"}
+        assert mixed[2] != {**concepts[2], "mode": "mixed"}
+
+    @pytest.mark.slow
+    def test_the_direct_network_yields_the_same_kinds_of_rows_on_the_same_scenes(self):
+        rows = run_direct(TINY, 0, torch.device("cpu"))
+        concepts = run(TINY, 0, "concepts", torch.device("cpu"))
+        assert [(r["trained"], r["shots"]) for r in rows] == [
+            (r["trained"], r["shots"]) for r in concepts
+        ]
+        assert [r["positives"] for r in rows] == [r["positives"] for r in concepts]
 
     @pytest.mark.slow
     def test_a_job_is_reproducible_on_the_same_machine(self):
