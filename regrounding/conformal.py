@@ -4,7 +4,7 @@ The nonconformity of a label is one minus the probability the model gives it. On
 calibration scenes the threshold is the ``ceil((n + 1)(1 - alpha))``-th smallest score,
 and a label enters a scene's set when its nonconformity is at most the threshold: on a
 scene exchangeable with the calibration scenes, the set holds the true label with
-probability at least ``1 - alpha`` (Vovk et al. 2005; Angelopoulos and Bates 2021).
+probability at least ``1 - alpha`` (Vovk 2013; Angelopoulos and Bates 2021).
 
 The guarantee rests on exchangeability, which a domain shift breaks: thresholds calibrated
 on the source say nothing about coverage on the target, and the study measures how much

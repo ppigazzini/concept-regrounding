@@ -29,7 +29,6 @@
 
 ## Conformal prediction
 
-- V. Vovk, A. Gammerman, G. Shafer. Algorithmic learning in a random world. Springer, 2005.
 - A. N. Angelopoulos, S. Bates. A gentle introduction to conformal prediction and
   distribution-free uncertainty quantification. 2021.
   [arXiv:2107.07511](https://arxiv.org/abs/2107.07511)
