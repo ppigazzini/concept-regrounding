@@ -174,13 +174,25 @@ one code path and every thread pool to one thread; a CPU worker also hides the G
 torch's optimizers open a CUDA context on every step when one is visible.
 `regrounding/execution.py` seeds Python, NumPy and torch, switches off oneDNN and NNPACK,
 which pick their convolution kernels and blocking by CPU model, so that a convolution runs
-as a matrix product on MKL, and makes torch refuse a nondeterministic operation. The
-model's weights and the order of the training scenes come from one seeded generator. Two
-runs on one machine give equal studies, which `tests/test_training.py` pins on a tiny
-configuration. Whether another machine gives equal counts is untested: the profile removes
-the kernel choices that depend on the CPU, and a training run turns any difference left in
-the last bit into different counts. Measured on the first seed with ATen's AVX2 kernels in
-place of the portable ones, 300 of 704 fields differ, the largest by 804 of 1000 scenes
+as a matrix product on MKL, and makes torch refuse a nondeterministic operation.
+
+MKL's one code path holds for its matrix products and not for its vector maths, through
+which torch computes `sqrt`, `exp`, `log` and the other functions ATen's `cpu/vml.h`
+lists: of the square roots of 131072 values, 25965 are not correctly rounded on an AMD
+EPYC and 25153 on an Intel Xeon, with different digests (`tools/vector_maths.py`). No
+training step calls those functions: Adam runs as torch's fused CPU kernel, the verdict
+loss takes its logarithm as `xlogy` and its exponential as a ratio of sigmoids, and the
+converged fit's line search takes Python's square root; `tests/test_training.py` profiles
+each training path and fails on any of them.
+
+The model's weights and the order of the training scenes come from one seeded generator.
+Two runs on one machine give equal studies, which `tests/test_training.py` pins on a tiny
+configuration. The studies are written on an Intel Xeon E5-2680 v3, and the CI workflow
+reruns the first seed of each on a GitHub runner, an AMD EPYC 7763, 9V74 or 9V45 or an
+Intel Xeon Platinum 8370C or 8573C, prints the runner's processor and fails on any count
+that differs. A training run turns a difference in the last bit into different counts:
+with ATen's AVX2 kernels in place of the portable ones, 297 of 748 fields of the first seed
+differ, the largest by 814 of 1000 scenes
 (`tools/study.py --check --seeds 1 --native-kernels`).
 
 ## Limits

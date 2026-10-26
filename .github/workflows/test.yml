@@ -45,4 +45,5 @@ jobs:
       - uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
         with: { version: "0.13.5", python-version: "3.14", enable-cache: true }
       - run: uv sync --locked
+      - run: grep -m1 "model name" /proc/cpuinfo && uv run python tools/vector_maths.py
       - run: uv run python tools/study.py --check docs/studies/${{ matrix.study }}.json --seeds 1

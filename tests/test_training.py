@@ -5,7 +5,7 @@ import torch.nn.functional as F
 from regrounding.config import Experiment
 from regrounding.experiment import run, run_direct
 from regrounding.model import ConceptNet
-from regrounding.train import Regrounding, loss, reground
+from regrounding.train import Regrounding, fit, loss, reground
 
 TINY = Experiment(
     source_train=400,
@@ -124,7 +124,7 @@ class TestFrozenLayers:
     def _reference(self, model, images, concepts, scope):
         """Fine-tune the way re-grounding did before freezing: every layer keeps its gradient."""
         layers = {"readout": model.head[-1], "head": model.head, "all": model}
-        optimizer = torch.optim.Adam(layers[scope].parameters(), lr=1e-2)
+        optimizer = torch.optim.Adam(layers[scope].parameters(), lr=1e-2, fused=True)
         for _ in range(5):
             optimizer.zero_grad()
             loss(model(images), concepts, "verdict").backward()
@@ -143,6 +143,70 @@ class TestFrozenLayers:
         for a, b in zip(frozen.parameters(), reference.parameters(), strict=True):
             assert torch.equal(a, b)
         assert all(p.requires_grad for p in frozen.parameters())
+
+
+#: The operations torch computes on the CPU through MKL's vector maths (ATen's cpu/vml.h),
+#: whose kernel MKL picks by CPU vendor.
+VECTOR_MATHS = {
+    f"aten::{op}{suffix}"
+    for op in (
+        *("acos", "asin", "atan", "cos", "erf", "erfc", "erfinv", "exp"),
+        *("log", "log10", "log2", "sin", "sqrt", "tan", "tanh", "trunc"),
+    )
+    for suffix in ("", "_")
+}
+
+
+def _called(job):
+    """Return the name of every operation the dispatcher ran for ``job``, nested ones too."""
+    with torch.profiler.profile(activities=[torch.profiler.ProfilerActivity.CPU]) as profile:
+        job()
+    return {event.name for event in profile.events()}
+
+
+class TestVendorIndependence:
+    def _scenes(self):
+        generator = torch.Generator().manual_seed(2)
+        images = torch.rand((16, 3, 32, 32), generator=generator)
+        return images, torch.randint(0, 2, (16, 3), generator=generator)
+
+    def test_the_profiler_sees_an_operation_of_the_vector_maths(self):
+        assert "aten::sqrt" in _called(lambda: torch.ones(3).sqrt())
+
+    @pytest.mark.parametrize("mode", ["concepts", "verdict", "direct"])
+    def test_training_calls_no_operation_of_the_vector_maths(self, mode):
+        model = ConceptNet(torch.Generator().manual_seed(0))
+        images, concepts = self._scenes()
+
+        def job():
+            fit(
+                model,
+                images,
+                concepts,
+                mode=mode,
+                epochs=1,
+                batch_size=8,
+                learning_rate=1e-3,
+                generator=torch.Generator().manual_seed(1),
+            )
+
+        assert _called(job) & VECTOR_MATHS == set()
+
+    @pytest.mark.parametrize(
+        "how",
+        [
+            Regrounding(scope="all", steps=2, learning_rate=1e-3),
+            Regrounding(scope="readout", steps=0, learning_rate=0.0, fit="converged", anchor=0.01),
+        ],
+    )
+    def test_re_grounding_calls_no_operation_of_the_vector_maths(self, how):
+        model = ConceptNet(torch.Generator().manual_seed(0))
+        images, concepts = self._scenes()
+
+        def job():
+            reground(model, images, concepts, mode="verdict", how=how)
+
+        assert _called(job) & VECTOR_MATHS == set()
 
 
 class TestEndToEnd:

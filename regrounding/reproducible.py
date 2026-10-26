@@ -5,7 +5,9 @@ CPU build of torch otherwise vary with the machine: ATen's vectorised kernels pi
 widest instruction set the CPU has, and a wider vector sums in a different order; MKL's
 matrix products do the same unless told to use one code path; and more than one thread
 splits a reduction differently. Each is pinned here, which is why this module imports
-nothing that imports torch: ATen and MKL read these variables when they start.
+nothing that imports torch: ATen and MKL read these variables when they start. A fourth,
+MKL's vector maths, picks its kernel by CPU vendor whatever the code path set here;
+`regrounding.train` keeps every training step off it.
 """
 
 import os

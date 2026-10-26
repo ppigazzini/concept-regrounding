@@ -45,19 +45,19 @@ uv run python tools/study.py --check docs/studies/regrounding.json
 A study file holds the settings and one row of counts per model and test set; ratios are
 computed where they are printed. `--check` reads the settings back from the file, reruns,
 and prints one line per count that differs. On the machine that wrote the file every count
-reproduces exactly. Whether another machine does is untested; `regrounding/reproducible.py`
-and `regrounding/execution.py` remove the kernel choices that depend on the CPU, and
-`docs/01-method.md` states each. `--check --seeds N` reruns the first `N` seeds of the file
-and compares their rows, and `--tolerance`, a fraction of a row's scenes below 1, accepts a
-count that moves by up to that many scenes.
+reproduces exactly, and the CI workflow reruns the first seed of every study on GitHub's AMD
+EPYC and Intel Xeon runners; `docs/01-method.md` states what `regrounding/reproducible.py`,
+`regrounding/execution.py` and the training code hold fixed for that. `--check --seeds N`
+reruns the first `N` seeds of the file and compares their rows, and `--tolerance`, a
+fraction of a row's scenes below 1, accepts a count that moves by up to that many scenes.
 
 ```bash
 uv run python tools/study.py --check docs/studies/regrounding.json --seeds 1 --native-kernels
 ```
 
 reruns the first seed on ATen's widest kernels, AVX2 on the machine that wrote the study,
-instead of its portable ones: 300 of the 704 fields of that seed's rows differ, the largest
-by 804 of 1000 scenes. A kernel that rounds differently sends the training elsewhere, so a
+instead of its portable ones: 297 of the 748 fields of that seed's rows differ, the largest
+by 814 of 1000 scenes. A kernel that rounds differently sends the training elsewhere, so a
 tolerance does not stand in for equal arithmetic, and `--json` refuses the flag.
 
 ## Explore on a GPU

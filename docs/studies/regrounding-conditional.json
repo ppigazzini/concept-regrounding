@@ -71,9 +71,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     998,
-     480,
-     509
+     999,
+     477,
+     508
     ],
     [
      478,
@@ -81,38 +81,38 @@
      483
     ],
     [
-     507,
-     483,
-     996
+     508,
+     484,
+     999
     ]
    ],
    "verdict_agreement": [
-    620,
+    619,
     608,
-    619
+    618
    ],
-   "verdict_correct": 999,
-   "true_positives": 126,
+   "verdict_correct": 1000,
+   "true_positives": 127,
    "positives": 127,
    "negatives": 873,
    "false_positives": 0,
    "covered": [
-    910,
-    916,
-    915
+    909,
+    940,
+    925
    ],
    "empty": [
-    90,
-    84,
-    85
+    91,
+    60,
+    75
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 963,
-   "decided_correct": 963
+   "decided": 957,
+   "decided_correct": 957
   },
   {
    "mode": "concepts",
@@ -134,30 +134,30 @@
      513
     ],
     [
-     513,
-     484,
-     995
+     512,
+     485,
+     998
     ]
    ],
    "verdict_agreement": [
     878,
     384,
-    624
+    625
    ],
    "verdict_correct": 878,
    "true_positives": 0,
    "positives": 122,
    "negatives": 878,
-   "false_positives": 747,
+   "false_positives": 695,
    "covered": [
-    491,
+    486,
     0,
-    757
+    797
    ],
    "empty": [
-    0,
-    301,
-    243
+    32,
+    255,
+    203
    ],
    "full": [
     0,
@@ -177,48 +177,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     536,
-     399,
-     604
+     549,
+     796,
+     627
     ],
     [
-     506,
-     503,
-     500
+     498,
+     451,
+     552
     ],
     [
-     505,
-     452,
-     811
+     510,
+     483,
+     970
     ]
    ],
    "verdict_agreement": [
-    247,
-    125,
-    436
+    738,
+    177,
+    595
    ],
-   "verdict_correct": 459,
-   "true_positives": 122,
+   "verdict_correct": 857,
+   "true_positives": 120,
    "positives": 122,
    "negatives": 878,
-   "false_positives": 223,
+   "false_positives": 105,
    "covered": [
-    519,
-    0,
-    772
+    502,
+    730,
+    794
    ],
    "empty": [
-    5,
-    249,
-    227
+    48,
+    0,
+    206
    ],
    "full": [
     0,
-    0,
+    730,
     0
    ],
-   "decided": 958,
-   "decided_correct": 863
+   "decided": 879,
+   "decided_correct": 826
   },
   {
    "mode": "concepts",
@@ -230,48 +230,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     504,
-     735,
-     720
-    ],
-    [
-     506,
-     231,
-     706
-    ],
-    [
      526,
-     679,
-     790
+     755,
+     670
+    ],
+    [
+     512,
+     315,
+     792
+    ],
+    [
+     523,
+     554,
+     931
     ]
    ],
    "verdict_agreement": [
-    865,
-    429,
-    825
+    841,
+    445,
+    692
    ],
-   "verdict_correct": 871,
-   "true_positives": 63,
+   "verdict_correct": 879,
+   "true_positives": 94,
    "positives": 122,
    "negatives": 878,
-   "false_positives": 327,
+   "false_positives": 108,
    "covered": [
-    558,
-    282,
-    767
+    529,
+    525,
+    774
    ],
    "empty": [
     0,
     0,
-    233
+    226
    ],
    "full": [
-    81,
-    39,
+    7,
+    322,
     0
    ],
-   "decided": 963,
-   "decided_correct": 864
+   "decided": 944,
+   "decided_correct": 861
   },
   {
    "mode": "concepts",
@@ -283,48 +283,48 @@
    "scenes": 1000,
    "agreement": [
     [
+     525,
+     814,
+     605
+    ],
+    [
+     509,
      498,
-     737,
-     738
+     973
     ],
     [
-     519,
-     494,
-     969
-    ],
-    [
-     534,
-     647,
-     828
+     536,
+     643,
+     834
     ]
    ],
    "verdict_agreement": [
-    875,
-    600,
-    789
+    780,
+    634,
+    787
    ],
-   "verdict_correct": 881,
-   "true_positives": 118,
+   "verdict_correct": 890,
+   "true_positives": 110,
    "positives": 122,
    "negatives": 878,
-   "false_positives": 92,
+   "false_positives": 97,
    "covered": [
-    570,
-    697,
-    767
+    523,
+    709,
+    756
    ],
    "empty": [
+    26,
     0,
-    0,
-    233
+    244
    ],
    "full": [
-    98,
-    420,
+    0,
+    435,
     0
    ],
-   "decided": 902,
-   "decided_correct": 859
+   "decided": 986,
+   "decided_correct": 890
   },
   {
    "mode": "concepts",
@@ -336,48 +336,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     533,
-     532,
-     931
+     534,
+     557,
+     922
     ],
     [
-     492,
-     937,
-     536
+     508,
+     929,
+     540
     ],
     [
-     517,
-     518,
-     963
+     511,
+     504,
+     975
     ]
    ],
    "verdict_agreement": [
-    666,
-    645,
-    660
+    691,
+    573,
+    644
    ],
-   "verdict_correct": 878,
-   "true_positives": 120,
+   "verdict_correct": 844,
+   "true_positives": 117,
    "positives": 122,
    "negatives": 878,
-   "false_positives": 100,
+   "false_positives": 108,
    "covered": [
-    662,
+    643,
     1000,
-    795
+    785
    ],
    "empty": [
     0,
     0,
-    205
+    214
    ],
    "full": [
-    258,
-    702,
+    216,
+    707,
     0
    ],
-   "decided": 796,
-   "decided_correct": 774
+   "decided": 741,
+   "decided_correct": 729
   },
   {
    "mode": "concepts",
@@ -389,48 +389,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     540,
-     303,
-     808
+     535,
+     310,
+     801
     ],
     [
-     489,
-     1000,
-     487
+     495,
+     990,
+     479
     ],
     [
-     513,
-     494,
-     979
+     516,
+     499,
+     976
     ]
    ],
    "verdict_agreement": [
-    581,
-    616,
-    638
+    564,
+    610,
+    643
    ],
-   "verdict_correct": 894,
-   "true_positives": 65,
+   "verdict_correct": 885,
+   "true_positives": 64,
    "positives": 122,
    "negatives": 878,
-   "false_positives": 105,
+   "false_positives": 101,
    "covered": [
     489,
     1000,
-    819
+    785
    ],
    "empty": [
-    71,
+    84,
     0,
-    181
+    215
    ],
    "full": [
     0,
-    667,
+    641,
     0
    ],
-   "decided": 990,
-   "decided_correct": 873
+   "decided": 959,
+   "decided_correct": 855
   },
   {
    "mode": "concepts",
@@ -442,48 +442,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     583,
-     368,
-     703
+     580,
+     439,
+     722
     ],
     [
-     489,
-     1000,
-     487
+     490,
+     999,
+     486
     ],
     [
      514,
-     491,
-     990
+     497,
+     984
     ]
    ],
    "verdict_agreement": [
-    612,
-    616,
-    631
+    633,
+    617,
+    637
    ],
-   "verdict_correct": 909,
-   "true_positives": 64,
+   "verdict_correct": 898,
+   "true_positives": 75,
    "positives": 122,
    "negatives": 878,
-   "false_positives": 78,
+   "false_positives": 88,
    "covered": [
-    473,
+    448,
     1000,
-    828
+    818
    ],
    "empty": [
-    76,
+    138,
     0,
-    172
+    182
    ],
    "full": [
     0,
-    608,
+    646,
     0
    ],
-   "decided": 986,
-   "decided_correct": 868
+   "decided": 944,
+   "decided_correct": 844
   },
   {
    "mode": "concepts",
@@ -495,48 +495,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     620,
-     569,
-     642
+     599,
+     530,
+     595
     ],
     [
-     489,
-     1000,
-     487
+     490,
+     999,
+     486
     ],
     [
-     514,
-     479,
-     992
+     512,
+     483,
+     990
     ]
    ],
    "verdict_agreement": [
-    579,
-    616,
-    619
+    556,
+    617,
+    617
    ],
-   "verdict_correct": 902,
-   "true_positives": 90,
+   "verdict_correct": 884,
+   "true_positives": 72,
    "positives": 122,
    "negatives": 878,
-   "false_positives": 93,
+   "false_positives": 95,
    "covered": [
-    484,
+    462,
     1000,
-    843
+    845
    ],
    "empty": [
-    50,
+    118,
     0,
-    157
+    155
    ],
    "full": [
     0,
-    616,
+    671,
     0
    ],
-   "decided": 980,
-   "decided_correct": 869
+   "decided": 926,
+   "decided_correct": 833
   },
   {
    "mode": "concepts",
@@ -548,9 +548,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     986,
-     489,
-     508
+     982,
+     493,
+     512
     ],
     [
      489,
@@ -558,25 +558,25 @@
      487
     ],
     [
-     508,
+     512,
      487,
      998
     ]
    ],
    "verdict_agreement": [
-    621,
+    625,
     616,
-    625
+    623
    ],
    "verdict_correct": 996,
-   "true_positives": 118,
+   "true_positives": 119,
    "positives": 122,
    "negatives": 878,
    "false_positives": 0,
    "covered": [
-    557,
+    529,
     1000,
-    998
+    967
    ],
    "empty": [
     0,
@@ -584,12 +584,12 @@
     0
    ],
    "full": [
-    66,
-    1000,
-    105
+    38,
+    864,
+    144
    ],
-   "decided": 951,
-   "decided_correct": 833
+   "decided": 968,
+   "decided_correct": 848
   },
   {
    "mode": "concepts",
@@ -602,8 +602,8 @@
    "agreement": [
     [
      903,
-     474,
-     495
+     492,
+     493
     ],
     [
      489,
@@ -611,38 +611,38 @@
      487
     ],
     [
-     510,
-     487,
-     1000
+     511,
+     490,
+     997
     ]
    ],
    "verdict_agreement": [
-    586,
+    600,
     616,
-    625
+    622
    ],
-   "verdict_correct": 971,
-   "true_positives": 100,
+   "verdict_correct": 970,
+   "true_positives": 101,
    "positives": 122,
    "negatives": 878,
-   "false_positives": 12,
+   "false_positives": 11,
    "covered": [
-    871,
+    863,
     1000,
-    984
+    992
    ],
    "empty": [
-    43,
+    64,
     0,
-    16
+    8
    ],
    "full": [
     0,
-    810,
+    790,
     0
    ],
-   "decided": 805,
-   "decided_correct": 802
+   "decided": 803,
+   "decided_correct": 797
   },
   {
    "mode": "concepts",
@@ -654,9 +654,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     1000,
-     507,
-     520
+     999,
+     506,
+     519
     ],
     [
      507,
@@ -664,38 +664,38 @@
      487
     ],
     [
-     521,
-     488,
-     993
+     520,
+     487,
+     994
     ]
    ],
    "verdict_agreement": [
-    627,
+    626,
     632,
-    626
+    625
    ],
    "verdict_correct": 998,
-   "true_positives": 133,
+   "true_positives": 132,
    "positives": 134,
    "negatives": 866,
    "false_positives": 0,
    "covered": [
-    906,
-    901,
-    899
+    893,
+    894,
+    891
    ],
    "empty": [
-    94,
-    99,
-    100
+    107,
+    106,
+    108
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 965,
-   "decided_correct": 964
+   "decided": 954,
+   "decided_correct": 953
   },
   {
    "mode": "concepts",
@@ -707,9 +707,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     604,
-     824,
-     488
+     562,
+     842,
+     472
     ],
     [
      508,
@@ -717,38 +717,38 @@
      536
     ],
     [
-     494,
-     462,
-     984
+     492,
+     456,
+     978
     ]
    ],
    "verdict_agreement": [
-    647,
+    693,
     365,
-    601
+    595
    ],
-   "verdict_correct": 841,
+   "verdict_correct": 860,
    "true_positives": 0,
    "positives": 124,
    "negatives": 876,
-   "false_positives": 782,
+   "false_positives": 765,
    "covered": [
-    112,
+    101,
     0,
-    381
+    294
    ],
    "empty": [
-    883,
-    191,
-    619
+    896,
+    271,
+    706
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 445,
-   "decided_correct": 329
+   "decided": 388,
+   "decided_correct": 289
   },
   {
    "mode": "concepts",
@@ -760,48 +760,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     543,
-     509,
-     535
+     550,
+     514,
+     540
     ],
     [
-     480,
-     252,
-     708
+     489,
+     237,
+     725
     ],
     [
-     495,
-     441,
-     907
+     497,
+     385,
+     883
     ]
    ],
    "verdict_agreement": [
-    144,
-    311,
-    510
+    149,
+    328,
+    486
    ],
-   "verdict_correct": 505,
-   "true_positives": 98,
+   "verdict_correct": 479,
+   "true_positives": 100,
    "positives": 124,
    "negatives": 876,
-   "false_positives": 533,
+   "false_positives": 576,
    "covered": [
-    313,
+    300,
     0,
-    578
+    383
    ],
    "empty": [
-    581,
-    54,
-    421
+    594,
+    116,
+    617
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 782,
-   "decided_correct": 645
+   "decided": 760,
+   "decided_correct": 635
   },
   {
    "mode": "concepts",
@@ -813,48 +813,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     593,
-     781,
-     615
+     559,
+     745,
+     633
     ],
     [
-     503,
-     229,
-     765
+     506,
+     214,
+     750
     ],
     [
-     500,
-     462,
-     976
+     501,
+     455,
+     959
     ]
    ],
    "verdict_agreement": [
-    732,
-    472,
-    611
+    818,
+    463,
+    614
    ],
-   "verdict_correct": 830,
-   "true_positives": 58,
+   "verdict_correct": 856,
+   "true_positives": 56,
    "positives": 124,
    "negatives": 876,
-   "false_positives": 388,
+   "false_positives": 379,
    "covered": [
-    444,
-    396,
-    532
+    508,
+    346,
+    423
    ],
    "empty": [
-    297,
+    207,
     0,
-    468
+    577
    ],
    "full": [
     0,
-    354,
+    298,
     0
    ],
-   "decided": 667,
-   "decided_correct": 577
+   "decided": 736,
+   "decided_correct": 649
   },
   {
    "mode": "concepts",
@@ -866,48 +866,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     534,
-     870,
-     488
+     530,
+     874,
+     484
     ],
     [
-     518,
-     556,
-     562
+     504,
+     590,
+     580
     ],
     [
-     491,
-     459,
-     977
+     487,
+     451,
+     967
     ]
    ],
    "verdict_agreement": [
-    725,
-    603,
-    586
+    723,
+    581,
+    578
    ],
-   "verdict_correct": 876,
-   "true_positives": 65,
+   "verdict_correct": 874,
+   "true_positives": 74,
    "positives": 124,
    "negatives": 876,
-   "false_positives": 127,
+   "false_positives": 110,
    "covered": [
-    441,
-    969,
-    595
+    454,
+    952,
+    531
    ],
    "empty": [
-    208,
+    141,
     0,
-    405
+    469
    ],
    "full": [
     0,
-    954,
+    923,
     0
    ],
-   "decided": 653,
-   "decided_correct": 652
+   "decided": 672,
+   "decided_correct": 671
   },
   {
    "mode": "concepts",
@@ -919,48 +919,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     583,
-     803,
-     383
+     597,
+     773,
+     363
     ],
     [
-     471,
-     659,
-     673
+     464,
+     688,
+     700
     ],
     [
-     496,
-     468,
-     980
+     493,
+     467,
+     975
     ]
    ],
    "verdict_agreement": [
-    674,
-    624,
-    601
+    668,
+    607,
+    598
    ],
-   "verdict_correct": 894,
-   "true_positives": 60,
+   "verdict_correct": 897,
+   "true_positives": 71,
    "positives": 124,
    "negatives": 876,
-   "false_positives": 217,
+   "false_positives": 153,
    "covered": [
-    250,
-    997,
-    529
+    276,
+    1000,
+    475
    ],
    "empty": [
-    692,
+    618,
     0,
-    471
+    525
    ],
    "full": [
     0,
-    996,
+    1000,
     0
    ],
-   "decided": 497,
-   "decided_correct": 497
+   "decided": 534,
+   "decided_correct": 534
   },
   {
    "mode": "concepts",
@@ -972,48 +972,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     585,
-     805,
-     325
+     576,
+     812,
+     330
     ],
     [
-     466,
-     894,
-     566
+     487,
+     885,
+     577
     ],
     [
-     496,
+     492,
      470,
-     978
+     974
     ]
    ],
    "verdict_agreement": [
-    600,
-    737,
+    609,
+    718,
     603
    ],
-   "verdict_correct": 921,
-   "true_positives": 97,
+   "verdict_correct": 912,
+   "true_positives": 98,
    "positives": 124,
    "negatives": 876,
-   "false_positives": 93,
+   "false_positives": 89,
    "covered": [
-    272,
+    292,
     1000,
-    554
+    534
    ],
    "empty": [
-    648,
+    604,
     0,
-    446
+    466
    ],
    "full": [
     0,
-    996,
+    999,
     0
    ],
-   "decided": 533,
-   "decided_correct": 533
+   "decided": 573,
+   "decided_correct": 573
   },
   {
    "mode": "concepts",
@@ -1025,48 +1025,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     637,
-     629,
-     577
+     625,
+     635,
+     579
     ],
     [
-     497,
-     991,
-     473
+     498,
+     988,
+     476
     ],
     [
-     500,
-     470,
-     974
+     494,
+     464,
+     970
     ]
    ],
    "verdict_agreement": [
-    636,
-    644,
-    605
+    610,
+    647,
+    603
    ],
-   "verdict_correct": 918,
-   "true_positives": 109,
+   "verdict_correct": 910,
+   "true_positives": 108,
    "positives": 124,
    "negatives": 876,
-   "false_positives": 87,
+   "false_positives": 94,
    "covered": [
-    305,
+    355,
     1000,
-    593
+    526
    ],
    "empty": [
-    602,
+    486,
     0,
-    405
+    470
    ],
    "full": [
     0,
     997,
     0
    ],
-   "decided": 447,
-   "decided_correct": 447
+   "decided": 512,
+   "decided_correct": 511
   },
   {
    "mode": "concepts",
@@ -1078,9 +1078,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     708,
-     734,
-     430
+     694,
+     754,
+     424
     ],
     [
      492,
@@ -1088,38 +1088,38 @@
      464
     ],
     [
-     496,
-     466,
-     978
+     493,
+     459,
+     973
     ]
    ],
    "verdict_agreement": [
-    591,
+    585,
     635,
-    603
+    594
    ],
-   "verdict_correct": 933,
+   "verdict_correct": 923,
    "true_positives": 108,
    "positives": 124,
    "negatives": 876,
-   "false_positives": 77,
+   "false_positives": 78,
    "covered": [
-    132,
+    115,
     1000,
-    638
+    538
    ],
    "empty": [
-    861,
+    875,
     0,
-    361
+    462
    ],
    "full": [
     0,
-    990,
+    989,
     0
    ],
-   "decided": 388,
-   "decided_correct": 388
+   "decided": 361,
+   "decided_correct": 361
   },
   {
    "mode": "concepts",
@@ -1131,9 +1131,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     924,
-     522,
-     504
+     975,
+     489,
+     503
     ],
     [
      492,
@@ -1147,32 +1147,32 @@
     ]
    ],
    "verdict_agreement": [
-    513,
+    586,
     635,
     601
    ],
-   "verdict_correct": 977,
-   "true_positives": 124,
+   "verdict_correct": 995,
+   "true_positives": 121,
    "positives": 124,
    "negatives": 876,
-   "false_positives": 0,
+   "false_positives": 1,
    "covered": [
-    535,
+    542,
     1000,
-    897
+    904
    ],
    "empty": [
-    402,
+    342,
     0,
-    103
+    96
    ],
    "full": [
     0,
-    813,
+    1000,
     0
    ],
-   "decided": 554,
-   "decided_correct": 554
+   "decided": 438,
+   "decided_correct": 438
   },
   {
    "mode": "concepts",
@@ -1184,9 +1184,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     780,
-     422,
-     518
+     765,
+     327,
+     507
     ],
     [
      492,
@@ -1194,38 +1194,38 @@
      464
     ],
     [
-     503,
-     465,
-     999
+     505,
+     467,
+     997
     ]
    ],
    "verdict_agreement": [
-    527,
+    444,
     635,
-    604
+    602
    ],
-   "verdict_correct": 973,
-   "true_positives": 100,
+   "verdict_correct": 970,
+   "true_positives": 99,
    "positives": 124,
    "negatives": 876,
-   "false_positives": 6,
+   "false_positives": 12,
    "covered": [
-    912,
+    925,
     1000,
-    975
+    970
    ],
    "empty": [
     0,
     0,
-    25
+    30
    ],
    "full": [
-    293,
-    1000,
+    367,
+    942,
     0
    ],
-   "decided": 597,
-   "decided_correct": 587
+   "decided": 639,
+   "decided_correct": 631
   },
   {
    "mode": "concepts",
@@ -1237,9 +1237,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     994,
-     505,
-     514
+     999,
+     508,
+     515
     ],
     [
      507,
@@ -1247,38 +1247,38 @@
      523
     ],
     [
-     521,
-     516,
-     991
+     525,
+     526,
+     989
     ]
    ],
    "verdict_agreement": [
-    642,
+    639,
     635,
-    659
+    663
    ],
-   "verdict_correct": 997,
-   "true_positives": 145,
+   "verdict_correct": 999,
+   "true_positives": 148,
    "positives": 148,
    "negatives": 852,
    "false_positives": 0,
    "covered": [
-    889,
-    897,
-    897
+    896,
+    887,
+    881
    ],
    "empty": [
-    111,
-    103,
-    103
+    104,
+    113,
+    119
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 937,
-   "decided_correct": 937
+   "decided": 935,
+   "decided_correct": 935
   },
   {
    "mode": "concepts",
@@ -1290,40 +1290,40 @@
    "scenes": 1000,
    "agreement": [
     [
-     495,
-     481,
-     491
+     521,
+     507,
+     497
     ],
     [
-     491,
-     21,
-     501
+     486,
+     0,
+     504
     ],
     [
-     504,
-     500,
-     994
+     505,
+     493,
+     991
     ]
    ],
    "verdict_agreement": [
-    866,
-    406,
-    627
+    872,
+    385,
+    630
    ],
    "verdict_correct": 866,
    "true_positives": 0,
    "positives": 134,
    "negatives": 866,
-   "false_positives": 729,
+   "false_positives": 686,
    "covered": [
-    495,
+    488,
     0,
-    551
+    581
    ],
    "empty": [
-    2,
-    632,
-    449
+    97,
+    518,
+    419
    ],
    "full": [
     0,
@@ -1343,48 +1343,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     505,
-     513,
-     515
+     517,
+     479,
+     549
     ],
     [
-     453,
-     353,
-     593
+     451,
+     247,
+     609
     ],
     [
-     489,
-     327,
-     703
+     470,
+     368,
+     848
     ]
    ],
    "verdict_agreement": [
-    140,
-    234,
-    328
+    174,
+    286,
+    475
    ],
-   "verdict_correct": 314,
-   "true_positives": 101,
+   "verdict_correct": 442,
+   "true_positives": 74,
    "positives": 134,
    "negatives": 866,
-   "false_positives": 710,
+   "false_positives": 687,
    "covered": [
-    472,
+    485,
     0,
-    561
+    601
    ],
    "empty": [
-    101,
-    329,
-    439
+    99,
+    174,
+    399
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 958,
-   "decided_correct": 842
+   "decided": 952,
+   "decided_correct": 833
   },
   {
    "mode": "concepts",
@@ -1396,48 +1396,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     527,
-     623,
-     721
+     540,
+     802,
+     646
     ],
     [
-     487,
-     253,
-     719
+     477,
+     219,
+     715
     ],
     [
-     500,
-     500,
-     986
+     504,
+     496,
+     996
     ]
    ],
    "verdict_agreement": [
-    664,
-    482,
-    613
+    673,
+    458,
+    625
    ],
-   "verdict_correct": 753,
-   "true_positives": 58,
+   "verdict_correct": 796,
+   "true_positives": 51,
    "positives": 134,
    "negatives": 866,
-   "false_positives": 603,
+   "false_positives": 607,
    "covered": [
-    493,
-    259,
-    561
+    496,
+    213,
+    580
    ],
    "empty": [
-    69,
-    126,
-    438
+    83,
+    19,
+    420
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 951,
-   "decided_correct": 836
+   "decided": 961,
+   "decided_correct": 838
   },
   {
    "mode": "concepts",
@@ -1449,48 +1449,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     525,
-     881,
-     585
+     523,
+     877,
+     611
     ],
     [
-     496,
-     618,
-     434
+     501,
+     593,
+     425
     ],
     [
-     505,
-     513,
-     977
+     507,
+     501,
+     991
     ]
    ],
    "verdict_agreement": [
-    716,
-    615,
-    606
+    728,
+    594,
+    622
    ],
-   "verdict_correct": 853,
-   "true_positives": 70,
+   "verdict_correct": 850,
+   "true_positives": 66,
    "positives": 134,
    "negatives": 866,
-   "false_positives": 423,
+   "false_positives": 589,
    "covered": [
-    545,
-    805,
-    585
+    498,
+    801,
+    634
    ],
    "empty": [
-    24,
+    82,
     0,
-    411
+    365
    ],
    "full": [
     0,
-    487,
+    514,
     0
    ],
-   "decided": 977,
-   "decided_correct": 867
+   "decided": 940,
+   "decided_correct": 838
   },
   {
    "mode": "concepts",
@@ -1502,48 +1502,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     545,
-     779,
-     633
+     568,
+     796,
+     642
     ],
     [
-     489,
-     619,
-     419
+     498,
+     652,
+     374
     ],
     [
      505,
-     511,
-     981
+     509,
+     983
     ]
    ],
    "verdict_agreement": [
-    694,
-    590,
-    636
+    675,
+    549,
+    638
    ],
-   "verdict_correct": 855,
-   "true_positives": 72,
+   "verdict_correct": 848,
+   "true_positives": 73,
    "positives": 134,
    "negatives": 866,
-   "false_positives": 456,
+   "false_positives": 510,
    "covered": [
-    481,
-    840,
-    570
+    464,
+    877,
+    650
    ],
    "empty": [
-    96,
+    123,
     0,
-    429
+    349
    ],
    "full": [
     0,
-    601,
+    657,
     0
    ],
-   "decided": 934,
-   "decided_correct": 849
+   "decided": 924,
+   "decided_correct": 835
   },
   {
    "mode": "concepts",
@@ -1555,48 +1555,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     561,
-     775,
-     541
+     572,
+     752,
+     568
     ],
     [
-     496,
-     784,
-     294
+     498,
+     766,
+     276
     ],
     [
-     505,
-     505,
-     985
+     508,
+     500,
+     992
     ]
    ],
    "verdict_agreement": [
-    612,
-    499,
-    618
+    593,
+    487,
+    625
    ],
-   "verdict_correct": 860,
-   "true_positives": 71,
+   "verdict_correct": 857,
+   "true_positives": 66,
    "positives": 134,
    "negatives": 866,
-   "false_positives": 223,
+   "false_positives": 277,
    "covered": [
-    465,
-    1000,
-    583
+    458,
+    991,
+    670
    ],
    "empty": [
-    114,
+    130,
     0,
-    416
+    329
    ],
    "full": [
     0,
-    773,
+    769,
     0
    ],
-   "decided": 905,
-   "decided_correct": 835
+   "decided": 898,
+   "decided_correct": 827
   },
   {
    "mode": "concepts",
@@ -1608,44 +1608,44 @@
    "scenes": 1000,
    "agreement": [
     [
-     596,
-     592,
-     500
+     621,
+     593,
+     539
     ],
     [
-     515,
-     993,
-     495
+     514,
+     992,
+     494
     ],
     [
-     508,
-     506,
-     984
+     505,
+     503,
+     991
     ]
    ],
    "verdict_agreement": [
-    541,
-    620,
-    617
+    580,
+    617,
+    626
    ],
-   "verdict_correct": 904,
+   "verdict_correct": 900,
    "true_positives": 103,
    "positives": 134,
    "negatives": 866,
-   "false_positives": 90,
+   "false_positives": 99,
    "covered": [
     495,
     1000,
-    614
+    679
    ],
    "empty": [
-    11,
+    12,
     0,
-    385
+    320
    ],
    "full": [
     0,
-    794,
+    779,
     0
    ],
    "decided": 989,
@@ -1661,44 +1661,44 @@
    "scenes": 1000,
    "agreement": [
     [
-     698,
-     436,
-     508
+     737,
+     427,
+     535
     ],
     [
-     514,
-     1000,
-     496
+     512,
+     998,
+     498
     ],
     [
-     507,
-     499,
-     991
+     505,
+     495,
+     995
     ]
    ],
    "verdict_agreement": [
-    531,
-    615,
-    622
+    574,
+    617,
+    626
    ],
-   "verdict_correct": 934,
-   "true_positives": 99,
+   "verdict_correct": 929,
+   "true_positives": 90,
    "positives": 134,
    "negatives": 866,
-   "false_positives": 75,
+   "false_positives": 54,
    "covered": [
     495,
     1000,
-    559
+    647
    ],
    "empty": [
     0,
     0,
-    441
+    353
    ],
    "full": [
     0,
-    762,
+    738,
     0
    ],
    "decided": 1000,
@@ -1714,9 +1714,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     995,
-     513,
-     499
+     992,
+     508,
+     502
     ],
     [
      514,
@@ -1730,7 +1730,7 @@
     ]
    ],
    "verdict_agreement": [
-    628,
+    629,
     615,
     627
    ],
@@ -1740,9 +1740,9 @@
    "negatives": 866,
    "false_positives": 0,
    "covered": [
-    509,
+    547,
     1000,
-    739
+    686
    ],
    "empty": [
     0,
@@ -1750,12 +1750,12 @@
     0
    ],
    "full": [
-    14,
-    835,
-    230
+    52,
+    1000,
+    177
    ],
-   "decided": 986,
-   "decided_correct": 852
+   "decided": 948,
+   "decided_correct": 822
   },
   {
    "mode": "concepts",
@@ -1767,9 +1767,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     982,
-     516,
-     494
+     985,
+     515,
+     493
     ],
     [
      514,
@@ -1777,23 +1777,23 @@
      496
     ],
     [
-     502,
-     496,
-     1000
+     501,
+     497,
+     999
     ]
    ],
    "verdict_agreement": [
-    625,
+    624,
     615,
-    625
+    626
    ],
-   "verdict_correct": 996,
-   "true_positives": 131,
+   "verdict_correct": 997,
+   "true_positives": 132,
    "positives": 134,
    "negatives": 866,
    "false_positives": 0,
    "covered": [
-    983,
+    991,
     1000,
     1000
    ],
@@ -1803,12 +1803,12 @@
     0
    ],
    "full": [
-    24,
-    888,
-    1
+    57,
+    878,
+    9
    ],
-   "decided": 772,
-   "decided_correct": 771
+   "decided": 759,
+   "decided_correct": 759
   },
   {
    "mode": "concepts",
@@ -1830,38 +1830,38 @@
      494
     ],
     [
-     500,
-     498,
-     990
+     499,
+     501,
+     991
     ]
    ],
    "verdict_agreement": [
     631,
     617,
-    597
+    602
    ],
-   "verdict_correct": 997,
+   "verdict_correct": 998,
    "true_positives": 119,
    "positives": 119,
    "negatives": 881,
    "false_positives": 0,
    "covered": [
-    897,
-    904,
-    857
+    882,
+    883,
+    877
    ],
    "empty": [
-    103,
-    96,
-    142
+    118,
+    117,
+    123
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 985,
-   "decided_correct": 985
+   "decided": 989,
+   "decided_correct": 989
   },
   {
    "mode": "concepts",
@@ -1873,9 +1873,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     503,
-     513,
-     503
+     497,
+     507,
+     497
     ],
     [
      522,
@@ -1883,30 +1883,30 @@
      506
     ],
     [
-     504,
-     492,
-     990
+     506,
+     494,
+     982
     ]
    ],
    "verdict_agreement": [
-    889,
+    883,
     376,
-    612
+    618
    ],
    "verdict_correct": 883,
    "true_positives": 0,
    "positives": 117,
    "negatives": 883,
-   "false_positives": 724,
+   "false_positives": 595,
    "covered": [
-    488,
+    495,
     0,
-    666
+    670
    ],
    "empty": [
-    141,
-    498,
-    334
+    46,
+    576,
+    330
    ],
    "full": [
     0,
@@ -1926,40 +1926,40 @@
    "scenes": 1000,
    "agreement": [
     [
-     565,
-     889,
-     577
+     556,
+     900,
+     524
     ],
     [
+     488,
      478,
-     466,
-     478
+     518
     ],
     [
-     506,
-     482,
-     982
+     505,
+     479,
+     973
     ]
    ],
    "verdict_agreement": [
-    693,
-    94,
-    598
+    614,
+    132,
+    597
    ],
-   "verdict_correct": 839,
-   "true_positives": 92,
+   "verdict_correct": 841,
+   "true_positives": 114,
    "positives": 117,
    "negatives": 883,
-   "false_positives": 335,
+   "false_positives": 110,
    "covered": [
-    477,
+    495,
     0,
-    681
+    700
    ],
    "empty": [
-    113,
-    283,
-    319
+    67,
+    111,
+    300
    ],
    "full": [
     0,
@@ -1967,7 +1967,7 @@
     0
    ],
    "decided": 989,
-   "decided_correct": 875
+   "decided_correct": 883
   },
   {
    "mode": "concepts",
@@ -1979,48 +1979,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     509,
-     967,
-     523
+     568,
+     898,
+     562
     ],
     [
-     474,
-     360,
-     656
+     502,
+     416,
+     768
     ],
     [
-     504,
-     488,
-     984
+     506,
+     486,
+     978
     ]
    ],
    "verdict_agreement": [
-    657,
-    342,
-    598
+    722,
+    382,
+    604
    ],
-   "verdict_correct": 857,
-   "true_positives": 68,
+   "verdict_correct": 880,
+   "true_positives": 111,
    "positives": 117,
    "negatives": 883,
-   "false_positives": 428,
+   "false_positives": 104,
    "covered": [
-    489,
-    385,
-    732
+    494,
+    591,
+    757
    ],
    "empty": [
-    127,
+    62,
     0,
-    268
+    243
    ],
    "full": [
     0,
-    173,
+    432,
     0
    ],
-   "decided": 955,
-   "decided_correct": 878
+   "decided": 950,
+   "decided_correct": 882
   },
   {
    "mode": "concepts",
@@ -2032,48 +2032,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     554,
-     804,
+     546,
+     782,
      638
     ],
     [
-     512,
-     440,
-     810
+     510,
+     422,
+     874
     ],
     [
-     512,
-     502,
-     932
+     513,
+     501,
+     911
     ]
    ],
    "verdict_agreement": [
-    804,
-    582,
-    658
+    826,
+    566,
+    665
    ],
-   "verdict_correct": 873,
-   "true_positives": 58,
+   "verdict_correct": 868,
+   "true_positives": 67,
    "positives": 117,
    "negatives": 883,
-   "false_positives": 421,
+   "false_positives": 220,
    "covered": [
-    473,
-    736,
-    729
+    489,
+    702,
+    760
    ],
    "empty": [
-    104,
+    71,
     0,
-    271
+    239
    ],
    "full": [
     0,
-    463,
+    453,
     0
    ],
-   "decided": 923,
-   "decided_correct": 855
+   "decided": 934,
+   "decided_correct": 875
   },
   {
    "mode": "concepts",
@@ -2085,48 +2085,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     536,
-     794,
-     686
+     551,
+     775,
+     699
     ],
     [
-     532,
-     680,
-     492
+     515,
+     573,
+     643
     ],
     [
-     508,
-     484,
-     980
+     507,
+     483,
+     977
     ]
    ],
    "verdict_agreement": [
-    476,
-    482,
-    618
+    477,
+    541,
+    617
    ],
-   "verdict_correct": 767,
-   "true_positives": 53,
+   "verdict_correct": 737,
+   "true_positives": 62,
    "positives": 117,
    "negatives": 883,
-   "false_positives": 552,
+   "false_positives": 377,
    "covered": [
-    488,
-    893,
-    807
+    497,
+    884,
+    830
    ],
    "empty": [
-    128,
+    55,
     0,
-    193
+    170
    ],
    "full": [
     0,
-    679,
+    658,
     0
    ],
-   "decided": 952,
-   "decided_correct": 875
+   "decided": 975,
+   "decided_correct": 883
   },
   {
    "mode": "concepts",
@@ -2138,48 +2138,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     542,
-     794,
-     688
+     559,
+     777,
+     695
     ],
     [
-     472,
-     988,
-     482
+     480,
+     998,
+     496
     ],
     [
-     506,
-     490,
-     992
+     507,
+     493,
+     985
     ]
    ],
    "verdict_agreement": [
-    538,
-    618,
-    612
+    569,
+    626,
+    617
    ],
-   "verdict_correct": 865,
-   "true_positives": 105,
+   "verdict_correct": 873,
+   "true_positives": 114,
    "positives": 117,
    "negatives": 883,
-   "false_positives": 121,
+   "false_positives": 100,
    "covered": [
-    487,
+    497,
     1000,
-    830
+    817
    ],
    "empty": [
-    115,
+    41,
     0,
-    170
+    183
    ],
    "full": [
     0,
-    785,
+    794,
     0
    ],
-   "decided": 911,
-   "decided_correct": 866
+   "decided": 954,
+   "decided_correct": 877
   },
   {
    "mode": "concepts",
@@ -2191,9 +2191,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     610,
-     552,
-     710
+     642,
+     570,
+     692
     ],
     [
      478,
@@ -2202,37 +2202,37 @@
     ],
     [
      505,
-     489,
-     989
+     493,
+     979
     ]
    ],
    "verdict_agreement": [
+    644,
     624,
-    624,
-    609
+    613
    ],
-   "verdict_correct": 909,
-   "true_positives": 111,
+   "verdict_correct": 912,
+   "true_positives": 113,
    "positives": 117,
    "negatives": 883,
-   "false_positives": 74,
+   "false_positives": 64,
    "covered": [
-    492,
+    494,
     1000,
-    900
+    864
    ],
    "empty": [
-    41,
+    31,
     0,
-    98
+    132
    ],
    "full": [
     0,
-    822,
+    785,
     0
    ],
-   "decided": 959,
-   "decided_correct": 872
+   "decided": 969,
+   "decided_correct": 879
   },
   {
    "mode": "concepts",
@@ -2244,9 +2244,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     709,
-     469,
-     669
+     722,
+     474,
+     612
     ],
     [
      478,
@@ -2254,37 +2254,37 @@
      494
     ],
     [
-     506,
-     498,
-     994
+     511,
+     497,
+     983
     ]
    ],
    "verdict_agreement": [
-    591,
+    636,
     624,
-    616
+    619
    ],
-   "verdict_correct": 934,
+   "verdict_correct": 946,
    "true_positives": 97,
    "positives": 117,
    "negatives": 883,
-   "false_positives": 74,
+   "false_positives": 49,
    "covered": [
     497,
     1000,
-    835
+    828
    ],
    "empty": [
-    2,
     0,
-    165
+    0,
+    156
    ],
    "full": [
     0,
-    810,
+    720,
     0
    ],
-   "decided": 999,
+   "decided": 1000,
    "decided_correct": 883
   },
   {
@@ -2297,9 +2297,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     980,
-     470,
-     504
+     981,
+     475,
+     507
     ],
     [
      478,
@@ -2307,25 +2307,25 @@
      494
     ],
     [
-     514,
-     490,
-     994
+     511,
+     493,
+     997
     ]
    ],
    "verdict_agreement": [
-    614,
+    615,
     624,
-    610
+    611
    ],
-   "verdict_correct": 990,
-   "true_positives": 107,
+   "verdict_correct": 991,
+   "true_positives": 108,
    "positives": 117,
    "negatives": 883,
    "false_positives": 0,
    "covered": [
-    591,
+    519,
     1000,
-    992
+    1000
    ],
    "empty": [
     0,
@@ -2333,12 +2333,12 @@
     0
    ],
    "full": [
-    94,
-    548,
-    14
+    22,
+    540,
+    205
    ],
-   "decided": 949,
-   "decided_correct": 833
+   "decided": 999,
+   "decided_correct": 882
   },
   {
    "mode": "concepts",
@@ -2350,8 +2350,8 @@
    "scenes": 1000,
    "agreement": [
     [
-     888,
-     450,
+     876,
+     456,
      504
     ],
     [
@@ -2360,25 +2360,25 @@
      494
     ],
     [
-     515,
-     491,
+     513,
+     495,
      997
     ]
    ],
    "verdict_agreement": [
-    600,
+    594,
     624,
-    613
+    615
    ],
-   "verdict_correct": 982,
-   "true_positives": 100,
+   "verdict_correct": 974,
+   "true_positives": 94,
    "positives": 117,
    "negatives": 883,
-   "false_positives": 1,
+   "false_positives": 7,
    "covered": [
-    856,
+    878,
     1000,
-    998
+    995
    ],
    "empty": [
     0,
@@ -2386,12 +2386,12 @@
     0
    ],
    "full": [
-    52,
-    818,
-    5
+    101,
+    800,
+    3
    ],
-   "decided": 733,
-   "decided_correct": 731
+   "decided": 735,
+   "decided_correct": 734
   },
   {
    "mode": "concepts",
@@ -2403,9 +2403,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     999,
-     500,
-     518
+     994,
+     505,
+     517
     ],
     [
      499,
@@ -2413,38 +2413,38 @@
      492
     ],
     [
-     516,
-     495,
-     997
+     515,
+     492,
+     996
     ]
    ],
    "verdict_agreement": [
-    608,
+    613,
     618,
-    649
+    646
    ],
-   "verdict_correct": 1000,
-   "true_positives": 112,
+   "verdict_correct": 999,
+   "true_positives": 111,
    "positives": 112,
    "negatives": 888,
    "false_positives": 0,
    "covered": [
-    891,
-    915,
-    914
+    888,
+    924,
+    895
    ],
    "empty": [
-    109,
-    85,
-    86
+    112,
+    76,
+    105
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 964,
-   "decided_correct": 964
+   "decided": 960,
+   "decided_correct": 960
   },
   {
    "mode": "concepts",
@@ -2456,9 +2456,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     544,
-     497,
-     514
+     518,
+     471,
+     510
     ],
     [
      527,
@@ -2466,38 +2466,38 @@
      493
     ],
     [
-     489,
+     491,
      512,
-     989
+     991
     ]
    ],
    "verdict_agreement": [
-    875,
+    871,
     402,
-    646
+    644
    ],
    "verdict_correct": 868,
    "true_positives": 0,
    "positives": 132,
    "negatives": 868,
-   "false_positives": 645,
+   "false_positives": 649,
    "covered": [
-    352,
+    390,
     0,
-    852
+    869
    ],
    "empty": [
-    387,
-    192,
-    148
+    352,
+    146,
+    131
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 983,
-   "decided_correct": 852
+   "decided": 975,
+   "decided_correct": 843
   },
   {
    "mode": "concepts",
@@ -2509,14 +2509,14 @@
    "scenes": 1000,
    "agreement": [
     [
-     498,
-     551,
-     480
+     487,
+     534,
+     493
     ],
     [
-     506,
-     273,
-     690
+     493,
+     206,
+     597
     ],
     [
      491,
@@ -2525,32 +2525,32 @@
     ]
    ],
    "verdict_agreement": [
-    149,
-    351,
-    628
+    132,
+    324,
+    622
    ],
-   "verdict_correct": 633,
-   "true_positives": 111,
+   "verdict_correct": 598,
+   "true_positives": 64,
    "positives": 132,
    "negatives": 868,
-   "false_positives": 381,
+   "false_positives": 488,
    "covered": [
-    415,
+    393,
     0,
-    853
+    872
    ],
    "empty": [
-    264,
-    36,
-    147
+    302,
+    14,
+    127
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 981,
-   "decided_correct": 856
+   "decided": 991,
+   "decided_correct": 863
   },
   {
    "mode": "concepts",
@@ -2562,48 +2562,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     512,
-     929,
-     572
+     524,
+     875,
+     630
     ],
     [
-     515,
-     272,
-     757
+     511,
+     262,
+     745
     ],
     [
-     489,
-     502,
+     491,
+     506,
      983
     ]
    ],
    "verdict_agreement": [
-    611,
-    450,
-    630
+    589,
+    468,
+    628
    ],
-   "verdict_correct": 831,
-   "true_positives": 104,
+   "verdict_correct": 788,
+   "true_positives": 85,
    "positives": 132,
    "negatives": 868,
-   "false_positives": 361,
+   "false_positives": 384,
    "covered": [
-    463,
-    371,
-    854
+    488,
+    355,
+    870
    ],
    "empty": [
-    182,
+    144,
     0,
-    146
+    130
    ],
    "full": [
     0,
-    239,
+    231,
     0
    ],
-   "decided": 880,
-   "decided_correct": 814
+   "decided": 870,
+   "decided_correct": 803
   },
   {
    "mode": "concepts",
@@ -2615,48 +2615,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     558,
-     661,
-     362
+     555,
+     598,
+     427
     ],
     [
-     496,
-     501,
-     974
+     489,
+     508,
+     981
     ],
     [
-     486,
-     505,
-     984
+     487,
+     512,
+     983
     ]
    ],
    "verdict_agreement": [
-    547,
-    651,
-    635
+    480,
+    640,
+    636
    ],
-   "verdict_correct": 864,
-   "true_positives": 72,
+   "verdict_correct": 789,
+   "true_positives": 73,
    "positives": 132,
    "negatives": 868,
-   "false_positives": 338,
+   "false_positives": 337,
    "covered": [
-    441,
-    674,
-    843
+    452,
+    614,
+    875
    ],
    "empty": [
-    207,
+    189,
     0,
-    157
+    125
    ],
    "full": [
     0,
-    437,
+    377,
     0
    ],
-   "decided": 910,
-   "decided_correct": 830
+   "decided": 909,
+   "decided_correct": 829
   },
   {
    "mode": "concepts",
@@ -2668,48 +2668,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     552,
-     691,
-     414
+     535,
+     554,
+     531
     ],
     [
-     504,
-     513,
-     974
+     490,
+     509,
+     980
     ],
     [
-     487,
-     506,
-     983
+     486,
+     511,
+     984
     ]
    ],
    "verdict_agreement": [
-    573,
-    661,
-    638
+    498,
+    645,
+    639
    ],
-   "verdict_correct": 850,
-   "true_positives": 77,
+   "verdict_correct": 749,
+   "true_positives": 75,
    "positives": 132,
    "negatives": 868,
-   "false_positives": 316,
+   "false_positives": 330,
    "covered": [
-    459,
-    772,
-    854
+    436,
+    712,
+    875
    ],
    "empty": [
-    153,
+    219,
     0,
-    146
+    125
    ],
    "full": [
     0,
-    603,
+    491,
     0
    ],
-   "decided": 916,
-   "decided_correct": 833
+   "decided": 889,
+   "decided_correct": 814
   },
   {
    "mode": "concepts",
@@ -2721,48 +2721,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     591,
-     486,
-     727
+     573,
+     436,
+     709
     ],
     [
-     496,
-     949,
-     558
+     481,
+     966,
+     539
     ],
     [
-     488,
-     501,
-     982
+     490,
+     507,
+     988
     ]
    ],
    "verdict_agreement": [
-    640,
-    611,
-    637
+    574,
+    618,
+    639
    ],
-   "verdict_correct": 861,
-   "true_positives": 91,
+   "verdict_correct": 869,
+   "true_positives": 87,
    "positives": 132,
    "negatives": 868,
-   "false_positives": 180,
+   "false_positives": 173,
    "covered": [
-    486,
+    499,
     1000,
-    856
+    884
    ],
    "empty": [
-    114,
+    82,
     0,
-    143
+    115
    ],
    "full": [
     0,
-    811,
+    779,
     0
    ],
-   "decided": 894,
-   "decided_correct": 823
+   "decided": 932,
+   "decided_correct": 836
   },
   {
    "mode": "concepts",
@@ -2774,48 +2774,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     618,
-     239,
-     508
+     627,
+     232,
+     517
     ],
     [
      476,
-     991,
-     516
+     993,
+     514
     ],
     [
-     488,
-     505,
-     984
+     490,
+     509,
+     990
     ]
    ],
    "verdict_agreement": [
-    453,
-    607,
+    462,
+    605,
     637
    ],
-   "verdict_correct": 912,
-   "true_positives": 62,
+   "verdict_correct": 915,
+   "true_positives": 61,
    "positives": 132,
    "negatives": 868,
-   "false_positives": 219,
+   "false_positives": 163,
    "covered": [
     511,
     1000,
-    839
+    873
    ],
    "empty": [
-    50,
+    39,
     0,
-    161
+    126
    ],
    "full": [
     0,
-    833,
+    764,
     0
    ],
    "decided": 978,
-   "decided_correct": 849
+   "decided_correct": 847
   },
   {
    "mode": "concepts",
@@ -2827,48 +2827,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     640,
-     229,
-     504
+     638,
+     237,
+     500
     ],
     [
-     474,
-     997,
-     510
+     475,
+     998,
+     509
     ],
     [
      491,
-     502,
-     977
+     506,
+     983
     ]
    ],
    "verdict_agreement": [
-    513,
-    601,
-    628
+    511,
+    600,
+    632
    ],
-   "verdict_correct": 908,
-   "true_positives": 56,
+   "verdict_correct": 901,
+   "true_positives": 51,
    "positives": 132,
    "negatives": 868,
-   "false_positives": 150,
+   "false_positives": 127,
    "covered": [
-    513,
+    514,
     1000,
-    838
+    874
    ],
    "empty": [
-    34,
+    28,
     0,
-    162
+    125
    ],
    "full": [
     0,
-    833,
+    795,
     0
    ],
-   "decided": 982,
-   "decided_correct": 862
+   "decided": 985,
+   "decided_correct": 864
   },
   {
    "mode": "concepts",
@@ -2880,9 +2880,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     988,
-     479,
-     492
+     978,
+     487,
+     490
     ],
     [
      473,
@@ -2892,36 +2892,36 @@
     [
      493,
      506,
-     997
+     999
     ]
    ],
    "verdict_agreement": [
-    653,
+    663,
     598,
-    642
+    640
    ],
-   "verdict_correct": 999,
-   "true_positives": 131,
+   "verdict_correct": 998,
+   "true_positives": 130,
    "positives": 132,
    "negatives": 868,
    "false_positives": 0,
    "covered": [
-    702,
+    820,
     1000,
-    981
+    952
    ],
    "empty": [
-    246,
+    161,
     0,
-    12
+    48
    ],
    "full": [
     0,
-    630,
+    692,
     0
    ],
-   "decided": 877,
-   "decided_correct": 874
+   "decided": 856,
+   "decided_correct": 854
   },
   {
    "mode": "concepts",
@@ -2933,9 +2933,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     915,
-     484,
-     497
+     941,
+     458,
+     475
     ],
     [
      473,
@@ -2944,22 +2944,22 @@
     ],
     [
      491,
-     508,
-     999
+     510,
+     997
     ]
    ],
    "verdict_agreement": [
-    650,
+    612,
     598,
-    638
+    636
    ],
    "verdict_correct": 977,
-   "true_positives": 119,
+   "true_positives": 117,
    "positives": 132,
    "negatives": 868,
-   "false_positives": 8,
+   "false_positives": 10,
    "covered": [
-    923,
+    933,
     1000,
     1000
    ],
@@ -2969,12 +2969,12 @@
     0
    ],
    "full": [
-    115,
-    304,
-    31
+    164,
+    322,
+    24
    ],
-   "decided": 831,
-   "decided_correct": 813
+   "decided": 855,
+   "decided_correct": 842
   },
   {
    "mode": "concepts",
@@ -2986,9 +2986,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     994,
-     512,
-     479
+     1000,
+     506,
+     477
     ],
     [
      506,
@@ -2996,15 +2996,15 @@
      499
     ],
     [
-     477,
-     499,
-     998
+     478,
+     498,
+     997
     ]
    ],
    "verdict_agreement": [
-    617,
+    611,
     615,
-    622
+    621
    ],
    "verdict_correct": 999,
    "true_positives": 118,
@@ -3012,22 +3012,22 @@
    "negatives": 881,
    "false_positives": 0,
    "covered": [
-    911,
-    914,
-    908
+    924,
+    923,
+    916
    ],
    "empty": [
-    89,
-    86,
-    92
+    76,
+    77,
+    84
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 979,
-   "decided_correct": 979
+   "decided": 988,
+   "decided_correct": 988
   },
   {
    "mode": "concepts",
@@ -3039,9 +3039,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     500,
-     519,
-     485
+     528,
+     597,
+     491
     ],
     [
      495,
@@ -3049,30 +3049,30 @@
      500
     ],
     [
+     491,
      490,
-     489,
-     987
+     988
     ]
    ],
    "verdict_agreement": [
-    876,
+    848,
     357,
-    600
+    601
    ],
    "verdict_correct": 876,
    "true_positives": 0,
    "positives": 124,
    "negatives": 876,
-   "false_positives": 725,
+   "false_positives": 747,
    "covered": [
-    424,
+    399,
     0,
-    619
+    592
    ],
    "empty": [
-    171,
-    454,
-    381
+    231,
+    420,
+    408
    ],
    "full": [
     0,
@@ -3092,48 +3092,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     558,
-     839,
-     555
+     501,
+     864,
+     506
     ],
     [
-     487,
-     394,
-     602
+     484,
+     407,
+     589
     ],
     [
-     486,
-     337,
-     783
+     488,
+     427,
+     919
     ]
    ],
    "verdict_agreement": [
-    584,
-    211,
-    392
+    707,
+    198,
+    528
    ],
-   "verdict_correct": 779,
-   "true_positives": 116,
+   "verdict_correct": 866,
+   "true_positives": 86,
    "positives": 124,
    "negatives": 876,
-   "false_positives": 174,
+   "false_positives": 114,
    "covered": [
-    450,
-    697,
-    689
+    404,
+    746,
+    659
    ],
    "empty": [
-    126,
+    214,
     0,
-    310
+    341
    ],
    "full": [
     0,
-    697,
+    746,
     0
    ],
-   "decided": 937,
-   "decided_correct": 837
+   "decided": 888,
+   "decided_correct": 812
   },
   {
    "mode": "concepts",
@@ -3145,48 +3145,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     505,
-     824,
-     504
+     499,
+     788,
+     506
     ],
     [
-     496,
-     283,
-     703
+     491,
+     320,
+     696
     ],
     [
-     508,
-     525,
-     959
+     522,
+     603,
+     885
     ]
    ],
    "verdict_agreement": [
-    727,
-    504,
-    642
+    741,
+    517,
+    718
    ],
-   "verdict_correct": 867,
-   "true_positives": 51,
+   "verdict_correct": 857,
+   "true_positives": 44,
    "positives": 124,
    "negatives": 876,
-   "false_positives": 457,
+   "false_positives": 335,
    "covered": [
-    422,
-    575,
-    684
+    392,
+    645,
+    633
    ],
    "empty": [
-    175,
+    220,
     0,
-    316
+    367
    ],
    "full": [
     0,
-    322,
+    385,
     0
    ],
-   "decided": 922,
-   "decided_correct": 833
+   "decided": 928,
+   "decided_correct": 831
   },
   {
    "mode": "concepts",
@@ -3198,48 +3198,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     512,
-     629,
-     663
+     527,
+     762,
+     582
     ],
     [
-     497,
-     452,
-     586
+     509,
+     474,
+     632
     ],
     [
-     485,
+     483,
      490,
-     984
+     988
     ]
    ],
    "verdict_agreement": [
-    648,
-    495,
+    667,
+    543,
     599
    ],
-   "verdict_correct": 814,
-   "true_positives": 64,
+   "verdict_correct": 864,
+   "true_positives": 82,
    "positives": 124,
    "negatives": 876,
-   "false_positives": 438,
+   "false_positives": 389,
    "covered": [
-    472,
-    680,
-    714
+    439,
+    700,
+    677
    ],
    "empty": [
-    50,
+    127,
     0,
-    286
+    323
    ],
    "full": [
     0,
-    293,
+    323,
     0
    ],
-   "decided": 962,
-   "decided_correct": 847
+   "decided": 937,
+   "decided_correct": 835
   },
   {
    "mode": "concepts",
@@ -3251,48 +3251,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     527,
-     526,
-     760
+     516,
+     583,
+     857
     ],
     [
-     522,
-     587,
-     503
+     511,
+     610,
+     562
     ],
     [
-     488,
-     489,
+     484,
+     491,
      979
     ]
    ],
    "verdict_agreement": [
-    625,
-    604,
-    604
+    586,
+    639,
+    602
    ],
-   "verdict_correct": 835,
-   "true_positives": 78,
+   "verdict_correct": 829,
+   "true_positives": 100,
    "positives": 124,
    "negatives": 876,
-   "false_positives": 409,
+   "false_positives": 344,
    "covered": [
-    506,
-    819,
-    695
+    490,
+    825,
+    686
    ],
    "empty": [
-    8,
+    17,
     0,
-    305
+    314
    ],
    "full": [
     0,
-    486,
+    515,
     0
    ],
-   "decided": 969,
-   "decided_correct": 866
+   "decided": 937,
+   "decided_correct": 841
   },
   {
    "mode": "concepts",
@@ -3304,48 +3304,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     518,
-     429,
-     835
+     513,
+     418,
+     826
     ],
     [
-     504,
-     945,
-     513
+     509,
+     926,
+     532
     ],
     [
-     491,
-     496,
-     964
+     490,
+     489,
+     971
     ]
    ],
    "verdict_agreement": [
-    564,
-    652,
-    587
+    561,
+    645,
+    594
    ],
-   "verdict_correct": 871,
-   "true_positives": 107,
+   "verdict_correct": 864,
+   "true_positives": 109,
    "positives": 124,
    "negatives": 876,
-   "false_positives": 122,
+   "false_positives": 114,
    "covered": [
-    513,
-    994,
-    707
+    535,
+    984,
+    688
    ],
    "empty": [
     0,
     0,
-    293
+    312
    ],
    "full": [
-    24,
-    582,
+    69,
+    591,
     0
    ],
-   "decided": 960,
-   "decided_correct": 857
+   "decided": 869,
+   "decided_correct": 805
   },
   {
    "mode": "concepts",
@@ -3357,48 +3357,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     543,
-     570,
-     552
+     544,
+     591,
+     563
     ],
     [
-     507,
-     934,
-     514
+     502,
+     941,
+     507
     ],
     [
-     488,
-     499,
-     969
+     485,
+     502,
+     966
     ]
    ],
    "verdict_agreement": [
-    577,
-    663,
-    602
+    596,
+    668,
+    611
    ],
-   "verdict_correct": 870,
-   "true_positives": 72,
+   "verdict_correct": 880,
+   "true_positives": 79,
    "positives": 124,
    "negatives": 876,
-   "false_positives": 177,
+   "false_positives": 133,
    "covered": [
-    493,
-    969,
-    841
+    479,
+    966,
+    754
    ],
    "empty": [
-    27,
+    42,
     0,
-    151
+    243
    ],
    "full": [
     0,
-    503,
+    510,
     0
    ],
-   "decided": 978,
-   "decided_correct": 867
+   "decided": 944,
+   "decided_correct": 845
   },
   {
    "mode": "concepts",
@@ -3410,48 +3410,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     584,
-     541,
-     571
+     589,
+     574,
+     546
     ],
     [
-     508,
-     973,
-     491
+     507,
+     972,
+     494
     ],
     [
-     489,
-     508,
-     982
+     487,
+     522,
+     974
     ]
    ],
    "verdict_agreement": [
-    618,
-    654,
-    617
+    631,
+    659,
+    631
    ],
-   "verdict_correct": 872,
+   "verdict_correct": 876,
    "true_positives": 69,
    "positives": 124,
    "negatives": 876,
-   "false_positives": 110,
+   "false_positives": 100,
    "covered": [
-    505,
-    985,
-    794
+    506,
+    986,
+    755
    ],
    "empty": [
+    6,
     0,
-    0,
-    206
+    245
    ],
    "full": [
     0,
-    478,
+    497,
     0
    ],
-   "decided": 995,
-   "decided_correct": 876
+   "decided": 986,
+   "decided_correct": 874
   },
   {
    "mode": "concepts",
@@ -3463,9 +3463,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     966,
-     479,
-     491
+     982,
+     491,
+     485
     ],
     [
      505,
@@ -3474,37 +3474,37 @@
     ],
     [
      488,
-     501,
+     499,
      997
     ]
    ],
    "verdict_agreement": [
-    610,
+    620,
     643,
     608
    ],
-   "verdict_correct": 991,
-   "true_positives": 116,
+   "verdict_correct": 990,
+   "true_positives": 114,
    "positives": 124,
    "negatives": 876,
-   "false_positives": 1,
+   "false_positives": 0,
    "covered": [
-    516,
+    630,
     1000,
-    828
+    798
    ],
    "empty": [
     0,
     0,
-    140
-   ],
-   "full": [
-    16,
-    1000,
     0
    ],
-   "decided": 997,
-   "decided_correct": 873
+   "full": [
+    130,
+    1000,
+    313
+   ],
+   "decided": 923,
+   "decided_correct": 800
   },
   {
    "mode": "concepts",
@@ -3516,9 +3516,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     900,
-     573,
-     513
+     879,
+     578,
+     524
     ],
     [
      505,
@@ -3526,38 +3526,38 @@
      500
     ],
     [
-     486,
-     499,
-     997
+     488,
+     497,
+     995
     ]
    ],
    "verdict_agreement": [
-    666,
+    675,
     643,
-    608
+    606
    ],
-   "verdict_correct": 983,
+   "verdict_correct": 986,
    "true_positives": 118,
    "positives": 124,
    "negatives": 876,
-   "false_positives": 5,
+   "false_positives": 3,
    "covered": [
-    863,
+    860,
     1000,
-    995
+    992
    ],
    "empty": [
     0,
     0,
-    3
+    7
    ],
    "full": [
-    22,
-    776,
+    32,
+    826,
     0
    ],
-   "decided": 740,
-   "decided_correct": 737
+   "decided": 708,
+   "decided_correct": 707
   },
   {
    "mode": "concepts",
@@ -3579,38 +3579,38 @@
      478
     ],
     [
-     509,
-     480,
-     996
+     510,
+     477,
+     997
     ]
    ],
    "verdict_agreement": [
     615,
     610,
-    610
+    615
    ],
-   "verdict_correct": 998,
+   "verdict_correct": 1000,
    "true_positives": 123,
    "positives": 123,
    "negatives": 877,
    "false_positives": 0,
    "covered": [
-    890,
-    905,
-    906
+    907,
+    888,
+    916
    ],
    "empty": [
-    110,
-    95,
-    93
+    93,
+    112,
+    84
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 982,
-   "decided_correct": 981
+   "decided": 988,
+   "decided_correct": 988
   },
   {
    "mode": "concepts",
@@ -3632,30 +3632,30 @@
      507
     ],
     [
-     479,
-     486,
-     985
+     478,
+     491,
+     970
     ]
    ],
    "verdict_agreement": [
     892,
     402,
-    600
+    605
    ],
    "verdict_correct": 892,
    "true_positives": 0,
    "positives": 108,
    "negatives": 892,
-   "false_positives": 771,
+   "false_positives": 764,
    "covered": [
     497,
     0,
-    462
+    276
    ],
    "empty": [
     0,
-    526,
-    538
+    690,
+    719
    ],
    "full": [
     0,
@@ -3675,48 +3675,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     546,
-     799,
-     530
+     504,
+     779,
+     402
     ],
     [
-     472,
-     205,
-     508
+     456,
+     293,
+     516
     ],
     [
-     451,
-     574,
-     811
+     464,
+     555,
+     620
     ]
    ],
    "verdict_agreement": [
-    539,
-    261,
-    420
+    457,
+    213,
+    231
    ],
-   "verdict_correct": 719,
-   "true_positives": 31,
+   "verdict_correct": 582,
+   "true_positives": 52,
    "positives": 108,
    "negatives": 892,
-   "false_positives": 866,
+   "false_positives": 877,
    "covered": [
-    495,
+    473,
     0,
-    516
+    339
    ],
    "empty": [
-    38,
-    298,
-    480
+    57,
+    499,
+    648
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 994,
-   "decided_correct": 890
+   "decided": 965,
+   "decided_correct": 871
   },
   {
    "mode": "concepts",
@@ -3728,48 +3728,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     528,
-     847,
-     604
-    ],
-    [
      498,
-     173,
-     670
+     859,
+     520
     ],
     [
-     487,
-     532,
-     923
+     486,
+     219,
+     716
+    ],
+    [
+     479,
+     550,
+     709
     ]
    ],
    "verdict_agreement": [
-    589,
+    567,
     469,
-    584
+    560
    ],
-   "verdict_correct": 786,
-   "true_positives": 21,
+   "verdict_correct": 771,
+   "true_positives": 39,
    "positives": 108,
    "negatives": 892,
-   "false_positives": 731,
+   "false_positives": 786,
    "covered": [
-    518,
-    161,
-    484
+    471,
+    154,
+    408
    ],
    "empty": [
-    8,
-    26,
-    516
+    60,
+    146,
+    573
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 996,
-   "decided_correct": 894
+   "decided": 942,
+   "decided_correct": 863
   },
   {
    "mode": "concepts",
@@ -3781,48 +3781,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     486,
-     961,
-     496
+     501,
+     892,
+     453
     ],
     [
-     502,
-     681,
-     528
+     474,
+     671,
+     520
     ],
     [
-     472,
-     481,
-     936
+     478,
+     357,
+     786
     ]
    ],
    "verdict_agreement": [
-    611,
-    691,
-    559
+    554,
+    673,
+    409
    ],
-   "verdict_correct": 837,
-   "true_positives": 46,
+   "verdict_correct": 812,
+   "true_positives": 51,
    "positives": 108,
    "negatives": 892,
-   "false_positives": 765,
+   "false_positives": 774,
    "covered": [
-    500,
-    876,
-    438
+    480,
+    801,
+    375
    ],
    "empty": [
-    57,
+    63,
     0,
-    554
+    612
    ],
    "full": [
     0,
-    643,
+    376,
     0
    ],
-   "decided": 954,
-   "decided_correct": 874
+   "decided": 951,
+   "decided_correct": 871
   },
   {
    "mode": "concepts",
@@ -3834,44 +3834,44 @@
    "scenes": 1000,
    "agreement": [
     [
-     537,
-     658,
-     247
+     529,
+     514,
+     267
     ],
     [
-     496,
-     731,
-     540
+     494,
+     685,
+     528
     ],
     [
-     482,
-     549,
-     908
+     465,
+     562,
+     879
     ]
    ],
    "verdict_agreement": [
-    522,
-    723,
-    587
+    618,
+    691,
+    544
    ],
-   "verdict_correct": 853,
-   "true_positives": 14,
+   "verdict_correct": 850,
+   "true_positives": 7,
    "positives": 108,
    "negatives": 892,
-   "false_positives": 617,
+   "false_positives": 791,
    "covered": [
-    488,
-    943,
-    495
+    487,
+    872,
+    322
    ],
    "empty": [
-    52,
+    45,
     0,
-    497
+    675
    ],
    "full": [
     0,
-    800,
+    624,
     0
    ],
    "decided": 986,
@@ -3887,48 +3887,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     559,
-     654,
-     243
+     549,
+     534,
+     275
     ],
     [
-     497,
-     848,
+     471,
+     820,
      631
     ],
     [
-     480,
-     547,
-     900
+     472,
+     581,
+     880
     ]
    ],
    "verdict_agreement": [
-    476,
-    632,
-    547
+    506,
+    670,
+    591
    ],
-   "verdict_correct": 814,
-   "true_positives": 54,
+   "verdict_correct": 817,
+   "true_positives": 41,
    "positives": 108,
    "negatives": 892,
-   "false_positives": 265,
+   "false_positives": 292,
    "covered": [
-    486,
-    1000,
-    484
+    493,
+    989,
+    365
    ],
    "empty": [
-    58,
+    24,
     0,
-    511
+    630
    ],
    "full": [
     0,
-    851,
+    838,
     0
    ],
    "decided": 981,
-   "decided_correct": 873
+   "decided_correct": 874
   },
   {
    "mode": "concepts",
@@ -3940,48 +3940,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     656,
-     417,
-     388
+     581,
+     420,
+     341
     ],
     [
-     488,
-     963,
-     530
+     476,
+     985,
+     504
     ],
     [
-     481,
-     530,
+     473,
+     516,
      945
     ]
    ],
    "verdict_agreement": [
-    437,
-    635,
-    592
+    458,
+    605,
+    600
    ],
-   "verdict_correct": 885,
-   "true_positives": 48,
+   "verdict_correct": 880,
+   "true_positives": 39,
    "positives": 108,
    "negatives": 892,
-   "false_positives": 183,
+   "false_positives": 258,
    "covered": [
     497,
     1000,
-    532
+    383
    ],
    "empty": [
-    12,
+    2,
     0,
-    467
+    616
    ],
    "full": [
     0,
-    814,
+    848,
     0
    ],
-   "decided": 996,
-   "decided_correct": 889
+   "decided": 998,
+   "decided_correct": 890
   },
   {
    "mode": "concepts",
@@ -3993,48 +3993,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     677,
-     384,
-     483
+     604,
+     329,
+     386
     ],
     [
      475,
-     998,
-     495
+     1000,
+     493
     ],
     [
-     486,
-     503,
-     944
+     473,
+     504,
+     939
     ]
    ],
    "verdict_agreement": [
-    540,
-    600,
-    589
+    517,
+    598,
+    584
    ],
-   "verdict_correct": 903,
-   "true_positives": 53,
+   "verdict_correct": 889,
+   "true_positives": 32,
    "positives": 108,
    "negatives": 892,
-   "false_positives": 116,
+   "false_positives": 153,
    "covered": [
     497,
     1000,
-    536
+    370
    ],
    "empty": [
-    8,
+    2,
     0,
-    463
+    625
    ],
    "full": [
     0,
-    729,
+    733,
     0
    ],
    "decided": 998,
-   "decided_correct": 891
+   "decided_correct": 890
   },
   {
    "mode": "concepts",
@@ -4046,9 +4046,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     959,
-     498,
-     469
+     955,
+     466,
+     479
     ],
     [
      475,
@@ -4056,38 +4056,38 @@
      493
     ],
     [
-     484,
-     495,
-     990
+     481,
+     492,
+     993
     ]
    ],
    "verdict_agreement": [
-    588,
+    622,
     598,
-    607
+    610
    ],
-   "verdict_correct": 981,
-   "true_positives": 104,
+   "verdict_correct": 985,
+   "true_positives": 96,
    "positives": 108,
    "negatives": 892,
-   "false_positives": 4,
+   "false_positives": 5,
    "covered": [
-    549,
+    716,
     1000,
-    878
+    963
    ],
    "empty": [
     0,
     0,
-    98
+    34
    ],
    "full": [
-    52,
-    976,
+    219,
+    491,
     0
    ],
-   "decided": 989,
-   "decided_correct": 881
+   "decided": 897,
+   "decided_correct": 790
   },
   {
    "mode": "concepts",
@@ -4099,9 +4099,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     887,
-     466,
-     461
+     901,
+     530,
+     485
     ],
     [
      475,
@@ -4109,38 +4109,38 @@
      493
     ],
     [
-     477,
-     492,
-     997
+     474,
+     495,
+     994
     ]
    ],
    "verdict_agreement": [
-    556,
+    564,
     598,
-    608
+    603
    ],
-   "verdict_correct": 975,
-   "true_positives": 97,
+   "verdict_correct": 959,
+   "true_positives": 102,
    "positives": 108,
    "negatives": 892,
-   "false_positives": 14,
+   "false_positives": 13,
    "covered": [
-    867,
+    842,
     1000,
     990
    ],
    "empty": [
-    16,
+    95,
     0,
     9
    ],
    "full": [
     0,
-    887,
+    895,
     0
    ],
-   "decided": 806,
-   "decided_correct": 798
+   "decided": 797,
+   "decided_correct": 793
   },
   {
    "mode": "concepts",
@@ -4162,15 +4162,15 @@
      501
     ],
     [
-     497,
-     500,
-     999
+     498,
+     503,
+     998
     ]
    ],
    "verdict_agreement": [
     622,
     637,
-    615
+    618
    ],
    "verdict_correct": 1000,
    "true_positives": 124,
@@ -4178,22 +4178,22 @@
    "negatives": 876,
    "false_positives": 0,
    "covered": [
-    902,
-    918,
-    915
+    891,
+    906,
+    909
    ],
    "empty": [
-    98,
-    82,
-    85
+    109,
+    94,
+    91
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 989,
-   "decided_correct": 989
+   "decided": 991,
+   "decided_correct": 991
   },
   {
    "mode": "concepts",
@@ -4215,21 +4215,21 @@
      487
     ],
     [
-     518,
-     520,
-     967
+     519,
+     515,
+     972
     ]
    ],
    "verdict_agreement": [
     875,
     368,
-    638
+    641
    ],
    "verdict_correct": 875,
    "true_positives": 0,
    "positives": 125,
    "negatives": 875,
-   "false_positives": 793,
+   "false_positives": 796,
    "covered": [
     497,
     0,
@@ -4237,7 +4237,7 @@
    ],
    "empty": [
     0,
-    787,
+    774,
     665
    ],
    "full": [
@@ -4258,40 +4258,40 @@
    "scenes": 1000,
    "agreement": [
     [
-     533,
-     859,
-     510
+     547,
+     839,
+     546
     ],
     [
-     473,
-     403,
-     572
+     472,
+     442,
+     515
     ],
     [
-     510,
-     484,
-     939
+     508,
+     486,
+     935
     ]
    ],
    "verdict_agreement": [
-    605,
-    207,
-    608
+    635,
+    154,
+    588
    ],
-   "verdict_correct": 841,
-   "true_positives": 113,
+   "verdict_correct": 829,
+   "true_positives": 111,
    "positives": 125,
    "negatives": 875,
-   "false_positives": 141,
+   "false_positives": 171,
    "covered": [
     497,
     0,
-    490
+    605
    ],
    "empty": [
-    4,
-    362,
-    507
+    17,
+    290,
+    390
    ],
    "full": [
     0,
@@ -4311,40 +4311,40 @@
    "scenes": 1000,
    "agreement": [
     [
-     532,
-     844,
-     643
+     525,
+     827,
+     658
     ],
     [
-     498,
-     192,
+     514,
+     204,
      659
     ],
     [
-     504,
-     464,
-     931
+     508,
+     474,
+     937
     ]
    ],
    "verdict_agreement": [
-    778,
-    378,
-    596
+    793,
+    390,
+    606
    ],
-   "verdict_correct": 873,
-   "true_positives": 77,
+   "verdict_correct": 883,
+   "true_positives": 80,
    "positives": 125,
    "negatives": 875,
-   "false_positives": 192,
+   "false_positives": 173,
    "covered": [
     497,
-    78,
-    516
+    166,
+    564
    ],
    "empty": [
-    1,
-    246,
-    480
+    11,
+    109,
+    430
    ],
    "full": [
     0,
@@ -4365,46 +4365,46 @@
    "agreement": [
     [
      522,
-     816,
-     645
+     824,
+     637
     ],
     [
-     506,
-     510,
-     941
+     517,
+     465,
+     892
     ],
     [
-     510,
-     494,
-     953
+     512,
+     490,
+     949
     ]
    ],
    "verdict_agreement": [
-    788,
-    644,
-    620
+    782,
+    653,
+    608
    ],
-   "verdict_correct": 872,
-   "true_positives": 97,
+   "verdict_correct": 877,
+   "true_positives": 77,
    "positives": 125,
    "negatives": 875,
-   "false_positives": 104,
+   "false_positives": 111,
    "covered": [
-    497,
-    728,
-    460
+    504,
+    860,
+    520
    ],
    "empty": [
-    3,
+    4,
     0,
-    539
+    478
    ],
    "full": [
     0,
-    538,
+    739,
     0
    ],
-   "decided": 997,
+   "decided": 989,
    "decided_correct": 875
   },
   {
@@ -4417,48 +4417,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     507,
-     981,
-     528
+     505,
+     987,
+     524
     ],
     [
-     486,
-     852,
-     619
+     492,
+     820,
+     573
     ],
     [
-     510,
-     486,
-     949
+     506,
+     488,
+     951
     ]
    ],
    "verdict_agreement": [
-    651,
+    645,
     754,
-    620
+    612
    ],
-   "verdict_correct": 877,
-   "true_positives": 109,
+   "verdict_correct": 879,
+   "true_positives": 94,
    "positives": 125,
    "negatives": 875,
-   "false_positives": 110,
+   "false_positives": 112,
    "covered": [
-    497,
+    546,
     1000,
-    475
+    561
    ],
    "empty": [
-    1,
     0,
-    522
+    0,
+    436
    ],
    "full": [
-    0,
-    784,
+    61,
+    805,
     0
    ],
-   "decided": 999,
-   "decided_correct": 875
+   "decided": 942,
+   "decided_correct": 856
   },
   {
    "mode": "concepts",
@@ -4480,38 +4480,38 @@
      515
     ],
     [
-     513,
-     491,
-     948
+     507,
+     493,
+     952
     ]
    ],
    "verdict_agreement": [
     632,
     634,
-    627
+    625
    ],
    "verdict_correct": 873,
-   "true_positives": 114,
+   "true_positives": 115,
    "positives": 125,
    "negatives": 875,
-   "false_positives": 114,
+   "false_positives": 116,
    "covered": [
-    508,
+    635,
     1000,
-    452
+    554
    ],
    "empty": [
-    1,
     0,
-    546
+    0,
+    440
    ],
    "full": [
-    0,
-    679,
+    240,
+    677,
     0
    ],
-   "decided": 997,
-   "decided_correct": 884
+   "decided": 866,
+   "decided_correct": 815
   },
   {
    "mode": "concepts",
@@ -4523,47 +4523,47 @@
    "scenes": 1000,
    "agreement": [
     [
-     507,
-     831,
-     346
+     502,
+     832,
+     349
     ],
     [
-     500,
-     1000,
-     513
+     502,
+     998,
+     515
     ],
     [
      514,
-     504,
-     971
+     494,
+     973
     ]
    ],
    "verdict_agreement": [
-    529,
-    632,
-    628
+    522,
+    634,
+    622
    ],
-   "verdict_correct": 874,
-   "true_positives": 89,
+   "verdict_correct": 875,
+   "true_positives": 93,
    "positives": 125,
    "negatives": 875,
-   "false_positives": 104,
+   "false_positives": 103,
    "covered": [
     497,
     1000,
-    726
+    722
    ],
    "empty": [
+    13,
     0,
-    0,
-    273
+    277
    ],
    "full": [
     0,
-    696,
+    690,
     0
    ],
-   "decided": 1000,
+   "decided": 990,
    "decided_correct": 875
   },
   {
@@ -4576,9 +4576,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     543,
-     871,
-     402
+     524,
+     874,
+     399
     ],
     [
      500,
@@ -4586,34 +4586,34 @@
      513
     ],
     [
-     512,
-     518,
-     963
+     511,
+     507,
+     964
     ]
    ],
    "verdict_agreement": [
-    595,
+    590,
     632,
-    626
+    615
    ],
-   "verdict_correct": 882,
+   "verdict_correct": 880,
    "true_positives": 100,
    "positives": 125,
    "negatives": 875,
-   "false_positives": 110,
+   "false_positives": 106,
    "covered": [
-    496,
+    487,
     1000,
-    804
+    784
    ],
    "empty": [
-    7,
+    27,
     0,
-    194
+    213
    ],
    "full": [
     0,
-    880,
+    897,
     0
    ],
    "decided": 1000,
@@ -4629,9 +4629,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     987,
-     497,
-     516
+     781,
+     383,
+     536
     ],
     [
      500,
@@ -4639,38 +4639,38 @@
      513
     ],
     [
-     520,
+     518,
      514,
      999
     ]
    ],
    "verdict_agreement": [
-    619,
+    577,
     632,
-    636
+    634
    ],
-   "verdict_correct": 996,
-   "true_positives": 121,
+   "verdict_correct": 884,
+   "true_positives": 42,
    "positives": 125,
    "negatives": 875,
-   "false_positives": 0,
+   "false_positives": 108,
    "covered": [
-    585,
+    956,
     1000,
-    1000
+    955
    ],
    "empty": [
     0,
     0,
-    0
+    38
    ],
    "full": [
-    88,
-    1000,
-    571
+    656,
+    633,
+    0
    ],
-   "decided": 930,
-   "decided_correct": 806
+   "decided": 696,
+   "decided_correct": 671
   },
   {
    "mode": "concepts",
@@ -4682,9 +4682,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     945,
-     499,
-     508
+     938,
+     492,
+     511
     ],
     [
      500,
@@ -4698,17 +4698,17 @@
     ]
    ],
    "verdict_agreement": [
-    629,
+    630,
     632,
     635
    ],
-   "verdict_correct": 979,
-   "true_positives": 106,
+   "verdict_correct": 978,
+   "true_positives": 105,
    "positives": 125,
    "negatives": 875,
    "false_positives": 3,
    "covered": [
-    948,
+    954,
     1000,
     1000
    ],
@@ -4718,12 +4718,12 @@
     0
    ],
    "full": [
-    83,
-    347,
-    20
+    89,
+    320,
+    9
    ],
-   "decided": 934,
-   "decided_correct": 930
+   "decided": 935,
+   "decided_correct": 931
   },
   {
    "mode": "concepts",
@@ -4735,9 +4735,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     999,
-     486,
-     515
+     998,
+     485,
+     516
     ],
     [
      485,
@@ -4746,14 +4746,14 @@
     ],
     [
      516,
-     521,
+     523,
      998
     ]
    ],
    "verdict_agreement": [
-    629,
+    628,
     603,
-    648
+    650
    ],
    "verdict_correct": 1000,
    "true_positives": 130,
@@ -4761,22 +4761,22 @@
    "negatives": 870,
    "false_positives": 0,
    "covered": [
-    907,
-    889,
-    915
+    897,
+    890,
+    916
    ],
    "empty": [
-    93,
-    111,
-    85
+    103,
+    110,
+    84
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 981,
-   "decided_correct": 981
+   "decided": 984,
+   "decided_correct": 984
   },
   {
    "mode": "concepts",
@@ -4798,30 +4798,30 @@
      495
     ],
     [
-     497,
-     504,
-     999
+     499,
+     500,
+     995
     ]
    ],
    "verdict_agreement": [
     862,
     381,
-    623
+    625
    ],
    "verdict_correct": 862,
    "true_positives": 0,
    "positives": 138,
    "negatives": 862,
-   "false_positives": 695,
+   "false_positives": 691,
    "covered": [
-    482,
+    478,
     0,
-    810
+    825
    ],
    "empty": [
-    18,
-    309,
-    190
+    38,
+    271,
+    175
    ],
    "full": [
     0,
@@ -4841,48 +4841,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     540,
-     959,
-     544
+     556,
+     947,
+     480
     ],
     [
-     467,
-     330,
-     701
+     468,
+     353,
+     674
     ],
     [
+     479,
      490,
-     493,
-     984
+     959
     ]
    ],
    "verdict_agreement": [
-    646,
-    325,
-    608
+    660,
+    302,
+    583
    ],
-   "verdict_correct": 860,
-   "true_positives": 137,
+   "verdict_correct": 887,
+   "true_positives": 132,
    "positives": 138,
    "negatives": 862,
-   "false_positives": 100,
+   "false_positives": 76,
    "covered": [
-    430,
+    427,
     0,
-    823
+    831
    ],
    "empty": [
-    211,
-    127,
-    177
+    183,
+    166,
+    169
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 938,
-   "decided_correct": 831
+   "decided": 936,
+   "decided_correct": 837
   },
   {
    "mode": "concepts",
@@ -4894,48 +4894,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     528,
-     977,
-     528
+     560,
+     941,
+     468
     ],
     [
-     492,
-     217,
-     712
+     510,
+     271,
+     754
     ],
     [
-     512,
-     517,
-     924
+     511,
+     518,
+     943
     ]
    ],
    "verdict_agreement": [
-    636,
-    512,
-    678
+    664,
+    590,
+    663
    ],
-   "verdict_correct": 857,
-   "true_positives": 40,
+   "verdict_correct": 860,
+   "true_positives": 27,
    "positives": 138,
    "negatives": 862,
-   "false_positives": 368,
+   "false_positives": 409,
    "covered": [
-    433,
-    203,
-    715
+    430,
+    232,
+    739
    ],
    "empty": [
-    229,
-    67,
-    285
+    184,
+    71,
+    261
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 956,
-   "decided_correct": 847
+   "decided": 950,
+   "decided_correct": 844
   },
   {
    "mode": "concepts",
@@ -4947,48 +4947,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     548,
-     887,
-     618
+     578,
+     865,
+     566
     ],
     [
-     492,
-     361,
-     850
+     504,
+     373,
+     790
     ],
     [
-     514,
-     537,
-     884
+     502,
+     511,
+     930
     ]
    ],
    "verdict_agreement": [
-    722,
-    620,
-    710
+    744,
+    658,
+    664
    ],
-   "verdict_correct": 857,
-   "true_positives": 58,
+   "verdict_correct": 864,
+   "true_positives": 45,
    "positives": 138,
    "negatives": 862,
-   "false_positives": 297,
+   "false_positives": 363,
    "covered": [
-    452,
-    462,
-    706
+    445,
+    481,
+    757
    ],
    "empty": [
-    180,
+    135,
     0,
-    293
+    243
    ],
    "full": [
     0,
-    209,
+    212,
     0
    ],
-   "decided": 918,
-   "decided_correct": 845
+   "decided": 926,
+   "decided_correct": 839
   },
   {
    "mode": "concepts",
@@ -5000,48 +5000,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     567,
-     922,
-     453
+     571,
+     860,
+     425
     ],
     [
-     507,
-     570,
-     605
+     497,
+     616,
+     553
     ],
     [
-     505,
-     514,
-     979
+     503,
+     506,
+     985
     ]
    ],
    "verdict_agreement": [
-    675,
-    751,
-    641
+    677,
+    839,
+    633
    ],
-   "verdict_correct": 877,
-   "true_positives": 59,
+   "verdict_correct": 880,
+   "true_positives": 57,
    "positives": 138,
    "negatives": 862,
-   "false_positives": 250,
+   "false_positives": 333,
    "covered": [
-    445,
-    873,
-    773
+    438,
+    796,
+    801
    ],
    "empty": [
-    167,
+    164,
     0,
-    227
+    199
    ],
    "full": [
     0,
-    602,
+    523,
     0
    ],
-   "decided": 935,
-   "decided_correct": 840
+   "decided": 932,
+   "decided_correct": 836
   },
   {
    "mode": "concepts",
@@ -5053,48 +5053,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     567,
-     626,
+     565,
+     614,
      423
     ],
     [
-     510,
-     863,
-     630
+     518,
+     883,
+     590
     ],
     [
-     498,
-     507,
-     972
+     501,
+     504,
+     983
     ]
    ],
    "verdict_agreement": [
-    565,
-    500,
-    632
+    573,
+    526,
+    625
    ],
-   "verdict_correct": 815,
-   "true_positives": 52,
+   "verdict_correct": 822,
+   "true_positives": 49,
    "positives": 138,
    "negatives": 862,
-   "false_positives": 422,
+   "false_positives": 507,
    "covered": [
-    466,
-    972,
-    779
+    467,
+    1000,
+    776
    ],
    "empty": [
-    93,
+    85,
     0,
-    219
+    222
    ],
    "full": [
     0,
-    556,
+    547,
     0
    ],
-   "decided": 958,
-   "decided_correct": 849
+   "decided": 956,
+   "decided_correct": 847
   },
   {
    "mode": "concepts",
@@ -5106,48 +5106,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     609,
-     686,
-     411
+     596,
+     697,
+     440
     ],
     [
-     517,
-     992,
-     499
+     518,
+     991,
+     496
     ],
     [
+     495,
      492,
-     493,
-     978
+     981
     ]
    ],
    "verdict_agreement": [
-    645,
-    621,
-    614
+    620,
+    624,
+    619
    ],
-   "verdict_correct": 922,
-   "true_positives": 91,
+   "verdict_correct": 910,
+   "true_positives": 95,
    "positives": 138,
    "negatives": 862,
-   "false_positives": 75,
+   "false_positives": 79,
    "covered": [
-    454,
+    448,
     1000,
-    781
+    825
    ],
    "empty": [
-    107,
+    124,
     0,
-    219
+    175
    ],
    "full": [
     0,
-    601,
+    480,
     0
    ],
-   "decided": 975,
-   "decided_correct": 861
+   "decided": 974,
+   "decided_correct": 857
   },
   {
    "mode": "concepts",
@@ -5159,48 +5159,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     668,
-     685,
-     440
+     666,
+     665,
+     466
     ],
     [
      518,
-     983,
-     488
+     981,
+     486
     ],
     [
-     501,
-     502,
-     975
+     500,
+     491,
+     980
     ]
    ],
    "verdict_agreement": [
-    630,
+    606,
     624,
-    635
+    628
    ],
-   "verdict_correct": 932,
-   "true_positives": 107,
+   "verdict_correct": 920,
+   "true_positives": 102,
    "positives": 138,
    "negatives": 862,
-   "false_positives": 50,
+   "false_positives": 67,
    "covered": [
-    447,
+    462,
     1000,
-    801
+    792
    ],
    "empty": [
-    114,
+    91,
     0,
-    199
+    205
    ],
    "full": [
     0,
-    579,
+    532,
     0
    ],
-   "decided": 973,
-   "decided_correct": 862
+   "decided": 967,
+   "decided_correct": 858
   },
   {
    "mode": "concepts",
@@ -5212,9 +5212,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     994,
-     515,
-     496
+     996,
+     511,
+     500
     ],
     [
      513,
@@ -5223,37 +5223,37 @@
     ],
     [
      498,
-     505,
+     503,
      998
     ]
    ],
    "verdict_agreement": [
     620,
     619,
-    624
+    622
    ],
-   "verdict_correct": 999,
-   "true_positives": 137,
+   "verdict_correct": 998,
+   "true_positives": 136,
    "positives": 138,
    "negatives": 862,
    "false_positives": 0,
    "covered": [
-    688,
+    723,
     1000,
-    931
+    996
    ],
    "empty": [
     0,
     0,
-    44
-   ],
-   "full": [
-    206,
-    759,
     0
    ],
-   "decided": 946,
-   "decided_correct": 853
+   "full": [
+    241,
+    736,
+    511
+   ],
+   "decided": 914,
+   "decided_correct": 850
   },
   {
    "mode": "concepts",
@@ -5265,9 +5265,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     946,
-     553,
-     494
+     919,
+     534,
+     503
     ],
     [
      513,
@@ -5275,38 +5275,38 @@
      505
     ],
     [
-     499,
-     504,
-     999
+     496,
+     503,
+     992
     ]
    ],
    "verdict_agreement": [
-    612,
+    613,
     619,
-    625
+    620
    ],
-   "verdict_correct": 987,
-   "true_positives": 136,
+   "verdict_correct": 979,
+   "true_positives": 130,
    "positives": 138,
    "negatives": 862,
-   "false_positives": 1,
+   "false_positives": 7,
    "covered": [
-    911,
+    895,
     1000,
-    994
+    985
    ],
    "empty": [
-    52,
+    38,
     0,
-    5
+    15
    ],
    "full": [
     0,
-    1000,
+    832,
     0
    ],
-   "decided": 734,
-   "decided_correct": 732
+   "decided": 777,
+   "decided_correct": 771
   },
   {
    "mode": "concepts",
@@ -5328,15 +5328,15 @@
      513
     ],
     [
-     482,
-     515,
-     996
+     479,
+     520,
+     993
     ]
    ],
    "verdict_agreement": [
     615,
     602,
-    653
+    658
    ],
    "verdict_correct": 1000,
    "true_positives": 126,
@@ -5344,22 +5344,22 @@
    "negatives": 874,
    "false_positives": 0,
    "covered": [
-    900,
-    905,
-    899
+    877,
+    903,
+    894
    ],
    "empty": [
-    100,
-    95,
-    101
+    123,
+    97,
+    106
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 950,
-   "decided_correct": 950
+   "decided": 939,
+   "decided_correct": 939
   },
   {
    "mode": "concepts",
@@ -5371,9 +5371,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     683,
-     538,
-     464
+     612,
+     555,
+     473
     ],
     [
      509,
@@ -5381,38 +5381,38 @@
      494
     ],
     [
-     481,
-     534,
-     954
+     487,
+     500,
+     922
     ]
    ],
    "verdict_agreement": [
-    772,
+    821,
     386,
-    646
+    636
    ],
-   "verdict_correct": 848,
+   "verdict_correct": 865,
    "true_positives": 0,
    "positives": 116,
    "negatives": 884,
-   "false_positives": 715,
+   "false_positives": 710,
    "covered": [
-    315,
+    334,
     0,
-    602
+    497
    ],
    "empty": [
-    671,
-    446,
-    397
+    633,
+    533,
+    501
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 726,
-   "decided_correct": 635
+   "decided": 732,
+   "decided_correct": 646
   },
   {
    "mode": "concepts",
@@ -5424,9 +5424,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     498,
-     501,
-     503
+     513,
+     492,
+     506
     ],
     [
      497,
@@ -5434,38 +5434,38 @@
      502
     ],
     [
-     488,
-     593,
-     887
+     489,
+     616,
+     866
     ]
    ],
    "verdict_agreement": [
-    117,
+    132,
     116,
-    527
+    514
    ],
-   "verdict_correct": 527,
-   "true_positives": 116,
+   "verdict_correct": 521,
+   "true_positives": 115,
    "positives": 116,
    "negatives": 884,
-   "false_positives": 217,
+   "false_positives": 293,
    "covered": [
-    511,
-    722,
-    595
+    488,
+    674,
+    438
    ],
    "empty": [
-    292,
+    288,
     0,
-    394
+    555
    ],
    "full": [
     0,
-    722,
+    674,
     0
    ],
-   "decided": 825,
-   "decided_correct": 767
+   "decided": 868,
+   "decided_correct": 782
   },
   {
    "mode": "concepts",
@@ -5477,48 +5477,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     637,
-     682,
-     550
+     658,
+     639,
+     553
     ],
     [
      571,
-     434,
-     738
+     390,
+     702
     ],
     [
-     488,
-     545,
-     941
+     484,
+     599,
+     877
     ]
    ],
    "verdict_agreement": [
-    840,
-    500,
-    615
+    787,
+    488,
+    517
    ],
-   "verdict_correct": 917,
-   "true_positives": 87,
+   "verdict_correct": 836,
+   "true_positives": 61,
    "positives": 116,
    "negatives": 884,
-   "false_positives": 122,
+   "false_positives": 384,
    "covered": [
-    576,
-    979,
-    547
+    556,
+    975,
+    466
    ],
    "empty": [
-    164,
+    140,
     0,
-    449
+    529
    ],
    "full": [
     0,
     892,
     0
    ],
-   "decided": 758,
-   "decided_correct": 741
+   "decided": 802,
+   "decided_correct": 754
   },
   {
    "mode": "concepts",
@@ -5530,48 +5530,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     649,
-     576,
-     316
+     635,
+     542,
+     342
     ],
     [
-     582,
-     595,
-     789
+     560,
+     483,
+     765
     ],
     [
-     482,
-     537,
-     949
+     477,
+     602,
+     866
     ]
    ],
    "verdict_agreement": [
-    682,
-    747,
-    637
+    706,
+    733,
+    500
    ],
-   "verdict_correct": 906,
-   "true_positives": 35,
+   "verdict_correct": 896,
+   "true_positives": 24,
    "positives": 116,
    "negatives": 884,
-   "false_positives": 166,
+   "false_positives": 431,
    "covered": [
-    477,
-    1000,
-    553
+    495,
+    986,
+    535
    ],
    "empty": [
-    281,
+    217,
     0,
-    443
+    459
    ],
    "full": [
     0,
-    957,
+    922,
     0
    ],
-   "decided": 868,
-   "decided_correct": 802
+   "decided": 882,
+   "decided_correct": 808
   },
   {
    "mode": "concepts",
@@ -5583,48 +5583,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     621,
-     850,
-     426
+     625,
+     826,
+     436
     ],
     [
-     545,
-     880,
-     614
+     543,
+     764,
+     684
     ],
     [
      492,
-     571,
-     905
+     557,
+     911
     ]
    ],
    "verdict_agreement": [
     576,
-    564,
-    539
+    510,
+    551
    ],
-   "verdict_correct": 814,
-   "true_positives": 108,
+   "verdict_correct": 819,
+   "true_positives": 100,
    "positives": 116,
    "negatives": 884,
-   "false_positives": 148,
+   "false_positives": 217,
    "covered": [
-    576,
-    1000,
-    626
+    590,
+    999,
+    545
    ],
    "empty": [
     0,
     0,
-    366
+    449
    ],
    "full": [
-    15,
-    976,
+    48,
+    975,
     0
    ],
-   "decided": 859,
-   "decided_correct": 802
+   "decided": 867,
+   "decided_correct": 800
   },
   {
    "mode": "concepts",
@@ -5636,48 +5636,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     777,
-     576,
-     574
+     758,
+     557,
+     575
     ],
     [
      504,
-     983,
-     517
+     971,
+     521
     ],
     [
-     478,
-     517,
-     955
+     484,
+     491,
+     931
     ]
    ],
    "verdict_agreement": [
-    544,
+    525,
     627,
     623
    ],
-   "verdict_correct": 891,
-   "true_positives": 88,
+   "verdict_correct": 877,
+   "true_positives": 73,
    "positives": 116,
    "negatives": 884,
-   "false_positives": 110,
+   "false_positives": 155,
    "covered": [
-    479,
+    475,
     1000,
-    628
+    570
    ],
    "empty": [
-    183,
+    135,
     0,
-    371
+    429
    ],
    "full": [
     0,
-    982,
+    901,
     0
    ],
-   "decided": 846,
-   "decided_correct": 794
+   "decided": 882,
+   "decided_correct": 816
   },
   {
    "mode": "concepts",
@@ -5689,48 +5689,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     769,
-     526,
-     540
+     740,
+     507,
+     527
     ],
     [
-     500,
-     989,
-     515
+     503,
+     978,
+     522
     ],
     [
-     473,
-     508,
-     956
+     479,
+     486,
+     936
     ]
    ],
    "verdict_agreement": [
-    492,
-    621,
-    614
+    481,
+    624,
+    620
    ],
-   "verdict_correct": 884,
-   "true_positives": 75,
+   "verdict_correct": 866,
+   "true_positives": 54,
    "positives": 116,
    "negatives": 884,
-   "false_positives": 111,
+   "false_positives": 165,
    "covered": [
-    476,
+    482,
     1000,
-    617
+    626
    ],
    "empty": [
-    224,
+    152,
     0,
-    380
+    369
    ],
    "full": [
     0,
-    963,
+    921,
     0
    ],
-   "decided": 843,
-   "decided_correct": 779
+   "decided": 903,
+   "decided_correct": 824
   },
   {
    "mode": "concepts",
@@ -5742,48 +5742,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     803,
-     572,
-     568
+     773,
+     538,
+     540
     ],
     [
-     496,
-     993,
-     513
+     499,
+     988,
+     514
     ],
     [
-     475,
-     500,
-     964
+     480,
+     491,
+     959
     ]
    ],
    "verdict_agreement": [
-    512,
-    621,
-    618
+    498,
+    620,
+    623
    ],
-   "verdict_correct": 905,
-   "true_positives": 104,
+   "verdict_correct": 897,
+   "true_positives": 86,
    "positives": 116,
    "negatives": 884,
-   "false_positives": 80,
+   "false_positives": 103,
    "covered": [
-    463,
+    481,
     1000,
-    627
+    625
    ],
    "empty": [
-    326,
+    210,
     0,
-    373
+    374
    ],
    "full": [
     0,
-    965,
+    909,
     0
    ],
-   "decided": 763,
-   "decided_correct": 727
+   "decided": 875,
+   "decided_correct": 807
   },
   {
    "mode": "concepts",
@@ -5795,9 +5795,62 @@
    "scenes": 1000,
    "agreement": [
     [
-     996,
-     489,
-     485
+     999,
+     490,
+     486
+    ],
+    [
+     491,
+     1000,
+     506
+    ],
+    [
+     484,
+     507,
+     999
+    ]
+   ],
+   "verdict_agreement": [
+    620,
+    614,
+    615
+   ],
+   "verdict_correct": 1000,
+   "true_positives": 116,
+   "positives": 116,
+   "negatives": 884,
+   "false_positives": 0,
+   "covered": [
+    632,
+    1000,
+    667
+   ],
+   "empty": [
+    367,
+    0,
+    333
+   ],
+   "full": [
+    0,
+    979,
+    0
+   ],
+   "decided": 728,
+   "decided_correct": 728
+  },
+  {
+   "mode": "concepts",
+   "seed": 19,
+   "shots": 3000,
+   "domain": "target",
+   "trained": "scratch",
+   "draw": 0,
+   "scenes": 1000,
+   "agreement": [
+    [
+     869,
+     540,
+     486
     ],
     [
      491,
@@ -5811,85 +5864,32 @@
     ]
    ],
    "verdict_agreement": [
-    619,
+    566,
     614,
-    614
+    612
    ],
-   "verdict_correct": 996,
-   "true_positives": 112,
+   "verdict_correct": 946,
+   "true_positives": 95,
    "positives": 116,
    "negatives": 884,
-   "false_positives": 0,
+   "false_positives": 43,
    "covered": [
-    667,
+    890,
     1000,
-    847
-   ],
-   "empty": [
-    317,
-    0,
-    153
-   ],
-   "full": [
-    0,
-    1000,
-    0
-   ],
-   "decided": 746,
-   "decided_correct": 742
-  },
-  {
-   "mode": "concepts",
-   "seed": 19,
-   "shots": 3000,
-   "domain": "target",
-   "trained": "scratch",
-   "draw": 0,
-   "scenes": 1000,
-   "agreement": [
-    [
-     876,
-     533,
-     515
-    ],
-    [
-     491,
-     1000,
-     506
-    ],
-    [
-     480,
-     507,
-     995
-    ]
-   ],
-   "verdict_agreement": [
-    543,
-    614,
-    613
-   ],
-   "verdict_correct": 948,
-   "true_positives": 104,
-   "positives": 116,
-   "negatives": 884,
-   "false_positives": 45,
-   "covered": [
-    883,
-    1000,
-    982
+    977
    ],
    "empty": [
     0,
     0,
-    18
+    22
    ],
    "full": [
-    26,
-    812,
+    55,
+    777,
     0
    ],
-   "decided": 785,
-   "decided_correct": 761
+   "decided": 769,
+   "decided_correct": 751
   },
   {
    "mode": "concepts",
@@ -5911,15 +5911,15 @@
      494
     ],
     [
-     525,
-     489,
-     995
+     524,
+     490,
+     996
     ]
    ],
    "verdict_agreement": [
     601,
     637,
-    610
+    609
    ],
    "verdict_correct": 1000,
    "true_positives": 121,
@@ -5927,22 +5927,22 @@
    "negatives": 879,
    "false_positives": 0,
    "covered": [
-    903,
-    907,
-    921
+    898,
+    926,
+    923
    ],
    "empty": [
-    97,
-    93,
-    79
+    102,
+    74,
+    77
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 926,
-   "decided_correct": 926
+   "decided": 925,
+   "decided_correct": 925
   },
   {
    "mode": "concepts",
@@ -5954,8 +5954,8 @@
    "scenes": 1000,
    "agreement": [
     [
-     511,
-     537,
+     577,
+     471,
      486
     ],
     [
@@ -5964,38 +5964,38 @@
      503
     ],
     [
-     484,
-     508,
-     971
+     481,
+     507,
+     970
     ]
    ],
    "verdict_agreement": [
-    882,
+    816,
     345,
-    609
+    608
    ],
-   "verdict_correct": 885,
+   "verdict_correct": 852,
    "true_positives": 0,
    "positives": 115,
    "negatives": 885,
-   "false_positives": 693,
+   "false_positives": 701,
    "covered": [
-    227,
+    225,
     0,
-    696
+    653
    ],
    "empty": [
-    539,
-    399,
-    304
+    541,
+    466,
+    347
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 630,
-   "decided_correct": 515
+   "decided": 628,
+   "decided_correct": 513
   },
   {
    "mode": "concepts",
@@ -6007,48 +6007,48 @@
    "scenes": 1000,
    "agreement": [
     [
+     496,
+     282,
+     673
+    ],
+    [
+     486,
+     452,
+     519
+    ],
+    [
+     480,
      502,
-     274,
-     689
-    ],
-    [
-     482,
-     384,
-     587
-    ],
-    [
-     482,
-     500,
      975
     ]
    ],
    "verdict_agreement": [
-    301,
-    191,
+    281,
+    123,
     599
    ],
-   "verdict_correct": 600,
-   "true_positives": 110,
+   "verdict_correct": 597,
+   "true_positives": 108,
    "positives": 115,
    "negatives": 885,
-   "false_positives": 373,
+   "false_positives": 382,
    "covered": [
-    474,
-    4,
-    683
+    467,
+    0,
+    640
    ],
    "empty": [
-    119,
-    153,
-    317
+    152,
+    149,
+    360
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 901,
-   "decided_correct": 802
+   "decided": 888,
+   "decided_correct": 764
   },
   {
    "mode": "concepts",
@@ -6060,48 +6060,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     516,
-     572,
-     831
+     520,
+     544,
+     865
     ],
     [
-     482,
-     452,
-     919
+     492,
+     462,
+     871
     ],
     [
-     481,
-     505,
-     972
+     478,
+     512,
+     965
     ]
    ],
    "verdict_agreement": [
-    729,
-    599,
-    604
+    695,
+    651,
+    609
    ],
-   "verdict_correct": 720,
+   "verdict_correct": 702,
    "true_positives": 80,
    "positives": 115,
    "negatives": 885,
-   "false_positives": 382,
+   "false_positives": 371,
    "covered": [
-    548,
-    784,
-    726
+    580,
+    791,
+    657
    ],
    "empty": [
     0,
     0,
-    274
+    343
    ],
    "full": [
-    42,
-    682,
+    109,
+    702,
     0
    ],
-   "decided": 958,
-   "decided_correct": 858
+   "decided": 891,
+   "decided_correct": 797
   },
   {
    "mode": "concepts",
@@ -6113,48 +6113,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     544,
-     404,
-     649
+     554,
+     386,
+     643
     ],
     [
-     490,
-     482,
-     951
+     483,
+     501,
+     924
     ],
     [
-     482,
-     580,
-     871
+     473,
+     589,
+     860
     ]
    ],
    "verdict_agreement": [
-    401,
-    599,
-    697
+    393,
+    634,
+    706
    ],
-   "verdict_correct": 722,
-   "true_positives": 50,
+   "verdict_correct": 729,
+   "true_positives": 47,
    "positives": 115,
    "negatives": 885,
-   "false_positives": 367,
+   "false_positives": 368,
    "covered": [
     504,
-    846,
-    783
+    808,
+    704
    ],
    "empty": [
     59,
     0,
-    214
+    294
    ],
    "full": [
     0,
     770,
     0
    ],
-   "decided": 961,
-   "decided_correct": 850
+   "decided": 933,
+   "decided_correct": 799
   },
   {
    "mode": "concepts",
@@ -6166,48 +6166,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     560,
-     600,
-     663
+     552,
+     464,
+     771
     ],
     [
-     496,
-     536,
-     871
+     498,
+     546,
+     885
     ],
     [
-     485,
-     645,
-     774
+     476,
+     650,
+     789
     ]
    ],
    "verdict_agreement": [
-    447,
-    683,
-    786
+    495,
+    685,
+    779
    ],
-   "verdict_correct": 812,
-   "true_positives": 74,
+   "verdict_correct": 801,
+   "true_positives": 78,
    "positives": 115,
    "negatives": 885,
-   "false_positives": 332,
+   "false_positives": 306,
    "covered": [
-    517,
-    901,
-    733
+    524,
+    950,
+    739
    ],
    "empty": [
-    27,
+    13,
     0,
-    265
+    261
    ],
    "full": [
     0,
-    814,
+    915,
     0
    ],
-   "decided": 980,
-   "decided_correct": 867
+   "decided": 968,
+   "decided_correct": 830
   },
   {
    "mode": "concepts",
@@ -6219,48 +6219,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     557,
-     525,
-     752
+     560,
+     506,
+     729
     ],
     [
      502,
-     892,
-     585
+     900,
+     575
     ],
     [
-     488,
-     550,
-     903
+     489,
+     537,
+     924
     ]
    ],
    "verdict_agreement": [
-    592,
-    691,
-    675
+    597,
+    633,
+    656
    ],
-   "verdict_correct": 873,
-   "true_positives": 93,
+   "verdict_correct": 854,
+   "true_positives": 87,
    "positives": 115,
    "negatives": 885,
-   "false_positives": 193,
+   "false_positives": 181,
    "covered": [
-    509,
+    508,
     1000,
-    708
+    675
    ],
    "empty": [
-    22,
+    5,
     0,
-    290
+    325
    ],
    "full": [
     0,
-    921,
+    859,
     0
    ],
-   "decided": 976,
-   "decided_correct": 873
+   "decided": 995,
+   "decided_correct": 880
   },
   {
    "mode": "concepts",
@@ -6272,48 +6272,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     571,
-     373,
-     666
+     564,
+     354,
+     651
     ],
     [
-     519,
-     985,
-     510
+     517,
+     993,
+     502
     ],
     [
-     489,
-     525,
-     954
+     486,
+     522,
+     949
     ]
    ],
    "verdict_agreement": [
-    596,
+    573,
     658,
-    634
+    633
    ],
-   "verdict_correct": 910,
-   "true_positives": 66,
+   "verdict_correct": 903,
+   "true_positives": 53,
    "positives": 115,
    "negatives": 885,
-   "false_positives": 134,
+   "false_positives": 158,
    "covered": [
-    496,
+    505,
     1000,
-    683
+    685
    ],
    "empty": [
-    56,
+    37,
     0,
-    311
+    314
    ],
    "full": [
     0,
-    934,
+    931,
     0
    ],
-   "decided": 953,
-   "decided_correct": 849
+   "decided": 977,
+   "decided_correct": 864
   },
   {
    "mode": "concepts",
@@ -6325,47 +6325,47 @@
    "scenes": 1000,
    "agreement": [
     [
-     649,
-     633,
-     438
+     661,
+     631,
+     430
     ],
     [
-     516,
-     996,
-     497
+     514,
+     998,
+     495
     ],
     [
-     484,
-     498,
-     991
+     482,
+     496,
+     987
     ]
    ],
    "verdict_agreement": [
-    588,
-    657,
-    603
+    544,
+    655,
+    599
    ],
-   "verdict_correct": 912,
+   "verdict_correct": 908,
    "true_positives": 71,
    "positives": 115,
    "negatives": 885,
-   "false_positives": 90,
+   "false_positives": 98,
    "covered": [
     508,
     1000,
-    762
+    696
    ],
    "empty": [
-    1,
     0,
-    238
+    0,
+    304
    ],
    "full": [
     0,
-    911,
+    914,
     0
    ],
-   "decided": 999,
+   "decided": 1000,
    "decided_correct": 885
   },
   {
@@ -6378,7 +6378,7 @@
    "scenes": 1000,
    "agreement": [
     [
-     998,
+     996,
      516,
      485
     ],
@@ -6388,15 +6388,15 @@
      497
     ],
     [
-     484,
-     502,
-     995
+     487,
+     499,
+     998
     ]
    ],
    "verdict_agreement": [
-    625,
+    627,
     655,
-    605
+    606
    ],
    "verdict_correct": 1000,
    "true_positives": 115,
@@ -6404,22 +6404,22 @@
    "negatives": 885,
    "false_positives": 0,
    "covered": [
-    565,
+    667,
     1000,
-    770
+    973
    ],
    "empty": [
     0,
     0,
-    187
+    25
    ],
    "full": [
-    57,
-    544,
+    159,
+    1000,
     0
    ],
-   "decided": 962,
-   "decided_correct": 857
+   "decided": 902,
+   "decided_correct": 829
   },
   {
    "mode": "concepts",
@@ -6431,9 +6431,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     975,
-     515,
-     486
+     984,
+     522,
+     489
     ],
     [
      514,
@@ -6441,18 +6441,18 @@
      497
     ],
     [
-     487,
-     499,
-     996
+     486,
+     498,
+     995
     ]
    ],
    "verdict_agreement": [
-    636,
+    631,
     655,
-    604
+    605
    ],
-   "verdict_correct": 995,
-   "true_positives": 110,
+   "verdict_correct": 998,
+   "true_positives": 114,
    "positives": 115,
    "negatives": 885,
    "false_positives": 0,
@@ -6467,12 +6467,12 @@
     0
    ],
    "full": [
-    787,
-    774,
+    773,
+    1000,
     1000
    ],
-   "decided": 430,
-   "decided_correct": 430
+   "decided": 227,
+   "decided_correct": 227
   },
   {
    "mode": "concepts",
@@ -6484,9 +6484,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     999,
-     511,
-     525
+     998,
+     512,
+     524
     ],
     [
      510,
@@ -6495,37 +6495,37 @@
     ],
     [
      520,
-     486,
-     994
+     490,
+     992
     ]
    ],
    "verdict_agreement": [
-    642,
+    643,
     621,
-    629
+    633
    ],
-   "verdict_correct": 996,
-   "true_positives": 116,
+   "verdict_correct": 997,
+   "true_positives": 117,
    "positives": 120,
    "negatives": 880,
    "false_positives": 0,
    "covered": [
-    906,
-    914,
-    902
+    902,
+    886,
+    912
    ],
    "empty": [
-    94,
-    86,
-    98
+    98,
+    114,
+    88
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 980,
-   "decided_correct": 980
+   "decided": 982,
+   "decided_correct": 982
   },
   {
    "mode": "concepts",
@@ -6547,30 +6547,30 @@
      489
     ],
     [
-     500,
-     516,
-     953
+     502,
+     494,
+     935
     ]
    ],
    "verdict_agreement": [
     871,
     369,
-    651
+    655
    ],
    "verdict_correct": 871,
    "true_positives": 0,
    "positives": 129,
    "negatives": 871,
-   "false_positives": 575,
+   "false_positives": 460,
    "covered": [
     496,
     0,
-    305
+    255
    ],
    "empty": [
     0,
-    814,
-    693
+    972,
+    743
    ],
    "full": [
     0,
@@ -6590,47 +6590,47 @@
    "scenes": 1000,
    "agreement": [
     [
-     545,
-     699,
-     376
+     535,
+     627,
+     358
     ],
     [
-     497,
-     491,
-     480
+     504,
+     498,
+     487
     ],
     [
      473,
-     573,
-     884
+     529,
+     822
     ]
    ],
    "verdict_agreement": [
-    486,
-    122,
-    542
+    358,
+    129,
+    468
    ],
-   "verdict_correct": 787,
-   "true_positives": 121,
+   "verdict_correct": 651,
+   "true_positives": 128,
    "positives": 129,
    "negatives": 871,
-   "false_positives": 152,
+   "false_positives": 97,
    "covered": [
     496,
     0,
-    385
+    330
    ],
    "empty": [
-    3,
-    437,
-    609
+    0,
+    664,
+    665
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 999,
+   "decided": 1000,
    "decided_correct": 871
   },
   {
@@ -6643,48 +6643,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     560,
-     754,
-     637
+     563,
+     741,
+     626
     ],
     [
-     452,
-     368,
-     753
+     478,
+     478,
+     755
     ],
     [
-     496,
-     550,
-     933
+     498,
+     568,
+     915
     ]
    ],
    "verdict_agreement": [
-    837,
-    485,
-    637
+    848,
+    481,
+    657
    ],
-   "verdict_correct": 860,
-   "true_positives": 64,
+   "verdict_correct": 871,
+   "true_positives": 79,
    "positives": 129,
    "negatives": 871,
-   "false_positives": 133,
+   "false_positives": 170,
    "covered": [
     495,
-    389,
-    413
+    310,
+    412
    ],
    "empty": [
-    14,
-    107,
-    581
+    5,
+    373,
+    580
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 986,
-   "decided_correct": 868
+   "decided": 995,
+   "decided_correct": 870
   },
   {
    "mode": "concepts",
@@ -6696,48 +6696,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     545,
-     913,
-     580
+     540,
+     876,
+     545
     ],
     [
-     482,
-     834,
-     449
+     506,
+     862,
+     467
     ],
     [
-     488,
-     560,
-     917
+     489,
+     539,
+     920
     ]
    ],
    "verdict_agreement": [
-    708,
-    607,
-    603
+    697,
+    593,
+    620
    ],
-   "verdict_correct": 833,
-   "true_positives": 82,
+   "verdict_correct": 861,
+   "true_positives": 101,
    "positives": 129,
    "negatives": 871,
-   "false_positives": 153,
+   "false_positives": 150,
    "covered": [
     496,
-    980,
-    441
+    926,
+    430
    ],
    "empty": [
-    5,
+    1,
     0,
-    554
+    564
    ],
    "full": [
     0,
-    608,
+    257,
     0
    ],
-   "decided": 996,
-   "decided_correct": 867
+   "decided": 999,
+   "decided_correct": 870
   },
   {
    "mode": "concepts",
@@ -6749,44 +6749,44 @@
    "scenes": 1000,
    "agreement": [
     [
-     529,
-     801,
-     346
+     555,
+     833,
+     402
     ],
     [
-     516,
-     850,
-     599
+     506,
+     806,
+     557
     ],
     [
-     495,
-     519,
-     952
+     496,
+     546,
+     939
     ]
    ],
    "verdict_agreement": [
-    628,
-    727,
-    638
+    624,
+    709,
+    637
    ],
-   "verdict_correct": 881,
-   "true_positives": 43,
+   "verdict_correct": 895,
+   "true_positives": 74,
    "positives": 129,
    "negatives": 871,
-   "false_positives": 118,
+   "false_positives": 143,
    "covered": [
     496,
-    994,
-    437
+    915,
+    479
    ],
    "empty": [
     0,
     0,
-    556
+    515
    ],
    "full": [
     0,
-    477,
+    252,
     0
    ],
    "decided": 1000,
@@ -6802,48 +6802,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     546,
-     938,
-     493
+     530,
+     958,
+     475
     ],
     [
-     523,
-     981,
-     524
+     521,
+     973,
+     506
     ],
     [
      494,
-     506,
-     957
+     518,
+     971
     ]
    ],
    "verdict_agreement": [
-    673,
-    648,
-    631
+    643,
+    644,
+    639
    ],
-   "verdict_correct": 894,
-   "true_positives": 116,
+   "verdict_correct": 891,
+   "true_positives": 114,
    "positives": 129,
    "negatives": 871,
-   "false_positives": 98,
+   "false_positives": 103,
    "covered": [
     496,
     1000,
-    385
+    401
    ],
    "empty": [
     1,
     0,
-    613
+    599
    ],
    "full": [
     0,
-    525,
+    428,
     0
    ],
-   "decided": 1000,
-   "decided_correct": 871
+   "decided": 999,
+   "decided_correct": 870
   },
   {
    "mode": "concepts",
@@ -6855,44 +6855,44 @@
    "scenes": 1000,
    "agreement": [
     [
-     578,
-     746,
-     435
+     563,
+     741,
+     440
     ],
     [
      517,
-     999,
+     997,
      510
     ],
     [
-     492,
-     512,
-     967
+     491,
+     511,
+     972
     ]
    ],
    "verdict_agreement": [
-    535,
+    520,
     630,
-    647
+    646
    ],
-   "verdict_correct": 881,
-   "true_positives": 72,
+   "verdict_correct": 874,
+   "true_positives": 70,
    "positives": 129,
    "negatives": 871,
-   "false_positives": 97,
+   "false_positives": 104,
    "covered": [
     496,
     1000,
-    543
+    490
    ],
    "empty": [
     0,
     0,
-    452
+    508
    ],
    "full": [
     0,
-    800,
+    607,
     0
    ],
    "decided": 1000,
@@ -6908,44 +6908,44 @@
    "scenes": 1000,
    "agreement": [
     [
-     593,
-     751,
-     488
+     578,
+     754,
+     453
     ],
     [
-     518,
-     1000,
-     511
+     519,
+     999,
+     512
     ],
     [
-     494,
-     504,
-     973
+     491,
+     503,
+     982
     ]
    ],
    "verdict_agreement": [
-    558,
-    631,
-    639
+    541,
+    632,
+    644
    ],
-   "verdict_correct": 888,
-   "true_positives": 98,
+   "verdict_correct": 898,
+   "true_positives": 97,
    "positives": 129,
    "negatives": 871,
    "false_positives": 109,
    "covered": [
     496,
     1000,
-    527
+    459
    ],
    "empty": [
     0,
     0,
-    471
+    541
    ],
    "full": [
     0,
-    851,
+    675,
     0
    ],
    "decided": 1000,
@@ -6961,62 +6961,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     991,
-     525,
-     484
-    ],
-    [
-     518,
-     1000,
-     511
-    ],
-    [
-     488,
-     510,
-     999
-    ]
-   ],
-   "verdict_agreement": [
-    620,
-    631,
-    641
-   ],
-   "verdict_correct": 996,
-   "true_positives": 127,
-   "positives": 129,
-   "negatives": 871,
-   "false_positives": 0,
-   "covered": [
-    786,
-    1000,
-    979
-   ],
-   "empty": [
-    0,
-    0,
-    17
-   ],
-   "full": [
-    290,
-    161,
-    0
-   ],
-   "decided": 914,
-   "decided_correct": 863
-  },
-  {
-   "mode": "concepts",
-   "seed": 21,
-   "shots": 3000,
-   "domain": "target",
-   "trained": "scratch",
-   "draw": 0,
-   "scenes": 1000,
-   "agreement": [
-    [
-     937,
-     485,
-     488
+     994,
+     522,
+     489
     ],
     [
      518,
@@ -7030,19 +6977,19 @@
     ]
    ],
    "verdict_agreement": [
-    586,
+    629,
     631,
     639
    ],
-   "verdict_correct": 982,
-   "true_positives": 118,
+   "verdict_correct": 998,
+   "true_positives": 127,
    "positives": 129,
    "negatives": 871,
-   "false_positives": 7,
+   "false_positives": 0,
    "covered": [
-    883,
+    780,
     1000,
-    999
+    938
    ],
    "empty": [
     0,
@@ -7050,12 +6997,65 @@
     0
    ],
    "full": [
-    111,
-    605,
-    12
+    284,
+    0,
+    425
    ],
-   "decided": 779,
-   "decided_correct": 763
+   "decided": 903,
+   "decided_correct": 871
+  },
+  {
+   "mode": "concepts",
+   "seed": 21,
+   "shots": 3000,
+   "domain": "target",
+   "trained": "scratch",
+   "draw": 0,
+   "scenes": 1000,
+   "agreement": [
+    [
+     941,
+     503,
+     496
+    ],
+    [
+     518,
+     1000,
+     511
+    ],
+    [
+     487,
+     511,
+     998
+    ]
+   ],
+   "verdict_agreement": [
+    594,
+    631,
+    640
+   ],
+   "verdict_correct": 978,
+   "true_positives": 118,
+   "positives": 129,
+   "negatives": 871,
+   "false_positives": 11,
+   "covered": [
+    913,
+    1000,
+    998
+   ],
+   "empty": [
+    0,
+    0,
+    0
+   ],
+   "full": [
+    88,
+    621,
+    3
+   ],
+   "decided": 785,
+   "decided_correct": 779
   },
   {
    "mode": "concepts",
@@ -7077,15 +7077,15 @@
      509
     ],
     [
-     531,
-     508,
-     995
+     530,
+     509,
+     996
     ]
    ],
    "verdict_agreement": [
     620,
     649,
-    643
+    644
    ],
    "verdict_correct": 1000,
    "true_positives": 132,
@@ -7093,22 +7093,22 @@
    "negatives": 868,
    "false_positives": 0,
    "covered": [
-    883,
-    900,
-    907
+    875,
+    896,
+    918
    ],
    "empty": [
-    117,
-    100,
-    93
+    125,
+    104,
+    82
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 968,
-   "decided_correct": 968
+   "decided": 957,
+   "decided_correct": 957
   },
   {
    "mode": "concepts",
@@ -7125,35 +7125,35 @@
      493
     ],
     [
-     507,
-     0,
-     488
+     508,
+     1,
+     489
     ],
     [
-     517,
      520,
-     978
+     519,
+     973
     ]
    ],
    "verdict_agreement": [
     867,
-    368,
-    630
+    369,
+    637
    ],
    "verdict_correct": 867,
    "true_positives": 0,
    "positives": 133,
    "negatives": 867,
-   "false_positives": 533,
+   "false_positives": 549,
    "covered": [
     512,
     0,
-    388
+    460
    ],
    "empty": [
     0,
-    808,
-    612
+    911,
+    540
    ],
    "full": [
     0,
@@ -7173,40 +7173,40 @@
    "scenes": 1000,
    "agreement": [
     [
-     519,
-     788,
-     706
+     523,
+     762,
+     718
     ],
     [
-     476,
-     479,
-     529
+     455,
+     434,
+     574
     ],
     [
-     499,
-     472,
-     888
+     506,
+     439,
+     883
     ]
    ],
    "verdict_agreement": [
-    818,
-    155,
-    514
+    834,
+    200,
+    513
    ],
-   "verdict_correct": 843,
+   "verdict_correct": 849,
    "true_positives": 133,
    "positives": 133,
    "negatives": 867,
-   "false_positives": 88,
+   "false_positives": 90,
    "covered": [
     512,
     0,
-    477
+    553
    ],
    "empty": [
     0,
-    514,
-    523
+    560,
+    447
    ],
    "full": [
     0,
@@ -7226,44 +7226,44 @@
    "scenes": 1000,
    "agreement": [
     [
-     542,
-     699,
+     540,
+     687,
      685
     ],
     [
      529,
-     390,
-     814
+     412,
+     804
     ],
     [
-     532,
-     625,
+     536,
+     609,
      867
     ]
    ],
    "verdict_agreement": [
     889,
-    606,
-    751
+    632,
+    743
    ],
-   "verdict_correct": 881,
-   "true_positives": 87,
+   "verdict_correct": 864,
+   "true_positives": 74,
    "positives": 133,
    "negatives": 867,
-   "false_positives": 122,
+   "false_positives": 165,
    "covered": [
     512,
-    613,
-    512
+    567,
+    516
    ],
    "empty": [
     0,
     0,
-    488
+    484
    ],
    "full": [
     0,
-    384,
+    290,
     0
    ],
    "decided": 1000,
@@ -7279,44 +7279,44 @@
    "scenes": 1000,
    "agreement": [
     [
-     520,
-     797,
-     709
+     528,
+     799,
+     705
     ],
     [
-     520,
-     511,
-     977
+     521,
+     518,
+     980
     ],
     [
-     532,
-     641,
-     861
+     536,
+     643,
+     859
     ]
    ],
    "verdict_agreement": [
-    821,
-    631,
-    753
+    817,
+    638,
+    759
    ],
-   "verdict_correct": 870,
+   "verdict_correct": 869,
    "true_positives": 132,
    "positives": 133,
    "negatives": 867,
-   "false_positives": 100,
+   "false_positives": 109,
    "covered": [
     512,
-    674,
-    538
+    645,
+    551
    ],
    "empty": [
     0,
     0,
-    461
+    449
    ],
    "full": [
     0,
-    398,
+    271,
     0
    ],
    "decided": 1000,
@@ -7332,44 +7332,44 @@
    "scenes": 1000,
    "agreement": [
     [
-     508,
-     825,
-     355
+     513,
+     784,
+     324
     ],
     [
      507,
-     880,
-     612
+     916,
+     578
     ],
     [
-     527,
-     532,
-     938
+     526,
+     537,
+     945
     ]
    ],
    "verdict_agreement": [
-    527,
-    688,
-    662
+    536,
+    658,
+    661
    ],
-   "verdict_correct": 894,
-   "true_positives": 115,
+   "verdict_correct": 889,
+   "true_positives": 98,
    "positives": 133,
    "negatives": 867,
-   "false_positives": 107,
+   "false_positives": 99,
    "covered": [
     512,
-    1000,
-    480
+    999,
+    525
    ],
    "empty": [
     0,
     0,
-    520
+    475
    ],
    "full": [
     0,
-    652,
+    567,
     0
    ],
    "decided": 1000,
@@ -7385,44 +7385,44 @@
    "scenes": 1000,
    "agreement": [
     [
-     547,
-     690,
-     366
+     538,
+     675,
+     375
     ],
     [
-     482,
-     979,
+     486,
+     983,
      501
     ],
     [
-     530,
-     511,
-     943
+     528,
+     517,
+     951
     ]
    ],
    "verdict_agreement": [
-    506,
-    613,
+    501,
+    617,
     651
    ],
-   "verdict_correct": 878,
-   "true_positives": 79,
+   "verdict_correct": 871,
+   "true_positives": 74,
    "positives": 133,
    "negatives": 867,
-   "false_positives": 101,
+   "false_positives": 92,
    "covered": [
     512,
     1000,
-    472
+    540
    ],
    "empty": [
     0,
     0,
-    528
+    460
    ],
    "full": [
     0,
-    683,
+    533,
     0
    ],
    "decided": 1000,
@@ -7438,44 +7438,44 @@
    "scenes": 1000,
    "agreement": [
     [
-     581,
-     488,
-     218
+     593,
+     476,
+     220
     ],
     [
-     488,
-     985,
-     501
+     487,
+     984,
+     502
     ],
     [
-     522,
-     509,
-     965
+     529,
+     520,
+     958
     ]
    ],
    "verdict_agreement": [
-    418,
-    619,
-    637
+    422,
+    618,
+    650
    ],
-   "verdict_correct": 880,
-   "true_positives": 40,
+   "verdict_correct": 891,
+   "true_positives": 44,
    "positives": 133,
    "negatives": 867,
-   "false_positives": 102,
+   "false_positives": 98,
    "covered": [
     512,
     1000,
-    525
+    592
    ],
    "empty": [
     0,
     0,
-    475
+    408
    ],
    "full": [
     0,
-    583,
+    545,
     0
    ],
    "decided": 1000,
@@ -7492,43 +7492,43 @@
    "agreement": [
     [
      581,
-     470,
-     252
+     438,
+     226
     ],
     [
-     495,
-     998,
-     510
+     494,
+     999,
+     511
     ],
     [
-     523,
+     519,
      506,
-     982
+     980
     ]
    ],
    "verdict_agreement": [
-    390,
-    632,
-    626
+    376,
+    633,
+    622
    ],
-   "verdict_correct": 884,
-   "true_positives": 52,
+   "verdict_correct": 867,
+   "true_positives": 31,
    "positives": 133,
    "negatives": 867,
-   "false_positives": 106,
+   "false_positives": 96,
    "covered": [
     512,
     1000,
-    571
+    595
    ],
    "empty": [
     0,
     0,
-    429
+    405
    ],
    "full": [
     0,
-    606,
+    496,
     0
    ],
    "decided": 1000,
@@ -7544,9 +7544,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     971,
-     464,
-     508
+     958,
+     457,
+     511
     ],
     [
      493,
@@ -7554,25 +7554,25 @@
      512
     ],
     [
-     513,
-     514,
+     515,
+     512,
      998
     ]
    ],
    "verdict_agreement": [
-    622,
+    603,
     632,
     624
    ],
-   "verdict_correct": 995,
-   "true_positives": 128,
+   "verdict_correct": 999,
+   "true_positives": 133,
    "positives": 133,
    "negatives": 867,
    "false_positives": 0,
    "covered": [
-    660,
+    720,
     1000,
-    991
+    998
    ],
    "empty": [
     0,
@@ -7580,12 +7580,12 @@
     0
    ],
    "full": [
-    148,
-    1000,
-    15
+    208,
+    865,
+    2
    ],
-   "decided": 933,
-   "decided_correct": 800
+   "decided": 899,
+   "decided_correct": 779
   },
   {
    "mode": "concepts",
@@ -7597,9 +7597,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     862,
-     467,
-     537
+     857,
+     474,
+     524
     ],
     [
      493,
@@ -7607,38 +7607,38 @@
      512
     ],
     [
-     518,
-     517,
-     993
+     513,
+     512,
+     996
     ]
    ],
    "verdict_agreement": [
-    577,
+    578,
     632,
-    621
+    622
    ],
-   "verdict_correct": 943,
-   "true_positives": 113,
+   "verdict_correct": 940,
+   "true_positives": 106,
    "positives": 133,
    "negatives": 867,
-   "false_positives": 50,
+   "false_positives": 62,
    "covered": [
-    835,
+    911,
     1000,
-    993
+    974
    ],
    "empty": [
     0,
     0,
-    2
+    26
    ],
    "full": [
-    18,
-    901,
+    191,
+    1000,
     0
    ],
-   "decided": 723,
-   "decided_correct": 715
+   "decided": 632,
+   "decided_correct": 625
   },
   {
    "mode": "concepts",
@@ -7650,9 +7650,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     999,
-     495,
-     492
+     998,
+     496,
+     493
     ],
     [
      496,
@@ -7660,38 +7660,38 @@
      535
     ],
     [
-     493,
-     531,
+     495,
+     533,
      996
     ]
    ],
    "verdict_agreement": [
-    617,
+    618,
     640,
     631
    ],
-   "verdict_correct": 999,
-   "true_positives": 130,
+   "verdict_correct": 997,
+   "true_positives": 129,
    "positives": 131,
    "negatives": 869,
    "false_positives": 0,
    "covered": [
-    885,
-    897,
-    898
+    902,
+    914,
+    892
    ],
    "empty": [
-    115,
-    103,
-    102
+    98,
+    86,
+    108
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 946,
-   "decided_correct": 946
+   "decided": 943,
+   "decided_correct": 943
   },
   {
    "mode": "concepts",
@@ -7703,48 +7703,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     739,
-     651,
-     491
+     757,
+     655,
+     467
     ],
     [
-     537,
-     189,
-     421
+     520,
+     30,
+     504
     ],
     [
-     508,
-     546,
-     912
+     499,
+     535,
+     949
     ]
    ],
    "verdict_agreement": [
-    460,
-    568,
-    669
+    602,
+    409,
+    662
    ],
-   "verdict_correct": 825,
+   "verdict_correct": 812,
    "true_positives": 0,
    "positives": 122,
    "negatives": 878,
-   "false_positives": 662,
+   "false_positives": 615,
    "covered": [
-    193,
+    136,
     0,
-    452
+    448
    ],
    "empty": [
-    802,
-    558,
-    546
+    863,
+    620,
+    551
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 495,
-   "decided_correct": 391
+   "decided": 542,
+   "decided_correct": 448
   },
   {
    "mode": "concepts",
@@ -7756,48 +7756,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     525,
-     531,
-     485
+     591,
+     601,
+     497
     ],
     [
-     499,
-     301,
-     689
+     509,
+     343,
+     647
     ],
     [
-     506,
-     520,
-     914
+     505,
+     543,
+     939
     ]
    ],
    "verdict_agreement": [
-    152,
-    322,
-    641
+    224,
+    280,
+    670
    ],
-   "verdict_correct": 659,
-   "true_positives": 122,
+   "verdict_correct": 707,
+   "true_positives": 119,
    "positives": 122,
    "negatives": 878,
-   "false_positives": 132,
+   "false_positives": 157,
    "covered": [
-    285,
-    499,
-    435
+    320,
+    519,
+    431
    ],
    "empty": [
-    656,
+    646,
     0,
-    563
+    567
    ],
    "full": [
     0,
-    0,
+    143,
     0
    ],
-   "decided": 999,
-   "decided_correct": 878
+   "decided": 878,
+   "decided_correct": 774
   },
   {
    "mode": "concepts",
@@ -7809,48 +7809,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     715,
-     607,
-     665
+     744,
+     660,
+     656
     ],
     [
-     592,
-     538,
-     866
+     525,
+     411,
+     877
     ],
     [
-     488,
-     682,
-     798
+     496,
+     642,
+     824
     ]
    ],
    "verdict_agreement": [
-    714,
-    675,
-    811
+    551,
+    544,
+    783
    ],
-   "verdict_correct": 890,
-   "true_positives": 98,
+   "verdict_correct": 824,
+   "true_positives": 111,
    "positives": 122,
    "negatives": 878,
-   "false_positives": 137,
+   "false_positives": 144,
    "covered": [
-    347,
-    741,
-    458
+    491,
+    744,
+    438
    ],
    "empty": [
-    552,
+    366,
     0,
-    539
+    561
    ],
    "full": [
     0,
-    483,
+    567,
     0
    ],
-   "decided": 520,
-   "decided_correct": 512
+   "decided": 598,
+   "decided_correct": 593
   },
   {
    "mode": "concepts",
@@ -7862,48 +7862,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     735,
-     659,
-     559
+     687,
+     767,
+     513
     ],
     [
-     599,
+     565,
+     453,
+     561
+    ],
+    [
+     495,
      533,
-     663
-    ],
-    [
-     487,
-     523,
-     891
+     945
     ]
    ],
    "verdict_agreement": [
-    578,
-    496,
-    642
+    436,
+    520,
+    660
    ],
-   "verdict_correct": 856,
-   "true_positives": 101,
+   "verdict_correct": 809,
+   "true_positives": 65,
    "positives": 122,
    "negatives": 878,
-   "false_positives": 148,
+   "false_positives": 291,
    "covered": [
-    253,
-    841,
-    490
+    341,
+    686,
+    441
    ],
    "empty": [
-    703,
+    610,
     0,
-    507
+    557
    ],
    "full": [
     0,
-    637,
+    382,
     0
    ],
-   "decided": 446,
-   "decided_correct": 442
+   "decided": 706,
+   "decided_correct": 646
   },
   {
    "mode": "concepts",
@@ -7915,48 +7915,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     687,
-     667,
-     605
+     665,
+     753,
+     527
     ],
     [
-     576,
-     748,
-     656
+     588,
+     634,
+     526
     ],
     [
-     501,
-     543,
-     923
+     498,
+     524,
+     952
     ]
    ],
    "verdict_agreement": [
-    714,
-    545,
-    664
+    618,
+    557,
+    649
    ],
-   "verdict_correct": 882,
-   "true_positives": 99,
+   "verdict_correct": 859,
+   "true_positives": 75,
    "positives": 122,
    "negatives": 878,
-   "false_positives": 145,
+   "false_positives": 165,
    "covered": [
-    239,
-    979,
-    481
+    302,
+    905,
+    434
    ],
    "empty": [
-    702,
+    664,
     0,
-    517
+    564
    ],
    "full": [
     0,
-    755,
+    626,
     0
    ],
-   "decided": 469,
-   "decided_correct": 468
+   "decided": 580,
+   "decided_correct": 567
   },
   {
    "mode": "concepts",
@@ -7968,48 +7968,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     786,
-     464,
-     504
+     787,
+     555,
+     489
     ],
     [
-     535,
-     859,
-     515
+     510,
+     836,
+     468
     ],
     [
-     513,
-     497,
-     949
+     521,
+     499,
+     951
     ]
    ],
    "verdict_agreement": [
-    633,
-    614,
-    592
+    634,
+    651,
+    594
    ],
-   "verdict_correct": 925,
-   "true_positives": 67,
+   "verdict_correct": 915,
+   "true_positives": 53,
    "positives": 122,
    "negatives": 878,
-   "false_positives": 169,
+   "false_positives": 203,
    "covered": [
-    256,
-    953,
-    518
+    217,
+    923,
+    491
    ],
    "empty": [
-    737,
+    764,
     0,
-    482
+    509
    ],
    "full": [
     0,
-    568,
+    500,
     0
    ],
-   "decided": 643,
-   "decided_correct": 633
+   "decided": 702,
+   "decided_correct": 669
   },
   {
    "mode": "concepts",
@@ -8021,48 +8021,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     793,
-     437,
-     487
+     820,
+     484,
+     506
     ],
     [
-     523,
-     855,
-     413
+     517,
+     851,
+     399
     ],
     [
-     503,
-     485,
-     923
+     506,
+     484,
+     944
     ]
    ],
    "verdict_agreement": [
-    668,
-    664,
-    558
+    681,
+    656,
+    581
    ],
-   "verdict_correct": 918,
-   "true_positives": 40,
+   "verdict_correct": 924,
+   "true_positives": 47,
    "positives": 122,
    "negatives": 878,
-   "false_positives": 222,
+   "false_positives": 120,
    "covered": [
-    275,
-    928,
-    574
+    241,
+    986,
+    454
    ],
    "empty": [
-    717,
+    751,
     0,
-    426
+    546
    ],
    "full": [
     0,
-    485,
+    681,
     0
    ],
-   "decided": 736,
-   "decided_correct": 710
+   "decided": 599,
+   "decided_correct": 590
   },
   {
    "mode": "concepts",
@@ -8074,48 +8074,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     832,
-     474,
-     544
+     809,
+     519,
+     581
     ],
     [
-     500,
-     974,
-     516
+     499,
+     981,
+     515
     ],
     [
-     501,
-     501,
-     949
+     507,
+     493,
+     965
     ]
    ],
    "verdict_agreement": [
-    669,
-    623,
-    584
+    662,
+    632,
+    602
    ],
-   "verdict_correct": 961,
-   "true_positives": 92,
+   "verdict_correct": 949,
+   "true_positives": 99,
    "positives": 122,
    "negatives": 878,
-   "false_positives": 43,
+   "false_positives": 57,
    "covered": [
-    264,
+    381,
     1000,
-    566
+    446
    ],
    "empty": [
-    733,
+    569,
     0,
-    434
+    554
    ],
    "full": [
     0,
-    614,
+    645,
     0
    ],
-   "decided": 627,
-   "decided_correct": 627
+   "decided": 678,
+   "decided_correct": 675
   },
   {
    "mode": "concepts",
@@ -8127,9 +8127,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     989,
-     497,
-     511
+     990,
+     498,
+     508
     ],
     [
      496,
@@ -8137,38 +8137,38 @@
      514
     ],
     [
-     507,
-     513,
-     995
+     508,
+     512,
+     996
     ]
    ],
    "verdict_agreement": [
-    632,
+    623,
     621,
-    632
+    633
    ],
-   "verdict_correct": 997,
-   "true_positives": 119,
+   "verdict_correct": 995,
+   "true_positives": 118,
    "positives": 122,
    "negatives": 878,
    "false_positives": 0,
    "covered": [
-    597,
+    808,
     1000,
-    827
+    716
    ],
    "empty": [
-    403,
+    73,
     0,
-    173
+    284
    ],
    "full": [
     0,
-    1000,
+    910,
     0
    ],
-   "decided": 577,
-   "decided_correct": 577
+   "decided": 802,
+   "decided_correct": 778
   },
   {
    "mode": "concepts",
@@ -8180,9 +8180,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     865,
-     511,
-     465
+     862,
+     490,
+     462
     ],
     [
      496,
@@ -8190,38 +8190,38 @@
      514
     ],
     [
-     506,
-     514,
-     998
+     504,
+     520,
+     992
     ]
    ],
    "verdict_agreement": [
-    554,
+    547,
     621,
-    633
+    639
    ],
-   "verdict_correct": 966,
-   "true_positives": 111,
+   "verdict_correct": 968,
+   "true_positives": 108,
    "positives": 122,
    "negatives": 878,
-   "false_positives": 23,
+   "false_positives": 21,
    "covered": [
-    894,
+    903,
     1000,
-    998
+    987
    ],
    "empty": [
     0,
     0,
-    0
+    11
    ],
    "full": [
-    104,
-    660,
+    129,
+    656,
     0
    ],
-   "decided": 824,
-   "decided_correct": 818
+   "decided": 808,
+   "decided_correct": 803
   },
   {
    "mode": "concepts",
@@ -8243,7 +8243,7 @@
      522
     ],
     [
-     502,
+     500,
      523,
      999
     ]
@@ -8251,7 +8251,7 @@
    "verdict_agreement": [
     623,
     649,
-    618
+    616
    ],
    "verdict_correct": 999,
    "true_positives": 121,
@@ -8259,22 +8259,22 @@
    "negatives": 878,
    "false_positives": 0,
    "covered": [
-    895,
+    877,
     882,
-    893
+    909
    ],
    "empty": [
-    105,
+    123,
     118,
-    107
+    91
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 954,
-   "decided_correct": 954
+   "decided": 975,
+   "decided_correct": 975
   },
   {
    "mode": "concepts",
@@ -8286,9 +8286,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     728,
-     578,
-     472
+     483,
+     483,
+     513
     ],
     [
      504,
@@ -8296,38 +8296,38 @@
      502
     ],
     [
-     446,
-     494,
-     988
+     448,
+     496,
+     990
     ]
    ],
    "verdict_agreement": [
-    732,
+    881,
     398,
-    620
+    616
    ],
-   "verdict_correct": 841,
+   "verdict_correct": 885,
    "true_positives": 0,
    "positives": 112,
    "negatives": 888,
-   "false_positives": 659,
+   "false_positives": 548,
    "covered": [
-    158,
+    390,
     0,
-    699
+    614
    ],
    "empty": [
-    841,
-    344,
-    301
+    304,
+    519,
+    386
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 694,
-   "decided_correct": 595
+   "decided": 811,
+   "decided_correct": 699
   },
   {
    "mode": "concepts",
@@ -8339,48 +8339,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     731,
-     713,
-     491
+     585,
+     393,
+     653
     ],
     [
-     463,
-     341,
-     655
+     449,
+     403,
+     573
     ],
     [
-     446,
-     490,
-     986
+     459,
+     541,
+     875
     ]
    ],
    "verdict_agreement": [
-    353,
-    281,
-    614
+    303,
+    199,
+    501
    ],
-   "verdict_correct": 734,
-   "true_positives": 110,
+   "verdict_correct": 535,
+   "true_positives": 101,
    "positives": 112,
    "negatives": 888,
-   "false_positives": 179,
+   "false_positives": 433,
    "covered": [
-    302,
-    508,
-    733
+    468,
+    0,
+    707
    ],
    "empty": [
-    669,
-    0,
-    267
+    106,
+    320,
+    293
    ],
    "full": [
     0,
-    503,
+    0,
     0
    ],
-   "decided": 817,
-   "decided_correct": 705
+   "decided": 915,
+   "decided_correct": 803
   },
   {
    "mode": "concepts",
@@ -8392,48 +8392,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     671,
-     645,
-     721
+     538,
+     420,
+     866
     ],
     [
-     463,
-     259,
-     761
+     473,
+     213,
+     715
     ],
     [
-     445,
-     497,
-     977
+     451,
+     493,
+     987
     ]
    ],
    "verdict_agreement": [
-    641,
-    465,
-    633
+    676,
+    471,
+    613
    ],
-   "verdict_correct": 758,
-   "true_positives": 60,
+   "verdict_correct": 675,
+   "true_positives": 43,
    "positives": 112,
    "negatives": 888,
-   "false_positives": 376,
+   "false_positives": 399,
    "covered": [
-    482,
-    508,
-    785
+    527,
+    261,
+    655
    ],
    "empty": [
-    300,
+    5,
     0,
-    215
+    345
    ],
    "full": [
     0,
-    447,
+    48,
     0
    ],
-   "decided": 704,
-   "decided_correct": 626
+   "decided": 998,
+   "decided_correct": 836
   },
   {
    "mode": "concepts",
@@ -8445,48 +8445,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     677,
-     803,
-     425
+     611,
+     709,
+     513
     ],
     [
-     472,
-     412,
-     506
+     459,
+     397,
+     481
     ],
     [
-     447,
-     493,
-     985
+     448,
+     492,
+     986
     ]
    ],
    "verdict_agreement": [
-    443,
-    480,
-    625
+    481,
+    415,
+    626
    ],
-   "verdict_correct": 827,
-   "true_positives": 47,
+   "verdict_correct": 766,
+   "true_positives": 42,
    "positives": 112,
    "negatives": 888,
-   "false_positives": 325,
+   "false_positives": 291,
    "covered": [
-    399,
-    749,
-    803
+    473,
+    518,
+    656
    ],
    "empty": [
-    447,
+    52,
     0,
-    197
+    344
    ],
    "full": [
     0,
-    660,
+    153,
     0
    ],
-   "decided": 746,
-   "decided_correct": 717
+   "decided": 988,
+   "decided_correct": 876
   },
   {
    "mode": "concepts",
@@ -8498,48 +8498,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     743,
-     477,
-     427
+     597,
+     371,
+     431
     ],
     [
-     418,
-     734,
-     602
+     483,
+     679,
+     551
     ],
     [
-     449,
-     491,
-     985
+     451,
+     489,
+     979
     ]
    ],
    "verdict_agreement": [
-    441,
-    594,
-    621
+    395,
+    555,
+    605
    ],
-   "verdict_correct": 858,
-   "true_positives": 54,
+   "verdict_correct": 810,
+   "true_positives": 47,
    "positives": 112,
    "negatives": 888,
-   "false_positives": 199,
+   "false_positives": 254,
    "covered": [
-    481,
-    996,
-    760
+    448,
+    798,
+    621
    ],
    "empty": [
-    400,
+    158,
     0,
-    240
+    379
    ],
    "full": [
     0,
-    908,
+    330,
     0
    ],
-   "decided": 703,
-   "decided_correct": 669
+   "decided": 901,
+   "decided_correct": 789
   },
   {
    "mode": "concepts",
@@ -8551,48 +8551,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     727,
-     659,
-     443
+     590,
+     728,
+     438
     ],
     [
-     491,
-     947,
-     469
+     502,
+     840,
+     400
     ],
     [
-     449,
-     501,
-     983
+     448,
+     508,
+     978
     ]
    ],
    "verdict_agreement": [
-    407,
-    561,
-    621
+    436,
+    482,
+    610
    ],
-   "verdict_correct": 882,
-   "true_positives": 105,
+   "verdict_correct": 861,
+   "true_positives": 107,
    "positives": 112,
    "negatives": 888,
-   "false_positives": 96,
+   "false_positives": 89,
    "covered": [
-    315,
-    1000,
-    782
+    476,
+    992,
+    725
    ],
    "empty": [
-    631,
+    3,
     0,
-    218
+    275
    ],
    "full": [
     0,
-    962,
+    646,
     0
    ],
-   "decided": 617,
-   "decided_correct": 615
+   "decided": 998,
+   "decided_correct": 888
   },
   {
    "mode": "concepts",
@@ -8604,48 +8604,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     771,
-     655,
-     561
+     575,
+     803,
+     515
     ],
     [
-     488,
-     986,
-     486
+     496,
+     990,
+     496
     ],
     [
-     454,
-     502,
-     978
+     451,
+     507,
+     983
     ]
    ],
    "verdict_agreement": [
-    493,
-    596,
-    604
+    499,
+    602,
+    609
    ],
-   "verdict_correct": 870,
-   "true_positives": 100,
+   "verdict_correct": 876,
+   "true_positives": 105,
    "positives": 112,
    "negatives": 888,
-   "false_positives": 116,
+   "false_positives": 103,
    "covered": [
-    276,
+    475,
     1000,
-    794
+    716
    ],
    "empty": [
-    702,
+    5,
     0,
-    206
+    284
    ],
    "full": [
     0,
-    935,
+    563,
     0
    ],
-   "decided": 529,
-   "decided_correct": 528
+   "decided": 995,
+   "decided_correct": 887
   },
   {
    "mode": "concepts",
@@ -8657,48 +8657,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     846,
-     532,
-     518
+     694,
+     668,
+     508
     ],
     [
-     495,
-     999,
+     497,
+     995,
      497
     ],
     [
-     453,
-     497,
-     983
+     448,
+     504,
+     986
     ]
    ],
    "verdict_agreement": [
-    558,
-    601,
-    609
+    542,
+    605,
+    612
    ],
-   "verdict_correct": 943,
-   "true_positives": 100,
+   "verdict_correct": 917,
+   "true_positives": 99,
    "positives": 112,
    "negatives": 888,
-   "false_positives": 41,
+   "false_positives": 80,
    "covered": [
-    282,
+    475,
     1000,
-    740
+    713
    ],
    "empty": [
-    699,
+    3,
     0,
-    260
+    287
    ],
    "full": [
     0,
-    949,
+    543,
     0
    ],
-   "decided": 511,
-   "decided_correct": 505
+   "decided": 998,
+   "decided_correct": 887
   },
   {
    "mode": "concepts",
@@ -8710,9 +8710,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     991,
-     501,
-     453
+     987,
+     491,
+     445
     ],
     [
      496,
@@ -8720,38 +8720,38 @@
      498
     ],
     [
-     448,
-     498,
+     446,
+     496,
      998
     ]
    ],
    "verdict_agreement": [
-    595,
+    589,
     602,
-    626
+    624
    ],
-   "verdict_correct": 999,
-   "true_positives": 111,
+   "verdict_correct": 993,
+   "true_positives": 105,
    "positives": 112,
    "negatives": 888,
    "false_positives": 0,
    "covered": [
-    514,
+    479,
     1000,
-    906
+    955
    ],
    "empty": [
-    486,
     0,
-    94
-   ],
-   "full": [
     0,
-    761,
     0
    ],
-   "decided": 587,
-   "decided_correct": 587
+   "full": [
+    3,
+    497,
+    50
+   ],
+   "decided": 999,
+   "decided_correct": 887
   },
   {
    "mode": "concepts",
@@ -8763,9 +8763,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     866,
-     550,
-     480
+     909,
+     529,
+     481
     ],
     [
      496,
@@ -8775,36 +8775,36 @@
     [
      447,
      499,
-     997
+     999
     ]
    ],
    "verdict_agreement": [
-    606,
+    583,
     602,
     627
    ],
-   "verdict_correct": 985,
-   "true_positives": 106,
+   "verdict_correct": 983,
+   "true_positives": 109,
    "positives": 112,
    "negatives": 888,
-   "false_positives": 7,
+   "false_positives": 4,
    "covered": [
-    881,
+    829,
     1000,
-    984
+    993
    ],
    "empty": [
     0,
     0,
-    16
+    7
    ],
    "full": [
-    164,
-    869,
+    279,
+    555,
     0
    ],
-   "decided": 677,
-   "decided_correct": 677
+   "decided": 735,
+   "decided_correct": 735
   },
   {
    "mode": "concepts",
@@ -8826,15 +8826,15 @@
      513
     ],
     [
-     530,
-     513,
-     990
+     527,
+     516,
+     993
     ]
    ],
    "verdict_agreement": [
     641,
     640,
-    627
+    630
    ],
    "verdict_correct": 998,
    "true_positives": 140,
@@ -8842,22 +8842,22 @@
    "negatives": 858,
    "false_positives": 0,
    "covered": [
-    910,
-    898,
-    904
+    904,
+    915,
+    899
    ],
    "empty": [
-    90,
-    102,
-    96
+    96,
+    85,
+    101
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 940,
-   "decided_correct": 940
+   "decided": 910,
+   "decided_correct": 910
   },
   {
    "mode": "concepts",
@@ -8869,9 +8869,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     589,
-     363,
-     518
+     524,
+     54,
+     495
     ],
     [
      502,
@@ -8879,38 +8879,38 @@
      491
     ],
     [
+     501,
      495,
-     499,
-     972
+     964
     ]
    ],
    "verdict_agreement": [
-    760,
+    451,
     397,
-    640
+    634
    ],
-   "verdict_correct": 812,
+   "verdict_correct": 666,
    "true_positives": 0,
    "positives": 133,
    "negatives": 867,
-   "false_positives": 781,
+   "false_positives": 758,
    "covered": [
-    263,
+    371,
     0,
-    751
+    524
    ],
    "empty": [
-    465,
-    321,
-    246
+    303,
+    270,
+    474
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 736,
-   "decided_correct": 603
+   "decided": 604,
+   "decided_correct": 432
   },
   {
    "mode": "concepts",
@@ -8922,48 +8922,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     578,
-     296,
-     523
+     539,
+     369,
+     512
     ],
     [
-     490,
-     368,
-     537
+     498,
+     444,
+     563
     ],
     [
      491,
-     547,
-     896
+     501,
+     910
     ]
    ],
    "verdict_agreement": [
-    351,
-    237,
-    558
+    242,
+    211,
+    564
    ],
-   "verdict_correct": 603,
-   "true_positives": 57,
+   "verdict_correct": 587,
+   "true_positives": 102,
    "positives": 133,
    "negatives": 867,
-   "false_positives": 717,
+   "false_positives": 425,
    "covered": [
-    488,
-    0,
-    773
+    589,
+    6,
+    551
    ],
    "empty": [
-    5,
-    191,
-    213
+    0,
+    131,
+    446
    ],
    "full": [
-    0,
+    101,
     0,
     0
    ],
-   "decided": 996,
-   "decided_correct": 861
+   "decided": 897,
+   "decided_correct": 749
   },
   {
    "mode": "concepts",
@@ -8975,48 +8975,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     568,
-     614,
-     581
+     541,
+     445,
+     720
     ],
     [
-     492,
-     276,
-     703
+     505,
+     267,
+     720
     ],
     [
-     493,
-     523,
-     916
+     500,
+     484,
+     949
     ]
    ],
    "verdict_agreement": [
-    683,
-    469,
-    586
+    604,
+    484,
+    623
    ],
-   "verdict_correct": 784,
-   "true_positives": 53,
+   "verdict_correct": 686,
+   "true_positives": 62,
    "positives": 133,
    "negatives": 867,
-   "false_positives": 668,
+   "false_positives": 536,
    "covered": [
-    640,
-    534,
-    781
+    978,
+    575,
+    538
    ],
    "empty": [
     0,
     0,
-    199
+    458
    ],
    "full": [
-    232,
-    424,
+    918,
+    488,
     0
    ],
-   "decided": 830,
-   "decided_correct": 747
+   "decided": 329,
+   "decided_correct": 302
   },
   {
    "mode": "concepts",
@@ -9028,48 +9028,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     535,
+     545,
      677,
-     470
+     416
+    ],
+    [
+     498,
+     440,
+     451
     ],
     [
      504,
-     448,
-     483
-    ],
-    [
-     492,
-     500,
+     482,
      951
     ]
    ],
    "verdict_agreement": [
-    720,
-    557,
-    613
+    670,
+    595,
+    631
    ],
-   "verdict_correct": 848,
-   "true_positives": 32,
+   "verdict_correct": 853,
+   "true_positives": 14,
    "positives": 133,
    "negatives": 867,
-   "false_positives": 736,
+   "false_positives": 643,
    "covered": [
-    653,
-    717,
-    755
+    1000,
+    715,
+    552
    ],
    "empty": [
     0,
     0,
-    240
+    444
    ],
    "full": [
-    266,
-    513,
+    991,
+    530,
     0
    ],
-   "decided": 863,
-   "decided_correct": 782
+   "decided": 317,
+   "decided_correct": 288
   },
   {
    "mode": "concepts",
@@ -9081,48 +9081,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     524,
-     360,
-     335
+     529,
+     409,
+     354
     ],
     [
-     509,
-     791,
-     494
+     526,
+     820,
+     451
     ],
     [
-     491,
-     501,
-     952
+     508,
+     480,
+     945
     ]
    ],
    "verdict_agreement": [
-    501,
-    682,
-    610
+    564,
+    655,
+    617
    ],
-   "verdict_correct": 859,
-   "true_positives": 4,
+   "verdict_correct": 863,
+   "true_positives": 10,
    "positives": 133,
    "negatives": 867,
-   "false_positives": 723,
+   "false_positives": 448,
    "covered": [
-    572,
+    864,
     1000,
-    837
+    596
    ],
    "empty": [
     0,
     0,
-    160
+    397
    ],
    "full": [
-    96,
-    873,
+    671,
+    933,
     0
    ],
-   "decided": 965,
-   "decided_correct": 832
+   "decided": 551,
+   "decided_correct": 473
   },
   {
    "mode": "concepts",
@@ -9134,48 +9134,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     551,
-     449,
-     432
+     539,
+     465,
+     430
     ],
     [
-     498,
-     870,
-     615
+     495,
+     867,
+     618
     ],
     [
-     487,
-     511,
-     960
+     501,
+     497,
+     946
     ]
    ],
    "verdict_agreement": [
-    516,
-    679,
-    624
+    542,
+    698,
+    638
    ],
-   "verdict_correct": 850,
+   "verdict_correct": 852,
    "true_positives": 51,
    "positives": 133,
    "negatives": 867,
-   "false_positives": 279,
+   "false_positives": 209,
    "covered": [
-    512,
+    870,
     1000,
-    793
+    557
    ],
    "empty": [
-    2,
     0,
-    206
+    0,
+    439
    ],
    "full": [
-    0,
-    928,
+    713,
+    985,
     0
    ],
-   "decided": 990,
-   "decided_correct": 857
+   "decided": 470,
+   "decided_correct": 412
   },
   {
    "mode": "concepts",
@@ -9187,48 +9187,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     605,
-     673,
-     414
+     576,
+     626,
+     419
     ],
     [
-     510,
-     986,
-     519
+     509,
+     979,
+     510
     ],
     [
-     488,
-     508,
-     955
+     507,
+     483,
+     956
     ]
    ],
    "verdict_agreement": [
-    650,
-    601,
-    617
+    613,
+    616,
+    628
    ],
-   "verdict_correct": 889,
-   "true_positives": 68,
+   "verdict_correct": 884,
+   "true_positives": 73,
    "positives": 133,
    "negatives": 867,
-   "false_positives": 158,
+   "false_positives": 133,
    "covered": [
-    516,
+    993,
     1000,
-    822
+    623
    ],
    "empty": [
     0,
     0,
-    177
+    373
    ],
    "full": [
-    34,
-    879,
+    964,
+    943,
     0
    ],
-   "decided": 994,
-   "decided_correct": 866
+   "decided": 347,
+   "decided_correct": 341
   },
   {
    "mode": "concepts",
@@ -9240,48 +9240,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     652,
-     528,
-     359
+     613,
+     485,
+     350
     ],
     [
-     504,
-     990,
-     519
+     501,
+     987,
+     514
     ],
     [
-     499,
-     495,
-     970
+     501,
+     489,
+     952
     ]
    ],
    "verdict_agreement": [
-    591,
-    607,
-    640
+    564,
+    604,
+    644
    ],
-   "verdict_correct": 906,
-   "true_positives": 49,
+   "verdict_correct": 897,
+   "true_positives": 48,
    "positives": 133,
    "negatives": 867,
-   "false_positives": 91,
+   "false_positives": 109,
    "covered": [
-    491,
+    951,
     1000,
-    819
+    542
    ],
    "empty": [
     0,
     0,
-    176
+    454
    ],
    "full": [
-    5,
-    905,
+    857,
+    972,
     0
    ],
-   "decided": 999,
-   "decided_correct": 866
+   "decided": 395,
+   "decided_correct": 380
   },
   {
    "mode": "concepts",
@@ -9293,9 +9293,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     968,
-     528,
-     493
+     963,
+     531,
+     506
     ],
     [
      498,
@@ -9303,38 +9303,38 @@
      509
     ],
     [
-     494,
-     506,
-     995
+     496,
+     508,
+     997
     ]
    ],
    "verdict_agreement": [
-    651,
+    598,
     603,
-    643
+    647
    ],
-   "verdict_correct": 999,
-   "true_positives": 132,
+   "verdict_correct": 986,
+   "true_positives": 133,
    "positives": 133,
    "negatives": 867,
    "false_positives": 0,
    "covered": [
-    670,
+    610,
     1000,
-    899
+    854
    ],
    "empty": [
     0,
     0,
-    0
+    145
    ],
    "full": [
-    184,
-    470,
-    113
+    124,
+    717,
+    0
    ],
-   "decided": 906,
-   "decided_correct": 857
+   "decided": 940,
+   "decided_correct": 864
   },
   {
    "mode": "concepts",
@@ -9346,9 +9346,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     906,
-     494,
-     479
+     899,
+     531,
+     468
     ],
     [
      498,
@@ -9362,17 +9362,17 @@
     ]
    ],
    "verdict_agreement": [
-    631,
+    610,
     603,
     648
    ],
-   "verdict_correct": 972,
-   "true_positives": 108,
+   "verdict_correct": 978,
+   "true_positives": 119,
    "positives": 133,
    "negatives": 867,
-   "false_positives": 8,
+   "false_positives": 9,
    "covered": [
-    919,
+    882,
     1000,
     1000
    ],
@@ -9382,12 +9382,12 @@
     0
    ],
    "full": [
-    103,
-    217,
-    13
+    110,
+    172,
+    14
    ],
-   "decided": 917,
-   "decided_correct": 900
+   "decided": 908,
+   "decided_correct": 883
   },
   {
    "mode": "concepts",
@@ -9399,9 +9399,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     999,
-     497,
-     488
+     998,
+     496,
+     489
     ],
     [
      498,
@@ -9415,7 +9415,7 @@
     ]
    ],
    "verdict_agreement": [
-    613,
+    614,
     642,
     627
    ],
@@ -9425,22 +9425,22 @@
    "negatives": 865,
    "false_positives": 0,
    "covered": [
-    890,
-    898,
-    904
+    884,
+    878,
+    917
    ],
    "empty": [
-    110,
-    102,
-    96
+    116,
+    122,
+    83
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 969,
-   "decided_correct": 969
+   "decided": 972,
+   "decided_correct": 972
   },
   {
    "mode": "concepts",
@@ -9462,30 +9462,30 @@
      481
     ],
     [
-     453,
-     523,
-     983
+     452,
+     522,
+     984
     ]
    ],
    "verdict_agreement": [
     872,
     391,
-    619
+    618
    ],
    "verdict_correct": 872,
    "true_positives": 0,
    "positives": 128,
    "negatives": 872,
-   "false_positives": 549,
+   "false_positives": 497,
    "covered": [
     484,
     0,
-    623
+    706
    ],
    "empty": [
     0,
-    873,
-    377
+    868,
+    294
    ],
    "full": [
     0,
@@ -9505,40 +9505,40 @@
    "scenes": 1000,
    "agreement": [
     [
-     542,
-     734,
-     726
+     513,
+     695,
+     803
     ],
     [
-     462,
-     448,
-     582
+     467,
+     461,
+     569
     ],
     [
-     450,
-     516,
-     956
+     453,
+     521,
+     967
     ]
    ],
    "verdict_agreement": [
-    508,
-    198,
-    578
+    517,
+    185,
+    587
    ],
-   "verdict_correct": 673,
+   "verdict_correct": 645,
    "true_positives": 128,
    "positives": 128,
    "negatives": 872,
-   "false_positives": 162,
+   "false_positives": 170,
    "covered": [
     484,
     0,
-    711
+    777
    ],
    "empty": [
     0,
-    589,
-    287
+    557,
+    222
    ],
    "full": [
     0,
@@ -9558,44 +9558,44 @@
    "scenes": 1000,
    "agreement": [
     [
-     488,
-     716,
-     802
+     477,
+     597,
+     921
     ],
     [
-     449,
-     397,
-     877
+     447,
+     443,
+     923
     ],
     [
-     455,
-     519,
-     979
+     457,
+     521,
+     981
     ]
    ],
    "verdict_agreement": [
-    764,
-    513,
+    651,
+    549,
     611
    ],
-   "verdict_correct": 764,
-   "true_positives": 94,
+   "verdict_correct": 653,
+   "true_positives": 104,
    "positives": 128,
    "negatives": 872,
-   "false_positives": 356,
+   "false_positives": 369,
    "covered": [
     484,
-    451,
-    745
+    496,
+    761
    ],
    "empty": [
     0,
     0,
-    254
+    239
    ],
    "full": [
     0,
-    115,
+    135,
     0
    ],
    "decided": 1000,
@@ -9611,44 +9611,44 @@
    "scenes": 1000,
    "agreement": [
     [
-     528,
-     586,
-     510
+     514,
+     550,
+     534
     ],
     [
-     473,
-     397,
-     873
+     475,
+     439,
+     913
     ],
     [
-     453,
-     513,
-     973
+     458,
+     520,
+     974
     ]
    ],
    "verdict_agreement": [
-    808,
-    489,
-    605
+    844,
+    531,
+    602
    ],
-   "verdict_correct": 881,
-   "true_positives": 52,
+   "verdict_correct": 882,
+   "true_positives": 47,
    "positives": 128,
    "negatives": 872,
-   "false_positives": 227,
+   "false_positives": 316,
    "covered": [
     484,
-    531,
-    720
+    565,
+    740
    ],
    "empty": [
     0,
     0,
-    279
+    260
    ],
    "full": [
     0,
-    331,
+    313,
     0
    ],
    "decided": 1000,
@@ -9664,48 +9664,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     504,
-     428,
-     622
+     519,
+     403,
+     623
     ],
     [
-     524,
-     680,
-     530
+     525,
+     697,
+     525
     ],
     [
-     453,
-     515,
-     977
+     454,
+     520,
+     982
     ]
    ],
    "verdict_agreement": [
-    748,
-    290,
-    607
+    721,
+    307,
+    612
    ],
-   "verdict_correct": 860,
+   "verdict_correct": 855,
    "true_positives": 48,
    "positives": 128,
    "negatives": 872,
-   "false_positives": 300,
+   "false_positives": 340,
    "covered": [
-    478,
-    999,
-    722
+    482,
+    998,
+    738
    ],
    "empty": [
-    14,
+    12,
     0,
-    278
+    262
    ],
    "full": [
     0,
-    726,
+    717,
     0
    ],
-   "decided": 1000,
-   "decided_correct": 872
+   "decided": 999,
+   "decided_correct": 871
   },
   {
    "mode": "concepts",
@@ -9717,48 +9717,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     574,
-     350,
-     560
+     580,
+     372,
+     578
     ],
     [
-     501,
-     835,
-     633
+     510,
+     838,
+     646
     ],
     [
-     461,
-     537,
-     915
+     464,
+     528,
+     922
     ]
    ],
    "verdict_agreement": [
-    616,
-    445,
-    535
+    636,
+    448,
+    540
    ],
-   "verdict_correct": 823,
-   "true_positives": 59,
+   "verdict_correct": 838,
+   "true_positives": 69,
    "positives": 128,
    "negatives": 872,
-   "false_positives": 279,
+   "false_positives": 282,
    "covered": [
     484,
     1000,
-    749
+    770
    ],
    "empty": [
-    1,
+    2,
     0,
-    250
+    230
    ],
    "full": [
     0,
-    697,
+    720,
     0
    ],
-   "decided": 1000,
-   "decided_correct": 872
+   "decided": 999,
+   "decided_correct": 871
   },
   {
    "mode": "concepts",
@@ -9770,44 +9770,44 @@
    "scenes": 1000,
    "agreement": [
     [
-     591,
-     729,
-     593
+     586,
+     714,
+     594
     ],
     [
-     500,
-     874,
-     630
+     501,
+     859,
+     649
     ],
     [
-     461,
-     535,
-     975
+     460,
+     542,
+     968
     ]
    ],
    "verdict_agreement": [
-    671,
-    484,
-    599
+    670,
+    469,
+    588
    ],
-   "verdict_correct": 873,
-   "true_positives": 122,
+   "verdict_correct": 863,
+   "true_positives": 120,
    "positives": 128,
    "negatives": 872,
-   "false_positives": 77,
+   "false_positives": 93,
    "covered": [
     484,
     1000,
-    739
+    752
    ],
    "empty": [
     0,
     0,
-    259
+    247
    ],
    "full": [
     0,
-    740,
+    782,
     0
    ],
    "decided": 1000,
@@ -9823,44 +9823,44 @@
    "scenes": 1000,
    "agreement": [
     [
-     592,
-     712,
-     646
+     593,
+     703,
+     623
     ],
     [
-     496,
-     988,
-     528
+     490,
+     980,
+     536
     ],
     [
-     462,
-     528,
-     986
+     463,
+     529,
+     983
     ]
    ],
    "verdict_agreement": [
-    690,
-    598,
-    610
+    687,
+    590,
+    607
    ],
-   "verdict_correct": 890,
-   "true_positives": 124,
+   "verdict_correct": 896,
+   "true_positives": 123,
    "positives": 128,
    "negatives": 872,
-   "false_positives": 34,
+   "false_positives": 49,
    "covered": [
     484,
     1000,
-    791
+    818
    ],
    "empty": [
     0,
     0,
-    207
+    181
    ],
    "full": [
     0,
-    790,
+    756,
     0
    ],
    "decided": 1000,
@@ -9876,9 +9876,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     970,
-     514,
-     470
+     992,
+     506,
+     460
     ],
     [
      500,
@@ -9886,25 +9886,25 @@
      518
     ],
     [
-     459,
-     519,
-     999
+     456,
+     518,
+     998
     ]
    ],
    "verdict_agreement": [
-    624,
+    618,
     610,
-    615
+    614
    ],
-   "verdict_correct": 996,
-   "true_positives": 126,
+   "verdict_correct": 999,
+   "true_positives": 127,
    "positives": 128,
    "negatives": 872,
    "false_positives": 0,
    "covered": [
-    617,
+    608,
     1000,
-    1000
+    999
    ],
    "empty": [
     0,
@@ -9912,12 +9912,12 @@
     0
    ],
    "full": [
-    133,
-    1000,
-    515
+    124,
+    596,
+    56
    ],
-   "decided": 940,
-   "decided_correct": 872
+   "decided": 929,
+   "decided_correct": 871
   },
   {
    "mode": "concepts",
@@ -9929,9 +9929,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     927,
-     463,
-     491
+     921,
+     453,
+     495
     ],
     [
      500,
@@ -9939,23 +9939,23 @@
      518
     ],
     [
-     457,
-     519,
-     999
+     458,
+     518,
+     1000
     ]
    ],
    "verdict_agreement": [
     609,
     610,
-    617
+    616
    ],
-   "verdict_correct": 986,
-   "true_positives": 114,
+   "verdict_correct": 983,
+   "true_positives": 111,
    "positives": 128,
    "negatives": 872,
    "false_positives": 0,
    "covered": [
-    885,
+    869,
     1000,
     1000
    ],
@@ -9965,12 +9965,12 @@
     0
    ],
    "full": [
-    52,
-    549,
-    5
+    45,
+    574,
+    1
    ],
-   "decided": 875,
-   "decided_correct": 875
+   "decided": 866,
+   "decided_correct": 865
   },
   {
    "mode": "concepts",
@@ -9982,9 +9982,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     1000,
-     507,
-     460
+     999,
+     508,
+     459
     ],
     [
      507,
@@ -9992,38 +9992,38 @@
      481
     ],
     [
-     464,
-     483,
-     996
+     461,
+     480,
+     995
     ]
    ],
    "verdict_agreement": [
-    636,
+    637,
     613,
-    612
+    613
    ],
-   "verdict_correct": 997,
-   "true_positives": 104,
+   "verdict_correct": 998,
+   "true_positives": 103,
    "positives": 104,
    "negatives": 896,
    "false_positives": 0,
    "covered": [
-    908,
-    893,
-    879
+    904,
+    889,
+    890
    ],
    "empty": [
-    92,
-    107,
-    121
+    96,
+    111,
+    110
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 943,
-   "decided_correct": 943
+   "decided": 944,
+   "decided_correct": 944
   },
   {
    "mode": "concepts",
@@ -10046,29 +10046,29 @@
     ],
     [
      504,
-     506,
-     980
+     508,
+     984
     ]
    ],
    "verdict_agreement": [
     867,
     384,
-    626
+    630
    ],
    "verdict_correct": 867,
    "true_positives": 0,
    "positives": 133,
    "negatives": 867,
-   "false_positives": 780,
+   "false_positives": 743,
    "covered": [
     519,
     0,
-    471
+    685
    ],
    "empty": [
     0,
-    593,
-    529
+    450,
+    315
    ],
    "full": [
     0,
@@ -10088,48 +10088,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     593,
-     637,
-     633
+     558,
+     632,
+     634
     ],
     [
-     481,
-     517,
-     493
+     469,
+     505,
+     505
     ],
     [
+     508,
      506,
-     512,
-     976
+     974
     ]
    ],
    "verdict_agreement": [
-    571,
-    133,
-    622
+    458,
+    145,
+    614
    ],
-   "verdict_correct": 766,
-   "true_positives": 116,
+   "verdict_correct": 711,
+   "true_positives": 123,
    "positives": 133,
    "negatives": 867,
-   "false_positives": 290,
+   "false_positives": 219,
    "covered": [
-    515,
-    5,
-    484
+    508,
+    0,
+    698
    ],
    "empty": [
-    16,
-    342,
-    516
+    38,
+    186,
+    302
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 994,
-   "decided_correct": 866
+   "decided": 986,
+   "decided_correct": 862
   },
   {
    "mode": "concepts",
@@ -10141,48 +10141,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     569,
-     773,
-     603
+     550,
+     754,
+     682
     ],
     [
-     489,
-     369,
-     829
+     491,
+     381,
+     857
     ],
     [
-     526,
-     526,
-     922
+     514,
+     520,
+     964
     ]
    ],
    "verdict_agreement": [
-    797,
-    593,
-    682
+    832,
+    587,
+    656
    ],
-   "verdict_correct": 870,
-   "true_positives": 52,
+   "verdict_correct": 873,
+   "true_positives": 77,
    "positives": 133,
    "negatives": 867,
-   "false_positives": 295,
+   "false_positives": 219,
    "covered": [
-    554,
-    639,
-    601
+    647,
+    600,
+    716
    ],
    "empty": [
     0,
     0,
-    397
+    284
    ],
    "full": [
-    40,
-    458,
+    205,
+    443,
     0
    ],
-   "decided": 965,
-   "decided_correct": 860
+   "decided": 811,
+   "decided_correct": 784
   },
   {
    "mode": "concepts",
@@ -10194,48 +10194,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     511,
-     555,
-     921
+     514,
+     532,
+     942
     ],
     [
-     521,
-     673,
-     497
+     512,
+     678,
+     474
     ],
     [
      503,
-     501,
+     497,
      975
     ]
    ],
    "verdict_agreement": [
-    585,
-    767,
+    600,
+    750,
     623
    ],
-   "verdict_correct": 863,
-   "true_positives": 45,
+   "verdict_correct": 861,
+   "true_positives": 39,
    "positives": 133,
    "negatives": 867,
-   "false_positives": 322,
+   "false_positives": 341,
    "covered": [
-    654,
+    717,
     1000,
-    561
+    725
    ],
    "empty": [
     0,
     0,
-    439
+    275
    ],
    "full": [
-    219,
-    795,
+    361,
+    786,
     0
    ],
-   "decided": 769,
-   "decided_correct": 734
+   "decided": 621,
+   "decided_correct": 606
   },
   {
    "mode": "concepts",
@@ -10247,48 +10247,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     566,
+     528,
      640,
-     760
+     666
     ],
     [
-     522,
-     952,
-     486
+     515,
+     953,
+     487
     ],
     [
-     500,
-     502,
-     970
+     504,
+     488,
+     972
     ]
    ],
    "verdict_agreement": [
-    698,
-    642,
-    630
+    652,
+    637,
+    620
    ],
-   "verdict_correct": 882,
-   "true_positives": 106,
+   "verdict_correct": 874,
+   "true_positives": 83,
    "positives": 133,
    "negatives": 867,
-   "false_positives": 110,
+   "false_positives": 104,
    "covered": [
-    522,
+    508,
     1000,
-    643
+    687
    ],
    "empty": [
-    1,
+    49,
     0,
-    357
+    312
    ],
    "full": [
     0,
-    723,
+    778,
     0
    ],
-   "decided": 998,
-   "decided_correct": 869
+   "decided": 950,
+   "decided_correct": 831
   },
   {
    "mode": "concepts",
@@ -10300,9 +10300,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     550,
-     724,
-     560
+     538,
+     736,
+     584
     ],
     [
      508,
@@ -10311,37 +10311,37 @@
     ],
     [
      502,
-     494,
+     486,
      970
     ]
    ],
    "verdict_agreement": [
-    568,
+    586,
     616,
     622
    ],
-   "verdict_correct": 876,
+   "verdict_correct": 878,
    "true_positives": 99,
    "positives": 133,
    "negatives": 867,
-   "false_positives": 111,
+   "false_positives": 113,
    "covered": [
-    527,
+    494,
     1000,
-    607
+    717
    ],
    "empty": [
-    9,
+    52,
     0,
-    393
+    278
    ],
    "full": [
     0,
     714,
     0
    ],
-   "decided": 999,
-   "decided_correct": 867
+   "decided": 996,
+   "decided_correct": 865
   },
   {
    "mode": "concepts",
@@ -10353,9 +10353,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     567,
-     673,
-     503
+     556,
+     702,
+     474
     ],
     [
      508,
@@ -10363,38 +10363,38 @@
      508
     ],
     [
-     496,
-     482,
-     966
+     500,
+     488,
+     970
     ]
    ],
    "verdict_agreement": [
-    581,
+    586,
     616,
-    606
+    616
    ],
-   "verdict_correct": 886,
-   "true_positives": 91,
+   "verdict_correct": 882,
+   "true_positives": 93,
    "positives": 133,
    "negatives": 867,
-   "false_positives": 106,
+   "false_positives": 108,
    "covered": [
-    519,
+    515,
     1000,
-    624
+    612
    ],
    "empty": [
-    19,
+    29,
     0,
-    374
+    387
    ],
    "full": [
     0,
-    734,
+    730,
     0
    ],
    "decided": 992,
-   "decided_correct": 867
+   "decided_correct": 866
   },
   {
    "mode": "concepts",
@@ -10406,9 +10406,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     592,
-     686,
-     418
+     564,
+     742,
+     424
     ],
     [
      508,
@@ -10416,34 +10416,34 @@
      508
     ],
     [
-     503,
-     505,
-     985
+     506,
+     496,
+     982
     ]
    ],
    "verdict_agreement": [
-    604,
+    614,
     616,
-    631
+    626
    ],
-   "verdict_correct": 887,
-   "true_positives": 88,
+   "verdict_correct": 886,
+   "true_positives": 94,
    "positives": 133,
    "negatives": 867,
-   "false_positives": 103,
+   "false_positives": 107,
    "covered": [
     519,
     1000,
-    657
+    744
    ],
    "empty": [
-    5,
+    8,
     0,
-    343
+    256
    ],
    "full": [
     0,
-    695,
+    703,
     0
    ],
    "decided": 1000,
@@ -10459,9 +10459,62 @@
    "scenes": 1000,
    "agreement": [
     [
-     734,
-     610,
-     510
+     710,
+     540,
+     500
+    ],
+    [
+     508,
+     1000,
+     508
+    ],
+    [
+     514,
+     506,
+     996
+    ]
+   ],
+   "verdict_agreement": [
+    384,
+    616,
+    638
+   ],
+   "verdict_correct": 921,
+   "true_positives": 114,
+   "positives": 133,
+   "negatives": 867,
+   "false_positives": 69,
+   "covered": [
+    949,
+    1000,
+    917
+   ],
+   "empty": [
+    0,
+    0,
+    83
+   ],
+   "full": [
+    614,
+    506,
+    0
+   ],
+   "decided": 739,
+   "decided_correct": 707
+  },
+  {
+   "mode": "concepts",
+   "seed": 27,
+   "shots": 3000,
+   "domain": "target",
+   "trained": "scratch",
+   "draw": 0,
+   "scenes": 1000,
+   "agreement": [
+    [
+     949,
+     505,
+     533
     ],
     [
      508,
@@ -10475,70 +10528,17 @@
     ]
    ],
    "verdict_agreement": [
-    540,
+    681,
     616,
     641
    ],
-   "verdict_correct": 894,
-   "true_positives": 86,
+   "verdict_correct": 989,
+   "true_positives": 124,
    "positives": 133,
    "negatives": 867,
-   "false_positives": 98,
+   "false_positives": 1,
    "covered": [
-    718,
-    1000,
-    856
-   ],
-   "empty": [
-    0,
-    0,
-    144
-   ],
-   "full": [
-    223,
-    675,
-    0
-   ],
-   "decided": 885,
-   "decided_correct": 770
-  },
-  {
-   "mode": "concepts",
-   "seed": 27,
-   "shots": 3000,
-   "domain": "target",
-   "trained": "scratch",
-   "draw": 0,
-   "scenes": 1000,
-   "agreement": [
-    [
-     966,
-     504,
-     528
-    ],
-    [
-     508,
-     1000,
-     508
-    ],
-    [
-     516,
-     506,
-     998
-    ]
-   ],
-   "verdict_agreement": [
-    658,
-    616,
-    640
-   ],
-   "verdict_correct": 987,
-   "true_positives": 125,
-   "positives": 133,
-   "negatives": 867,
-   "false_positives": 0,
-   "covered": [
-    925,
+    912,
     1000,
     1000
    ],
@@ -10548,12 +10548,12 @@
     0
    ],
    "full": [
-    45,
-    367,
-    13
+    52,
+    328,
+    19
    ],
-   "decided": 901,
-   "decided_correct": 895
+   "decided": 900,
+   "decided_correct": 890
   },
   {
    "mode": "concepts",
@@ -10591,22 +10591,22 @@
    "negatives": 884,
    "false_positives": 0,
    "covered": [
-    912,
-    914,
-    906
+    918,
+    911,
+    911
    ],
    "empty": [
-    88,
-    86,
-    94
+    82,
+    89,
+    89
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 950,
-   "decided_correct": 950
+   "decided": 945,
+   "decided_correct": 945
   },
   {
    "mode": "concepts",
@@ -10628,30 +10628,30 @@
      490
     ],
     [
-     491,
-     513,
-     979
+     495,
+     509,
+     973
     ]
    ],
    "verdict_agreement": [
     881,
     402,
-    613
+    615
    ],
    "verdict_correct": 881,
    "true_positives": 0,
    "positives": 119,
    "negatives": 881,
-   "false_positives": 706,
+   "false_positives": 690,
    "covered": [
-    519,
+    509,
     0,
-    740
+    680
    ],
    "empty": [
-    1,
-    409,
-    260
+    42,
+    578,
+    320
    ],
    "full": [
     0,
@@ -10671,47 +10671,47 @@
    "scenes": 1000,
    "agreement": [
     [
-     527,
-     541,
-     715
+     497,
+     815,
+     673
     ],
     [
-     486,
-     476,
-     542
+     491,
+     489,
+     535
     ],
     [
-     493,
-     485,
-     921
+     498,
+     478,
+     914
     ]
    ],
    "verdict_agreement": [
-    333,
-    158,
-    537
+    479,
+    151,
+    534
    ],
-   "verdict_correct": 548,
-   "true_positives": 116,
+   "verdict_correct": 677,
+   "true_positives": 119,
    "positives": 119,
    "negatives": 881,
-   "false_positives": 244,
+   "false_positives": 146,
    "covered": [
-    474,
-    92,
-    826
+    491,
+    38,
+    717
    ],
    "empty": [
-    79,
-    89,
-    174
+    67,
+    100,
+    283
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 950,
+   "decided": 951,
    "decided_correct": 846
   },
   {
@@ -10724,48 +10724,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     523,
-     727,
-     739
+     519,
+     813,
+     641
     ],
     [
-     509,
-     447,
-     741
+     506,
+     460,
+     768
     ],
     [
-     489,
-     515,
-     979
+     492,
+     516,
+     972
     ]
    ],
    "verdict_agreement": [
-    781,
-    357,
-    617
+    765,
+    384,
+    606
    ],
-   "verdict_correct": 818,
-   "true_positives": 108,
+   "verdict_correct": 852,
+   "true_positives": 107,
    "positives": 119,
    "negatives": 881,
-   "false_positives": 170,
+   "false_positives": 138,
    "covered": [
-    471,
-    654,
-    819
+    463,
+    696,
+    736
    ],
    "empty": [
-    91,
+    126,
     0,
-    181
+    264
    ],
    "full": [
     0,
-    488,
+    542,
     0
    ],
-   "decided": 909,
-   "decided_correct": 833
+   "decided": 875,
+   "decided_correct": 823
   },
   {
    "mode": "concepts",
@@ -10777,48 +10777,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     495,
      499,
+     533,
+     935
+    ],
+    [
+     481,
+     863,
+     455
+    ],
+    [
+     497,
+     509,
      971
-    ],
-    [
-     479,
-     909,
-     549
-    ],
-    [
-     494,
-     510,
-     976
     ]
    ],
    "verdict_agreement": [
-    599,
-    515,
-    610
+    633,
+    581,
+    603
    ],
-   "verdict_correct": 781,
-   "true_positives": 116,
+   "verdict_correct": 823,
+   "true_positives": 71,
    "positives": 119,
    "negatives": 881,
-   "false_positives": 178,
+   "false_positives": 227,
    "covered": [
-    503,
+    513,
     1000,
-    780
+    709
    ],
    "empty": [
-    39,
+    37,
     0,
-    220
+    290
    ],
    "full": [
     0,
-    749,
+    785,
     0
    ],
-   "decided": 961,
-   "decided_correct": 864
+   "decided": 943,
+   "decided_correct": 857
   },
   {
    "mode": "concepts",
@@ -10830,48 +10830,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     500,
-     580,
-     902
+     506,
+     628,
+     844
     ],
     [
-     473,
-     953,
-     551
+     477,
+     943,
+     557
     ],
     [
-     482,
-     528,
-     974
+     488,
+     522,
+     964
     ]
    ],
    "verdict_agreement": [
-    690,
-    559,
-    628
+    738,
+    561,
+    630
    ],
-   "verdict_correct": 821,
-   "true_positives": 118,
+   "verdict_correct": 850,
+   "true_positives": 117,
    "positives": 119,
    "negatives": 881,
-   "false_positives": 124,
+   "false_positives": 111,
    "covered": [
-    485,
+    494,
     1000,
-    821
+    750
    ],
    "empty": [
-    80,
+    72,
     0,
-    179
+    250
    ],
    "full": [
     0,
-    845,
+    808,
     0
    ],
-   "decided": 916,
-   "decided_correct": 845
+   "decided": 921,
+   "decided_correct": 853
   },
   {
    "mode": "concepts",
@@ -10884,8 +10884,8 @@
    "agreement": [
     [
      549,
-     545,
-     647
+     525,
+     699
     ],
     [
      472,
@@ -10893,38 +10893,38 @@
      510
     ],
     [
-     490,
-     542,
-     958
+     495,
+     537,
+     953
     ]
    ],
    "verdict_agreement": [
-    603,
+    689,
     598,
-    656
+    657
    ],
-   "verdict_correct": 883,
-   "true_positives": 64,
+   "verdict_correct": 886,
+   "true_positives": 72,
    "positives": 119,
    "negatives": 881,
-   "false_positives": 118,
+   "false_positives": 110,
    "covered": [
-    513,
+    509,
     1000,
-    827
+    808
    ],
    "empty": [
-    23,
+    30,
     0,
-    172
+    190
    ],
    "full": [
     0,
-    767,
+    783,
     0
    ],
-   "decided": 977,
-   "decided_correct": 872
+   "decided": 970,
+   "decided_correct": 871
   },
   {
    "mode": "concepts",
@@ -10936,48 +10936,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     525,
+     535,
      727,
-     541
+     563
     ],
     [
-     472,
-     1000,
-     510
+     473,
+     999,
+     511
     ],
     [
-     494,
-     516,
-     984
+     493,
+     513,
+     989
     ]
    ],
    "verdict_agreement": [
-    583,
-    598,
-    616
+    571,
+    599,
+    613
    ],
-   "verdict_correct": 870,
-   "true_positives": 78,
+   "verdict_correct": 871,
+   "true_positives": 84,
    "positives": 119,
    "negatives": 881,
-   "false_positives": 128,
+   "false_positives": 126,
    "covered": [
-    483,
+    494,
     1000,
-    847
+    854
    ],
    "empty": [
-    86,
+    65,
     0,
-    153
+    146
    ],
    "full": [
     0,
-    772,
+    810,
     0
    ],
-   "decided": 985,
-   "decided_correct": 875
+   "decided": 990,
+   "decided_correct": 880
   },
   {
    "mode": "concepts",
@@ -10989,48 +10989,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     560,
-     526,
-     540
+     552,
+     520,
+     532
     ],
     [
-     472,
-     1000,
-     510
+     473,
+     999,
+     511
     ],
     [
-     493,
-     519,
-     983
+     492,
+     516,
+     986
     ]
    ],
    "verdict_agreement": [
-    536,
-    598,
-    615
+    512,
+    599,
+    616
    ],
-   "verdict_correct": 866,
-   "true_positives": 75,
+   "verdict_correct": 870,
+   "true_positives": 76,
    "positives": 119,
    "negatives": 881,
-   "false_positives": 138,
+   "false_positives": 129,
    "covered": [
-    511,
+    519,
     1000,
-    850
+    878
    ],
    "empty": [
-    17,
+    3,
     0,
-    150
+    122
    ],
    "full": [
     0,
-    770,
+    829,
     0
    ],
-   "decided": 985,
-   "decided_correct": 873
+   "decided": 997,
+   "decided_correct": 881
   },
   {
    "mode": "concepts",
@@ -11042,9 +11042,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     822,
-     514,
-     616
+     986,
+     474,
+     490
     ],
     [
      472,
@@ -11052,25 +11052,25 @@
      510
     ],
     [
-     483,
-     513,
-     995
+     482,
+     514,
+     992
     ]
    ],
    "verdict_agreement": [
-    576,
+    626,
     598,
-    617
+    618
    ],
-   "verdict_correct": 905,
-   "true_positives": 116,
+   "verdict_correct": 992,
+   "true_positives": 117,
    "positives": 119,
    "negatives": 881,
-   "false_positives": 58,
+   "false_positives": 1,
    "covered": [
-    538,
+    693,
     1000,
-    992
+    947
    ],
    "empty": [
     0,
@@ -11078,12 +11078,12 @@
     0
    ],
    "full": [
-    19,
-    783,
-    490
+    174,
+    631,
+    444
    ],
-   "decided": 981,
-   "decided_correct": 862
+   "decided": 826,
+   "decided_correct": 750
   },
   {
    "mode": "concepts",
@@ -11095,9 +11095,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     795,
-     535,
-     519
+     762,
+     558,
+     500
     ],
     [
      472,
@@ -11105,38 +11105,38 @@
      510
     ],
     [
-     484,
-     512,
-     998
+     487,
+     509,
+     999
     ]
    ],
    "verdict_agreement": [
-    477,
+    424,
     598,
-    618
+    617
    ],
-   "verdict_correct": 915,
-   "true_positives": 113,
+   "verdict_correct": 902,
+   "true_positives": 111,
    "positives": 119,
    "negatives": 881,
-   "false_positives": 66,
+   "false_positives": 88,
    "covered": [
-    906,
+    940,
     1000,
-    953
+    929
    ],
    "empty": [
     0,
     0,
-    47
+    71
    ],
    "full": [
-    285,
+    369,
     1000,
     0
    ],
-   "decided": 601,
-   "decided_correct": 601
+   "decided": 630,
+   "decided_correct": 622
   },
   {
    "mode": "concepts",
@@ -11158,15 +11158,15 @@
      487
     ],
     [
-     518,
-     487,
-     998
+     517,
+     486,
+     999
     ]
    ],
    "verdict_agreement": [
     612,
     649,
-    624
+    623
    ],
    "verdict_correct": 999,
    "true_positives": 131,
@@ -11174,22 +11174,22 @@
    "negatives": 868,
    "false_positives": 0,
    "covered": [
-    881,
-    904,
-    914
+    887,
+    905,
+    919
    ],
    "empty": [
-    119,
-    96,
-    86
+    113,
+    95,
+    81
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 959,
-   "decided_correct": 959
+   "decided": 958,
+   "decided_correct": 958
   },
   {
    "mode": "concepts",
@@ -11201,9 +11201,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     484,
      483,
-     490
+     484,
+     491
     ],
     [
      499,
@@ -11217,7 +11217,7 @@
     ]
    ],
    "verdict_agreement": [
-    858,
+    859,
     375,
     634
    ],
@@ -11225,24 +11225,24 @@
    "true_positives": 0,
    "positives": 141,
    "negatives": 859,
-   "false_positives": 733,
+   "false_positives": 734,
    "covered": [
-    394,
+    417,
     0,
-    686
+    735
    ],
    "empty": [
-    263,
-    451,
-    314
+    237,
+    468,
+    265
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 843,
-   "decided_correct": 702
+   "decided": 878,
+   "decided_correct": 737
   },
   {
    "mode": "concepts",
@@ -11254,48 +11254,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     526,
-     483,
-     542
+     554,
+     497,
+     588
     ],
     [
-     471,
-     258,
-     569
+     485,
+     250,
+     589
     ],
     [
-     505,
-     520,
-     949
+     502,
+     531,
+     960
     ]
    ],
    "verdict_agreement": [
-    174,
-    273,
-    581
+    220,
+    293,
+    592
    ],
-   "verdict_correct": 562,
-   "true_positives": 78,
+   "verdict_correct": 578,
+   "true_positives": 84,
    "positives": 141,
    "negatives": 859,
-   "false_positives": 638,
+   "false_positives": 480,
    "covered": [
-    477,
+    491,
     0,
-    736
+    775
    ],
    "empty": [
-    45,
-    381,
-    264
+    10,
+    342,
+    225
    ],
    "full": [
     0,
     0,
     0
    ],
-   "decided": 970,
-   "decided_correct": 840
+   "decided": 980,
+   "decided_correct": 849
   },
   {
    "mode": "concepts",
@@ -11307,48 +11307,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     569,
-     444,
-     753
+     554,
+     527,
+     858
     ],
     [
-     489,
-     262,
-     737
+     492,
+     267,
+     746
     ],
     [
-     499,
-     516,
-     983
+     498,
+     527,
+     978
     ]
    ],
    "verdict_agreement": [
-    679,
-    513,
-    633
+    700,
+    522,
+    646
    ],
-   "verdict_correct": 695,
-   "true_positives": 54,
+   "verdict_correct": 687,
+   "true_positives": 57,
    "positives": 141,
    "negatives": 859,
-   "false_positives": 476,
+   "false_positives": 401,
    "covered": [
-    493,
-    292,
-    712
+    520,
+    304,
+    752
    ],
    "empty": [
-    14,
     0,
-    288
+    0,
+    248
    ],
    "full": [
-    0,
-    67,
+    40,
+    115,
     0
    ],
-   "decided": 987,
-   "decided_correct": 867
+   "decided": 961,
+   "decided_correct": 854
   },
   {
    "mode": "concepts",
@@ -11360,48 +11360,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     545,
-     806,
-     469
+     535,
+     808,
+     479
     ],
     [
      480,
-     725,
-     504
+     719,
+     516
     ],
     [
      500,
-     515,
-     984
+     525,
+     982
     ]
    ],
    "verdict_agreement": [
-    699,
-    738,
-    632
+    717,
+    754,
+    630
    ],
-   "verdict_correct": 857,
-   "true_positives": 59,
+   "verdict_correct": 855,
+   "true_positives": 60,
    "positives": 141,
    "negatives": 859,
-   "false_positives": 260,
+   "false_positives": 366,
    "covered": [
-    575,
-    981,
-    672
+    568,
+    931,
+    723
    ],
    "empty": [
     0,
     0,
-    328
+    276
    ],
    "full": [
-    115,
-    719,
+    117,
+    660,
     0
    ],
-   "decided": 928,
-   "decided_correct": 835
+   "decided": 918,
+   "decided_correct": 826
   },
   {
    "mode": "concepts",
@@ -11413,48 +11413,48 @@
    "scenes": 1000,
    "agreement": [
     [
-     538,
-     763,
-     688
+     520,
+     787,
+     696
     ],
     [
-     484,
-     879,
-     396
+     494,
+     843,
+     384
     ],
     [
-     501,
-     510,
-     977
+     503,
+     524,
+     975
     ]
    ],
    "verdict_agreement": [
-    662,
-    606,
-    621
+    664,
+    630,
+    619
    ],
-   "verdict_correct": 849,
-   "true_positives": 68,
+   "verdict_correct": 855,
+   "true_positives": 62,
    "positives": 141,
    "negatives": 859,
-   "false_positives": 162,
+   "false_positives": 215,
    "covered": [
-    529,
+    536,
     1000,
-    711
+    730
    ],
    "empty": [
     0,
     0,
-    288
+    269
    ],
    "full": [
-    42,
-    637,
+    52,
+    676,
     0
    ],
-   "decided": 968,
-   "decided_correct": 860
+   "decided": 961,
+   "decided_correct": 859
   },
   {
    "mode": "concepts",
@@ -11466,47 +11466,47 @@
    "scenes": 1000,
    "agreement": [
     [
-     564,
-     707,
-     456
+     555,
+     712,
+     459
     ],
     [
-     478,
-     931,
-     446
+     479,
+     900,
+     415
     ],
     [
-     500,
-     509,
-     976
+     503,
+     524,
+     977
     ]
    ],
    "verdict_agreement": [
-    612,
-    602,
-    620
+    619,
+    603,
+    621
    ],
-   "verdict_correct": 862,
-   "true_positives": 76,
+   "verdict_correct": 861,
+   "true_positives": 63,
    "positives": 141,
    "negatives": 859,
-   "false_positives": 124,
+   "false_positives": 141,
    "covered": [
-    539,
+    515,
     1000,
-    712
+    719
    ],
    "empty": [
     0,
     0,
-    287
+    280
    ],
    "full": [
-    45,
-    624,
+    24,
+    646,
     0
    ],
-   "decided": 974,
+   "decided": 995,
    "decided_correct": 859
   },
   {
@@ -11519,9 +11519,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     570,
-     539,
-     408
+     561,
+     546,
+     391
     ],
     [
      501,
@@ -11529,37 +11529,37 @@
      515
     ],
     [
-     499,
-     512,
-     979
+     505,
+     524,
+     971
     ]
    ],
    "verdict_agreement": [
-    584,
+    565,
     625,
-    617
+    609
    ],
-   "verdict_correct": 899,
-   "true_positives": 99,
+   "verdict_correct": 888,
+   "true_positives": 90,
    "positives": 141,
    "negatives": 859,
-   "false_positives": 95,
+   "false_positives": 106,
    "covered": [
     484,
     1000,
-    727
+    763
    ],
    "empty": [
-    3,
+    2,
     0,
-    273
+    235
    ],
    "full": [
     0,
-    590,
+    605,
     0
    ],
-   "decided": 997,
+   "decided": 1000,
    "decided_correct": 860
   },
   {
@@ -11572,9 +11572,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     613,
-     466,
-     427
+     624,
+     423,
+     426
     ],
     [
      501,
@@ -11583,36 +11583,36 @@
     ],
     [
      504,
-     523,
+     527,
      982
     ]
    ],
    "verdict_agreement": [
-    541,
+    516,
     625,
-    636
+    634
    ],
-   "verdict_correct": 906,
-   "true_positives": 95,
+   "verdict_correct": 909,
+   "true_positives": 90,
    "positives": 141,
    "negatives": 859,
-   "false_positives": 90,
+   "false_positives": 86,
    "covered": [
     483,
     1000,
-    753
+    750
    ],
    "empty": [
-    1,
     0,
-    247
+    0,
+    250
    ],
    "full": [
     0,
-    576,
+    579,
     0
    ],
-   "decided": 999,
+   "decided": 1000,
    "decided_correct": 859
   },
   {
@@ -11625,9 +11625,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     981,
-     490,
-     507
+     988,
+     493,
+     510
     ],
     [
      501,
@@ -11641,32 +11641,32 @@
     ]
    ],
    "verdict_agreement": [
-    611,
+    622,
     625,
     630
    ],
-   "verdict_correct": 997,
-   "true_positives": 139,
+   "verdict_correct": 996,
+   "true_positives": 138,
    "positives": 141,
    "negatives": 859,
    "false_positives": 0,
    "covered": [
-    520,
+    493,
     1000,
-    995
+    976
    ],
    "empty": [
     0,
     0,
-    0
+    23
    ],
    "full": [
-    37,
-    484,
-    22
+    10,
+    817,
+    0
    ],
-   "decided": 986,
-   "decided_correct": 845
+   "decided": 994,
+   "decided_correct": 853
   },
   {
    "mode": "concepts",
@@ -11678,9 +11678,9 @@
    "scenes": 1000,
    "agreement": [
     [
-     906,
-     501,
-     494
+     878,
+     519,
+     520
     ],
     [
      501,
@@ -11688,38 +11688,38 @@
      515
     ],
     [
-     502,
-     513,
-     998
+     503,
+     514,
+     999
     ]
    ],
    "verdict_agreement": [
-    622,
+    574,
     625,
-    630
+    631
    ],
-   "verdict_correct": 979,
-   "true_positives": 126,
+   "verdict_correct": 966,
+   "true_positives": 136,
    "positives": 141,
    "negatives": 859,
-   "false_positives": 6,
+   "false_positives": 10,
    "covered": [
-    917,
+    885,
     1000,
-    988
+    998
    ],
    "empty": [
     0,
     0,
-    12
+    1
    ],
    "full": [
-    89,
-    852,
+    80,
+    826,
     0
    ],
-   "decided": 701,
-   "decided_correct": 699
+   "decided": 708,
+   "decided_correct": 706
   }
  ],
  "direct": []

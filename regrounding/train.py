@@ -9,15 +9,25 @@ baseline that says what the fixed rule adds.
 
 Re-grounding fine-tunes the network on the ``k`` labelled target scenes; the rule is
 untouched.
+
+No step calls an operation torch computes on the CPU through MKL's vector maths
+(``sqrt``, ``exp``, ``log``, ``tanh``, ``erf`` and the trigonometric functions, listed in
+ATen's ``cpu/vml.h``): MKL picks that kernel by CPU vendor, whatever its conditional
+numerical reproducibility mode, and an AMD and an Intel processor round the results
+differently. Adam runs as torch's fused CPU kernel, the verdict loss takes its logarithm
+and exponential from ATen's own loops over glibc, and the converged fit's line search
+takes Python's square root.
 """
 
 import math
+from collections.abc import Callable, Mapping, Sequence
 from dataclasses import dataclass
-from typing import Literal, cast
+from typing import Literal, cast, override
 
 import torch
 import torch.nn.functional as F
 from torch import nn
+from torch.overrides import TorchFunctionMode
 
 from regrounding import rule
 from regrounding.model import ConceptNet
@@ -39,11 +49,13 @@ def _log1mexp(x: torch.Tensor) -> torch.Tensor:
 
     Each branch is evaluated on inputs clamped to its own side, so the branch
     `torch.where` discards holds no infinity whose zero weight would make the
-    gradient NaN.
+    gradient NaN. The logarithm is ``xlogy`` with a factor of 1 and the exponential is
+    ``sigmoid(x) / sigmoid(-x)``, which keeps both off MKL's vector maths.
     """
     half = -math.log(2.0)
-    near = torch.log(-torch.expm1(x.clamp(min=half, max=_LOG_ALMOST_ONE)))
-    far = torch.log1p(-torch.exp(x.clamp(max=half)))
+    near = torch.special.xlogy(1.0, -torch.expm1(x.clamp(min=half, max=_LOG_ALMOST_ONE)))
+    far_x = x.clamp(max=half)
+    far = torch.log1p(-torch.sigmoid(far_x) / torch.sigmoid(-far_x))
     return torch.where(x > half, near, far)
 
 
@@ -78,7 +90,7 @@ def fit(
     generator: torch.Generator,
 ) -> None:
     """Train ``model`` on the scenes for ``epochs`` passes, in a seeded order."""
-    optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+    optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate, fused=True)
     model.train()
     n = images.shape[0]
     for _ in range(epochs):
@@ -139,7 +151,7 @@ def reground(
     frozen = [p for p in model.parameters() if id(p) not in inside]
     for p in frozen:
         p.requires_grad_(False)  # noqa: FBT003 - torch's own positional flag
-    optimizer = torch.optim.Adam(trained, lr=how.learning_rate)
+    optimizer = torch.optim.Adam(trained, lr=how.learning_rate, fused=True)
     model.train()
     try:
         for _ in range(how.steps):
@@ -149,6 +161,28 @@ def reground(
     finally:
         for p in frozen:
             p.requires_grad_(True)  # noqa: FBT003
+
+
+class _PythonSqrt(TorchFunctionMode):
+    """Take the square root of a 0-dim tensor with Python's ``math.sqrt``.
+
+    The strong-Wolfe line search of ``torch.optim.LBFGS`` takes the square root of a
+    0-dim tensor, which torch computes through MKL's vector maths; ``math.sqrt`` is the
+    processor's correctly rounded instruction.
+    """
+
+    @override
+    def __torch_function__(
+        self,
+        func: Callable[..., object],
+        types: Sequence[type],
+        args: Sequence[object] = (),
+        kwargs: Mapping[str, object] | None = None,
+    ) -> object:
+        x = args[0] if args else None
+        if func is torch.Tensor.sqrt and isinstance(x, torch.Tensor) and x.dim() == 0:
+            return torch.tensor(math.sqrt(x.item()), dtype=x.dtype)
+        return func(*args, **(kwargs or {}))
 
 
 def _refit_readout(
@@ -180,7 +214,8 @@ def _refit_readout(
         value.backward()
         return value
 
-    optimizer.step(objective)
+    with _PythonSqrt():
+        optimizer.step(objective)
     with torch.no_grad():
         readout.weight.copy_(w)
         readout.bias.copy_(b)
