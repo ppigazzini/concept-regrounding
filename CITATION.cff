@@ -8,7 +8,22 @@ authors:
     orcid: "https://orcid.org/0009-0004-6977-7317"
 license: Apache-2.0
 version: 0.0.1
-date-released: "2026-10-27"
+date-released: 2026-10-27
+abstract: >-
+  Transfers a concept abstraction to a new visual domain with the rule held fixed, and
+  measures how many labelled target examples re-grounding the concepts takes. A
+  convolutional network learns three concepts of synthetic scenes, round, tone and left,
+  on a source style; a target style draws them with other colours, sizes and blur, and the
+  rule over them, their conjunction, is never trained. Over 20 seeds of 1000 test scenes,
+  re-grounding the network's head from concept labels brings tone to 90 % in all 20 seeds,
+  with a lower median of 16 target scenes; left carries over, and round does not re-ground
+  within 64. Trained from verdicts alone, the model gets 99.8 % of the source verdicts
+  right through outputs that do not mean the named concepts, a reasoning shortcut. Target
+  verdicts passed through the fixed rule rank target scenes with 12.5 % (6.2 to 25.0)
+  false positives at 90 % sensitivity at 64 scenes, against 58.8 % (18.9 to 88.8) for a
+  network with no concepts and no rule, yet do not re-ground the concepts. Every published
+  count is reproduced by a committed command, and CI reruns the first seed of each study
+  on GitHub's AMD EPYC and Intel Xeon runners.
 repository-code: "https://github.com/ppigazzini/concept-regrounding"
 keywords:
   - abstraction
