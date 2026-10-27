@@ -90,7 +90,10 @@ scene. [`docs/01-method.md`](docs/01-method.md) states each choice.
 
 ## Citing
 
-An open prototype released in October 2026; [`CITATION.cff`](CITATION.cff) has the entry.
+[doi:10.5281/zenodo.23686213](https://doi.org/10.5281/zenodo.23686213) cites every
+version; version 0.0.1 is
+[doi:10.5281/zenodo.23686214](https://doi.org/10.5281/zenodo.23686214).
+[`CITATION.cff`](CITATION.cff) holds the record.
 
 ## License
 
