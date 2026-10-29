@@ -110,7 +110,7 @@ def signed(row: Row) -> int:
     """Return the same under the best of the 48 matchings that may also flip an output.
 
     A flipped output is right where it is wrong, so it scores the scenes less its
-    agreement; an inverted concept, as a colour cue reads after the palette shift, is
+    agreement; an inverted concept, as a color cue reads after the palette shift, is
     credited here and not by `matched`.
     """
     a, n = row["agreement"], row["scenes"]
@@ -220,7 +220,7 @@ def loads(text: str) -> Study:
 
 
 def dumps(study: Study) -> str:
-    """Serialise a study, refusing one this code should never have built."""
+    """Serialize a study, refusing one this code should never have built."""
     try:
         STUDY.validate(study)
     except ValidationError as exc:

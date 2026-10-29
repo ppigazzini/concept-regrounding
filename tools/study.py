@@ -168,7 +168,7 @@ def _first(study: Study, mode: str) -> list[str]:
     return lines
 
 
-#: How each kind of row is ordered and labelled in a table.
+#: How each kind of row is ordered and labeled in a table.
 _ORDER = {"source": 0, "regrounded": 1, "ceiling": 2, "scratch": 3}
 _LABELS = {
     "source": "source",

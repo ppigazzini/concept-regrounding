@@ -1,19 +1,19 @@
 # Method
 
 The question: when only the appearance of the concepts changes and the rule over them does
-not, how many labelled scenes from the new appearance does it take to ground the concepts
+not, how many labeled scenes from the new appearance does it take to ground the concepts
 again?
 
 ## Scenes
 
-A scene is a 32-pixel RGB image of two objects. Object A, coloured, carries the concepts;
-object B, grey, is the reference for the spatial concept and a distractor for the others.
+A scene is a 32-pixel RGB image of two objects. Object A, colored, carries the concepts;
+object B, gray, is the reference for the spatial concept and a distractor for the others.
 
 | concept | true when |
 |---|---|
 | `round` | A is a circle rather than a square |
 | `tone` | A has tone 1 rather than tone 0 |
-| `left` | A's centre lies at least 2 pixels left of B's |
+| `left` | A's center lies at least 2 pixels left of B's |
 
 Each concept is drawn independently with probability one half, so the verdict, their
 conjunction, is true in one scene out of eight. Two styles draw the same concepts:
@@ -24,17 +24,17 @@ conjunction, is true in one scene out of eight. Two styles draw the same concept
 | target | yellow, 50 degrees | teal, 180 degrees | 3 to 7 | 3 by 3 mean |
 
 Every tone has saturation 0.8 and value 0.9. A source scene draws its hue from the tone's
-family, so that no one colour goes with a shape or a position in the source scenes. Each
+family, so that no one color goes with a shape or a position in the source scenes. Each
 target hue
 lies 20 degrees outside the other tone's source family and 150 degrees from its own, so a
 cue of the form "warm means tone 1" reads inverted after the shift.
 
-What tells A from B is the same in both styles: A is coloured, B is grey, at a level drawn
+What tells A from B is the same in both styles: A is colored, B is gray, at a level drawn
 per scene between 0.2 and 0.9, a range that holds the luminance of every tone, 0.23 to
 0.76, so brightness alone does not tell them apart. The two shapes stay at least 2 pixels
 apart, so neither hides the other, and their spacing counts either shape at a square's
 extent, 1.2 times its radius, so the distance between the objects says nothing about
-`round`. Both styles place the centres over the same range, 9 to 23 pixels.
+`round`. Both styles place the centers over the same range, 9 to 23 pixels.
 `regrounding/scenes.py` holds both styles; `tests/test_scenes.py` pins each of these
 properties on the drawn images.
 
@@ -61,7 +61,7 @@ relation between two positions, which a global average would discard.
   verdict right through concepts that mean something else: a reasoning shortcut
   (Marconato et al. 2023). The conjunction is symmetric in its three inputs, so the
   outputs are also scored under the best matching of outputs to concepts.
-- **mixed**: the concepts are learnt from their labels on the source, as under **concepts**,
+- **mixed**: the concepts are learned from their labels on the source, as under **concepts**,
   and every target fine-tuning is from verdicts through the rule, as under **verdict**: the
   one condition in which the fixed rule carries the target supervision to the concepts.
 - **direct**: a network of the same architecture with one output, the verdict, trained
@@ -99,12 +99,12 @@ Two settings change how the fine-tuning runs. `regrounding_fit="converged"` refi
 readout on the frozen features with L-BFGS until the gradient vanishes, under an L2 pull of
 weight `anchor`, 0.01, toward the source readout (L2-SP, Li et al. 2018): under concept
 supervision the objective is strictly convex, so the count does not depend on a number of
-steps. The weight is not tuned, since tuning it would take labelled target scenes beyond
-the `k`. `rehearsal` adds that many labelled source training scenes to every step's batch,
+steps. The weight is not tuned, since tuning it would take labeled target scenes beyond
+the `k`. `rehearsal` adds that many labeled source training scenes to every step's batch,
 so that a concept the target does not shift is held where it is (concept rehearsal,
 Marconato et al. 2023).
 
-Two more models bound what re-grounding can reach. Both train on 3000 labelled target
+Two more models bound what re-grounding can reach. Both train on 3000 labeled target
 scenes with the source's own training settings: one fine-tunes every weight of the source
 model, the other a new model from scratch. They are the best the target style allows with
 ample labels, from the source and without it.
@@ -159,10 +159,10 @@ source's support. A set that holds both values counts as covering, and the nonco
 score can leave a set empty; `full` and `empty` count both.
 
 Two settings change the calibration of every target model; the source model keeps its
-source calibration. `calibrate_on="target"` calibrates on 500 labelled target scenes drawn
+source calibration. `calibrate_on="target"` calibrates on 500 labeled target scenes drawn
 after every other scene, exchangeable with the target test scenes, so coverage holds by
 construction and the counts say how large valid sets are after re-grounding: a reference
-that needs more labelled target scenes than the `k`. `conditional=True` gives each value of
+that needs more labeled target scenes than the `k`. `conditional=True` gives each value of
 a concept its own threshold, the quantile over the calibration scenes that carry it
 (Mondrian; Vovk 2013), so the guarantee holds for each value apart instead of over scenes.
 
@@ -176,10 +176,10 @@ torch's optimizers open a CUDA context on every step when one is visible.
 which pick their convolution kernels and blocking by CPU model, so that a convolution runs
 as a matrix product on MKL, and makes torch refuse a nondeterministic operation.
 
-MKL's one code path holds for its matrix products and not for its vector maths, through
+MKL's one code path holds for its matrix products and not for its vector math, through
 which torch computes `sqrt`, `exp`, `log` and the other functions ATen's `cpu/vml.h`
 lists: of the square roots of 131072 values, 25965 are not correctly rounded on an AMD
-EPYC and 25153 on an Intel Xeon, with different digests (`tools/vector_maths.py`). No
+EPYC and 25153 on an Intel Xeon, with different digests (`tools/vector_math.py`). No
 training step calls those functions: Adam runs as torch's fused CPU kernel, the verdict
 loss takes its logarithm as `xlogy` and its exponential as a ratio of sigmoids, and the
 converged fit's line search takes Python's square root; `tests/test_training.py` profiles
@@ -204,7 +204,7 @@ differ, the largest by 814 of 1000 scenes
   counts. The mixed mode passes the target supervision through the rule and the direct
   network learns the verdict without it; no condition varies the rule.
 - Every `k` gets the same 150 steps at a rate of 0.001, so a count by steps holds the
-  optimiser's budget as well as the scenes; only the converged readout fit does not.
+  optimizer's budget as well as the scenes; only the converged readout fit does not.
 - The source hue families and the scene layout were fixed after pilot runs scored on target
   test scenes of seeds 0 to 4 and 100 to 104; the study runs seeds 10 to 29.
 - The shift is one pair of styles, and each of its three changes alone; the changes are
@@ -212,7 +212,7 @@ differ, the largest by 814 of 1000 scenes
 - Re-grounding is fine-tuning: of a chosen scope for a fixed number of steps, of the readout
   to convergence, or with rehearsal. No method built for few-shot transfer, such as
   meta-learning, is compared (Chen et al. 2019 survey the baselines), and no method that
-  adapts normalisation statistics applies, since the network has no normalisation layer.
+  adapts normalization statistics applies, since the network has no normalization layer.
 - The conformal sets are calibrated on source scenes and are not corrected for the shift.
 - A study's `k` scenes are one nested draw per seed, so its per-seed range holds which
   scenes were drawn as well as how the model trained. `draws` re-grounds the same source

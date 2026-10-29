@@ -6,7 +6,7 @@ carry it.
 ## The standard
 
 **Authoritative.** Write the fact, not the journey to it. "The ladder starts at 640" — not
-"we tried starting at 160 and then realised".
+"we tried starting at 160 and then realized".
 
 **No history.** Not in pages, not in comments, not in commit messages. A text describes
 what is, not what was or how it came to be known. Where a past defect is load-bearing,
@@ -23,6 +23,12 @@ A property either has a number or is not claimed.
 
 **Lean.** Every sentence carries a fact, a number, or a consequence. Cut anything that
 would survive being deleted.
+
+**American English.** In pages, comments, docstrings, identifiers, file names and commit
+messages: `color`, `gray`, `center`, `labeled`, `modeling`, `optimizer`, `normalize`,
+`behavior`, `math`, `learned`, `toward`. `( )` are parentheses; brackets are `[ ]`. A date
+is ISO 8601, `2026-10-29`, or month first, `October 29, 2026`. A cited title and a
+quotation keep their own spelling.
 
 ## Claims
 
@@ -53,7 +59,7 @@ percentage. The counts are the record, and they compare exactly.
 
 ## Pages
 
-Structure by what the reader is doing, not by how the code is organised.
+Structure by what the reader is doing, not by how the code is organized.
 
 State the limit of what a page covers. A page that silently omits a case reads as though
 the case does not exist.

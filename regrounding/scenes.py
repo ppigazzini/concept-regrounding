@@ -1,13 +1,13 @@
 """Synthetic scenes in two styles, with the three concepts and the verdict they carry.
 
-A scene holds two objects. Object A, coloured, carries the concepts; object B, grey, is the
+A scene holds two objects. Object A, colored, carries the concepts; object B, gray, is the
 reference for the spatial one and a distractor for the others.
 
 | concept | true when |
 |---|---|
 | ``round`` | A is a circle rather than a square |
 | ``tone`` | A has tone 1 rather than tone 0 |
-| ``left`` | A's centre lies at least 2 pixels left of B's |
+| ``left`` | A's center lies at least 2 pixels left of B's |
 
 The verdict is the conjunction of the three concepts. The abstraction -- the concepts and the
 rule -- is the same in both styles; what changes is how a concept looks:
@@ -15,13 +15,13 @@ rule -- is the same in both styles; what changes is how a concept looks:
 - **source**: tone 1 is a red and tone 0 a blue, each drawn from a family of hues, A's
   radius is 4 to 6, and the edges are crisp;
 - **target**: tone 1 is teal and tone 0 yellow, hues outside both source families and
-  nearer the other tone's, so a colour cue learned on the source reads inverted; A's
+  nearer the other tone's, so a color cue learned on the source reads inverted; A's
   radius is 3 to 7, and the image is blurred.
 
-A source tone spans 60 degrees of hue, so that no one colour goes with a shape or a
+A source tone spans 60 degrees of hue, so that no one color goes with a shape or a
 position in the source scenes.
 
-What tells A from B is the same in both styles: A is coloured and B is grey, at a level
+What tells A from B is the same in both styles: A is colored and B is gray, at a level
 drawn per scene, so brightness never tells them apart. The objects never touch, so
 neither hides the other; their spacing does not depend on A's shape, and both styles
 place them over the same range.
@@ -66,21 +66,21 @@ TARGETS = {
 }
 
 
-def colour(hue: float) -> tuple[float, float, float]:
-    """Return the RGB colour of a hue in degrees, at the tones' saturation and value."""
+def color(hue: float) -> tuple[float, float, float]:
+    """Return the RGB color of a hue in degrees, at the tones' saturation and value."""
     return colorsys.hsv_to_rgb((hue / 360.0) % 1.0, SATURATION, VALUE)
 
 
-#: The range B's grey level is drawn from. It holds the luminance of every tone of both
-#: styles, 0.23 to 0.76, so brightness alone never tells A from B; colour does.
-GREY = (0.2, 0.9)
-#: The distance from an object's centre to the edge: the largest radius a style draws, 7,
+#: The range B's gray level is drawn from. It holds the luminance of every tone of both
+#: styles, 0.23 to 0.76, so brightness alone never tells A from B; color does.
+GRAY = (0.2, 0.9)
+#: The distance from an object's center to the edge: the largest radius a style draws, 7,
 #: plus 2. One margin for both styles, so where the objects lie is not part of the shift.
 MARGIN = 9
 #: B's radius, in both styles.
 _RADIUS_B = (3, 5)
 #: The smallest distance between the two shapes, in pixels: more than the diagonal of a
-#: pixel, so at least one background pixel separates them once they are rasterised.
+#: pixel, so at least one background pixel separates them once they are rasterized.
 _GAP = 2
 #: The radius of the circle around either shape, per unit of its radius: a square's
 #: half-side is 0.85 r, so its corner lies 0.85 times the square root of 2, 1.2 r, out.
@@ -98,7 +98,7 @@ def _mask(size: int, cx: float, cy: float, r: float, *, round_: bool) -> np.ndar
 
 
 def _blur(image: np.ndarray) -> np.ndarray:
-    """Average each pixel with its eight neighbours, edges padded by repetition."""
+    """Average each pixel with its eight neighbors, edges padded by repetition."""
     padded = np.pad(image, ((0, 0), (1, 1), (1, 1)), mode="edge")
     size = image.shape[1]
     shifts = [padded[:, dy : dy + size, dx : dx + size] for dy in range(3) for dx in range(3)]
@@ -108,7 +108,7 @@ def _blur(image: np.ndarray) -> np.ndarray:
 def place(
     rng: np.random.Generator, ra: int, rb: int, *, left: bool, size: int
 ) -> tuple[float, float, float, float]:
-    """Draw the centres of A and B, ``(xa, xb, ya, yb)``: the relation holds, the shapes apart.
+    """Draw the centers of A and B, ``(xa, xb, ya, yb)``: the relation holds, the shapes apart.
 
     The spacing depends on the radii alone, every shape counted at a square's extent: kept
     nearer B as a circle than as a square, A's position would carry ``round``.
@@ -131,9 +131,9 @@ def render(rng: np.random.Generator, style: Style, concepts: np.ndarray, size: i
     round_b = bool(rng.integers(2))
     xa, xb, ya, yb = place(rng, ra, rb, left=left, size=size)
     image = np.full((3, size, size), 0.05, dtype=np.float64)
-    image[:, _mask(size, xb, yb, rb, round_=round_b)] = rng.uniform(*GREY)
+    image[:, _mask(size, xb, yb, rb, round_=round_b)] = rng.uniform(*GRAY)
     hue = rng.uniform(*style.hues[int(tone)])
-    image[:, _mask(size, xa, ya, ra, round_=round_)] = np.array(colour(hue))[:, None]
+    image[:, _mask(size, xa, ya, ra, round_=round_)] = np.array(color(hue))[:, None]
     if style.blur:
         image = _blur(image)
     return np.clip(image, 0.0, 1.0).astype(np.float32)

@@ -58,6 +58,6 @@ with `--json` in the same commit and says why the count moved.
   `tests/test_boundaries.py` holds it. Its consumers are the settings
   (`regrounding/config.py`) and the study file (`regrounding/study.py`).
 - Tests are named as sentences (`test_the_verdict_is_the_conjunction_of_the_concepts`)
-  and grouped in `Test...` classes by the behaviour they pin down.
+  and grouped in `Test...` classes by the behavior they pin down.
 - `__DEV/` holds internal notes and is never committed. Read
   `__DEV/00-CONTRACT.md` before a change of scope.

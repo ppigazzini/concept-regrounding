@@ -15,7 +15,7 @@ class ConceptNet(nn.Module):
     """Map an image to one logit per concept.
 
     The weights are drawn from the generator passed in, within torch's default bounds of one
-    over the square root of the fan-in: the layers' own initialisation draws from torch's
+    over the square root of the fan-in: the layers' own initialization draws from torch's
     global generator, which a count must not depend on.
     """
 

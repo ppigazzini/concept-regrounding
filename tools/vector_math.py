@@ -1,9 +1,9 @@
-"""Print what torch's vector maths gives on this CPU, to compare between machines.
+"""Print what torch's vector math gives on this CPU, to compare between machines.
 
-    uv run python tools/vector_maths.py
+    uv run python tools/vector_math.py
 
 Under the reproducible profile torch computes ``sqrt``, ``exp``, ``log`` and the other
-functions of ATen's ``cpu/vml.h`` through MKL's vector maths, which picks its kernel by CPU
+functions of ATen's ``cpu/vml.h`` through MKL's vector math, which picks its kernel by CPU
 vendor. The line printed is the digest of torch's square roots of 131072 seeded float32
 values and how many of them differ from the correctly rounded square root, NumPy's. No
 training step calls these functions (``regrounding/train.py``).

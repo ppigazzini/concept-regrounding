@@ -11,10 +11,10 @@ def _draw(style, concepts, seed=0, size=32):
 
 
 def _objects(image):
-    """Return the masks of object A, the coloured pixels, and of object B, the grey ones."""
+    """Return the masks of object A, the colored pixels, and of object B, the gray ones."""
     spread = image.max(axis=0) - image.min(axis=0)
     a = spread > scenes.SATURATION * scenes.VALUE - 1e-6
-    b = (spread == 0) & (image[0] >= scenes.GREY[0] - 1e-6)
+    b = (spread == 0) & (image[0] >= scenes.GRAY[0] - 1e-6)
     return a, b
 
 
@@ -30,8 +30,8 @@ def _distance(hue, hues):
     return 0.0 if offset <= high - low else min(offset - (high - low), 360.0 - offset)
 
 
-def _luminance(colour):
-    return 0.2126 * colour[0] + 0.7152 * colour[1] + 0.0722 * colour[2]
+def _luminance(color):
+    return 0.2126 * color[0] + 0.7152 * color[1] + 0.0722 * color[2]
 
 
 class TestRendering:
@@ -78,7 +78,7 @@ class TestRendering:
 
 class TestPlacement:
     @pytest.mark.parametrize("left", [False, True])
-    def test_the_centres_keep_the_shapes_apart_at_a_square_s_extent(self, left):
+    def test_the_centers_keep_the_shapes_apart_at_a_square_s_extent(self, left):
         rng = np.random.default_rng(0)
         for _ in range(500):
             ra, rb = int(rng.integers(3, 8)), int(rng.integers(3, 6))
@@ -143,10 +143,10 @@ class TestStyles:
 
     @pytest.mark.parametrize("style", [scenes.SOURCE, scenes.TARGET])
     def test_brightness_never_tells_object_a_from_object_b(self, style):
-        low, high = scenes.GREY
+        low, high = scenes.GRAY
         for hues in style.hues:
             for hue in np.linspace(*hues, 61):
-                assert low < _luminance(scenes.colour(hue)) < high
+                assert low < _luminance(scenes.color(hue)) < high
 
     @pytest.mark.parametrize("style", [scenes.SOURCE, scenes.TARGET])
     def test_both_styles_place_the_objects_over_the_same_range(self, style):

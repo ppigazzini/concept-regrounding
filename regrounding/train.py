@@ -7,10 +7,10 @@ conjunction right: the setting in which reasoning shortcuts arise (Marconato et 
 With verdicts directly a single output is the verdict, with no concepts and no rule: the
 baseline that says what the fixed rule adds.
 
-Re-grounding fine-tunes the network on the ``k`` labelled target scenes; the rule is
+Re-grounding fine-tunes the network on the ``k`` labeled target scenes; the rule is
 untouched.
 
-No step calls an operation torch computes on the CPU through MKL's vector maths
+No step calls an operation torch computes on the CPU through MKL's vector math
 (``sqrt``, ``exp``, ``log``, ``tanh``, ``erf`` and the trigonometric functions, listed in
 ATen's ``cpu/vml.h``): MKL picks that kernel by CPU vendor, whatever its conditional
 numerical reproducibility mode, and an AMD and an Intel processor round the results
@@ -50,7 +50,7 @@ def _log1mexp(x: torch.Tensor) -> torch.Tensor:
     Each branch is evaluated on inputs clamped to its own side, so the branch
     `torch.where` discards holds no infinity whose zero weight would make the
     gradient NaN. The logarithm is ``xlogy`` with a factor of 1 and the exponential is
-    ``sigmoid(x) / sigmoid(-x)``, which keeps both off MKL's vector maths.
+    ``sigmoid(x) / sigmoid(-x)``, which keeps both off MKL's vector math.
     """
     half = -math.log(2.0)
     near = torch.special.xlogy(1.0, -torch.expm1(x.clamp(min=half, max=_LOG_ALMOST_ONE)))
@@ -130,7 +130,7 @@ def reground(
     mode: Mode,
     how: Regrounding,
 ) -> None:
-    """Fine-tune ``model`` on a handful of labelled scenes, the whole batch per step.
+    """Fine-tune ``model`` on a handful of labeled scenes, the whole batch per step.
 
     The layers outside the scope stop requiring gradients for the steps, so the backward
     pass does not run through them; the weights it updates come out the same.
@@ -167,7 +167,7 @@ class _PythonSqrt(TorchFunctionMode):
     """Take the square root of a 0-dim tensor with Python's ``math.sqrt``.
 
     The strong-Wolfe line search of ``torch.optim.LBFGS`` takes the square root of a
-    0-dim tensor, which torch computes through MKL's vector maths; ``math.sqrt`` is the
+    0-dim tensor, which torch computes through MKL's vector math; ``math.sqrt`` is the
     processor's correctly rounded instruction.
     """
 
@@ -192,7 +192,7 @@ def _refit_readout(
 
     In float64 with L-BFGS: under concept supervision the objective is a logistic
     regression per concept plus a quadratic pull, strictly convex, so its minimum does not
-    depend on the optimiser's path.
+    depend on the optimizer's path.
     """
     readout = cast("nn.Linear", model.head[-1])
     with torch.no_grad():

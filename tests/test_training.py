@@ -145,9 +145,9 @@ class TestFrozenLayers:
         assert all(p.requires_grad for p in frozen.parameters())
 
 
-#: The operations torch computes on the CPU through MKL's vector maths (ATen's cpu/vml.h),
+#: The operations torch computes on the CPU through MKL's vector math (ATen's cpu/vml.h),
 #: whose kernel MKL picks by CPU vendor.
-VECTOR_MATHS = {
+VECTOR_MATH = {
     f"aten::{op}{suffix}"
     for op in (
         *("acos", "asin", "atan", "cos", "erf", "erfc", "erfinv", "exp"),
@@ -170,11 +170,11 @@ class TestVendorIndependence:
         images = torch.rand((16, 3, 32, 32), generator=generator)
         return images, torch.randint(0, 2, (16, 3), generator=generator)
 
-    def test_the_profiler_sees_an_operation_of_the_vector_maths(self):
+    def test_the_profiler_sees_an_operation_of_the_vector_math(self):
         assert "aten::sqrt" in _called(lambda: torch.ones(3).sqrt())
 
     @pytest.mark.parametrize("mode", ["concepts", "verdict", "direct"])
-    def test_training_calls_no_operation_of_the_vector_maths(self, mode):
+    def test_training_calls_no_operation_of_the_vector_math(self, mode):
         model = ConceptNet(torch.Generator().manual_seed(0))
         images, concepts = self._scenes()
 
@@ -190,7 +190,7 @@ class TestVendorIndependence:
                 generator=torch.Generator().manual_seed(1),
             )
 
-        assert _called(job) & VECTOR_MATHS == set()
+        assert _called(job) & VECTOR_MATH == set()
 
     @pytest.mark.parametrize(
         "how",
@@ -199,14 +199,14 @@ class TestVendorIndependence:
             Regrounding(scope="readout", steps=0, learning_rate=0.0, fit="converged", anchor=0.01),
         ],
     )
-    def test_re_grounding_calls_no_operation_of_the_vector_maths(self, how):
+    def test_re_grounding_calls_no_operation_of_the_vector_math(self, how):
         model = ConceptNet(torch.Generator().manual_seed(0))
         images, concepts = self._scenes()
 
         def job():
             reground(model, images, concepts, mode="verdict", how=how)
 
-        assert _called(job) & VECTOR_MATHS == set()
+        assert _called(job) & VECTOR_MATH == set()
 
 
 class TestEndToEnd:

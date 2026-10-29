@@ -41,7 +41,7 @@ class Experiment:
     #: The weight of a converged fit's pull toward the source readout; not tuned, since
     #: tuning it would take target labels beyond the ``k``.
     anchor: Annotated[float, Gt(0.0)] = 0.01
-    #: Labelled source training scenes added to every re-grounding batch.
+    #: Labeled source training scenes added to every re-grounding batch.
     rehearsal: Annotated[int, NOT_BOOL, Ge(0), Le(4096)] = 0
     #: Which target the scenes shift to: the target, or one of its three changes alone.
     target: Literal["target", "palette", "size", "blur"] = "target"
@@ -60,7 +60,7 @@ class Experiment:
     seeds: tuple[Seed, ...] = tuple(range(10, 30))
     alpha: Annotated[float, Gt(0.0), Lt(0.5)] = 0.1
     #: Where the sets of every target model are calibrated: on the source calibration
-    #: scenes, or on ``target_calibration`` labelled target scenes drawn after all others.
+    #: scenes, or on ``target_calibration`` labeled target scenes drawn after all others.
     calibrate_on: Literal["source", "target"] = "source"
     target_calibration: Count = 500
     #: One threshold per value of a concept (Mondrian) instead of one per concept.

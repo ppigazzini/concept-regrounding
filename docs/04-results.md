@@ -1,7 +1,7 @@
 # Results
 
 Every number on this page is a seed mean over 20 seeds of 1000 test scenes each, with the
-lowest and highest seed in brackets, from `docs/studies/regrounding.json`;
+lowest and highest seed in parentheses, from `docs/studies/regrounding.json`;
 `uv run python tools/study.py --check docs/studies/regrounding.json` reruns it, prints these
 tables and compares every count. The settings are the defaults of `Experiment` in
 `regrounding/config.py`: head re-grounding for 150 steps at a rate of 0.001, `k` from 0 to
@@ -62,7 +62,7 @@ Four more studies re-ground the same source models, under concept supervision on
 20 seeds, in other ways: the first convolution alone (`regrounding-first.json`), the
 readout alone for the same 150 steps (`regrounding-readout.json`), the readout fitted to
 convergence under a pull toward its source weights (`regrounding-converged.json`), and the
-head with 64 labelled source scenes in every batch (`regrounding-rehearsal.json`). Each
+head with 64 labeled source scenes in every batch (`regrounding-rehearsal.json`). Each
 holds the rows of the main study's ceiling and from-scratch models unchanged.
 
 | procedure | `tone` % at `k = 1` | `tone` % at `k = 64` | `left` % at `k = 1` | `left` % at `k = 64` | `tone` at 90 %: seeds, lower median of the first `k` |
@@ -73,12 +73,12 @@ holds the rows of the main study's ceiling and from-scratch models unchanged.
 | readout, converged | 43.0 (25.1 to 53.0) | 100.0 (99.7 to 100.0) | 94.8 (55.5 to 99.8) | 98.0 (95.4 to 99.7) | 20 of 20, 8 |
 | head with rehearsal | 6.7 (1.0 to 17.4) | 91.8 (81.5 to 99.4) | 97.0 (93.8 to 99.3) | 97.9 (93.7 to 99.5) | 14 of 20, 64 |
 
-- **The count by steps holds the optimiser's budget.** The readout carries `tone`: fitted
+- **The count by steps holds the optimizer's budget.** The readout carries `tone`: fitted
   to convergence it re-grounds it in every seed with a lower median of 8 scenes, half the
   head's 16, while the same readout moved by 150 steps at a rate of 0.001 reaches 90 % in no
   seed and stands at 13.6 % at `k = 64`.
 - **The first convolution does not re-ground a shift at the input here.** Fine-tuned alone,
-  as surgical fine-tuning favours for input-level shifts (Lee et al. 2023), it brings `tone`
+  as surgical fine-tuning favors for input-level shifts (Lee et al. 2023), it brings `tone`
   to 90 % in 8 of 20 seeds by 64 and costs `left`, 68.0 % at `k = 64`.
 - **Rehearsal holds `left` and slows `tone`.** With 64 source scenes in every batch `left`
   stays at 97.0 % at `k = 1`, against 90.9 % without, and `tone` reaches 90 % in 14 of 20
@@ -89,7 +89,7 @@ holds the rows of the main study's ceiling and from-scratch models unchanged.
 
 One more study (`regrounding-draws.json`) re-grounds each seed's source model, under concept
 supervision, on 10 draws of the target pool instead of one, the first being the main study's;
-its brackets run over the 200 seed and draw pairs.
+its parentheses run over the 200 seed and draw pairs.
 
 | target concept | first `k` at 90 %, per seed, lowest..highest of its 10 draws | pairs reaching it | lower median |
 |---|---|---:|---:|
@@ -199,7 +199,7 @@ calibration scores by the likelihood ratio (Tibshirani et al. 2019) needs the ta
 the source's support, which it is not.
 
 Two more studies change the calibration of the target models, under concept supervision on
-the same 20 seeds. Calibrated on 500 labelled target scenes
+the same 20 seeds. Calibrated on 500 labeled target scenes
 (`regrounding-target-calibrated.json`), every target model's sets cover each concept on
 89.3 % to 100.0 % of the scenes at every `k`, seed means, 100.0 % where the sets hold both
 values, as exchangeability with the target test scenes guarantees, and the counts say what

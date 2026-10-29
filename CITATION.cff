@@ -19,9 +19,9 @@ identifiers:
     description: "Version 0.0.1"
 abstract: >-
   Transfers a concept abstraction to a new visual domain with the rule held fixed, and
-  measures how many labelled target examples re-grounding the concepts takes. A
+  measures how many labeled target examples re-grounding the concepts takes. A
   convolutional network learns three concepts of synthetic scenes, round, tone and left,
-  on a source style; a target style draws them with other colours, sizes and blur, and the
+  on a source style; a target style draws them with other colors, sizes and blur, and the
   rule over them, their conjunction, is never trained. Over 20 seeds of 1000 test scenes,
   re-grounding the network's head from concept labels brings tone to 90 % in all 20 seeds,
   with a lower median of 16 target scenes; left carries over, and round does not re-ground
